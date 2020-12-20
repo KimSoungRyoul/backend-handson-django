@@ -13,6 +13,7 @@ drf-spectacular = "^0.11.1"
 django-extensions = "^3.0.9"
 drf-nested-routers = "^0.92.1"
 mypy = "^0.790"
+pre-commit = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
