@@ -9,13 +9,16 @@ from drf_spectacular.views import SpectacularSwaggerView
 from drf_spectacular.views import SpectacularYAMLAPIView
 from rest_framework.routers import DefaultRouter
 
-from chapter1_app.views import UserViewSet
 from frontend_app.views import MainPageTemplateView
+from study_example_app.views import AModelViewSet
+from study_example_app.views import DjangoModelViewSet
+from study_example_app.views import UserViewSet
 
 router = DefaultRouter()
 
 router.register(r'users', UserViewSet, basename='user')
-
+router.register(r'djang-models', DjangoModelViewSet, basename='django_model')
+router.register(r'a-model', AModelViewSet,basename='a_model')
 
 urlpatterns = [
     path('api/', include(router.urls)),

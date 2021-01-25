@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Primary Meta Tags -->
-    <title>Volt - Free Bootstrap 5 Dashboard</title>
+    <title> 처음 배우는 장고 ToyProject</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="title" content="Volt - Free Bootstrap 5 Dashboard">
     <meta name="author" content="Themesberg">
@@ -30,8 +30,8 @@
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'frontend_app/img/favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'frontend_app/img/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'frontend_app/img/favicon/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'frontend_app/img/favicon/logo_hanbit.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'frontend_app/img/favicon/hanbit.ico' %}">
     <link rel="manifest" href="{% static 'frontend_app/img/favicon/site.webmanifest' %}">
     <link rel="mask-icon" href="{% static 'frontend_app/img/favicon/safari-pinned-tab.svg' %}" color="#ffffff">
     <meta name="msapplication-TileColor" content="#ffffff">
@@ -85,22 +85,30 @@
             </div>
         </div>
         <ul class="nav flex-column">
+             <li class="nav-item">
+                <a href="../../index.html" class="nav-link d-flex align-items-center">
+            <span class="sidebar-icon">
+              <img src="{% static 'frontend_app/img/favicon/hanbit.ico' %}" height="20" width="20" alt="Volt Logo">
+            </span>
+                    <span class="mt-1">처음 배우는 장고</span>
+                </a>
+            </li>
             <li class="nav-item  active ">
                 <a href="../../pages/dashboard/dashboard.html" class="nav-link">
                     <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
-                    <span>Overview</span>
+                    <span>개인 프로필</span>
                 </a>
             </li>
             <li class="nav-item ">
                 <a href="../../pages/transactions.html" class="nav-link">
                     <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
-                    <span>Transactions</span>
+                    <span>나의 포트폴리오 목록</span>
                 </a>
             </li>
             <li class="nav-item ">
                 <a href="../../pages/settings.html" class="nav-link">
                     <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
-                    <span>Settings</span>
+                    <span>게시판</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -156,34 +164,7 @@
                 </div>
             </li>
             <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
-            <li class="nav-item">
-                <a href="../../index.html" class="nav-link d-flex align-items-center">
-            <span class="sidebar-icon">
-              <img src="{% static 'frontend_app/img/brand/light.svg' %}" height="20" width="20" alt="Volt Logo">
-            </span>
-                    <span class="mt-1">Volt Overview</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/getting-started/quick-start/" target="_blank" class="nav-link d-flex align-items-center">
-                    <span class="sidebar-icon"><span class="fas fa-book"></span></span>
-                    <span>Quick Start</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://themesberg.com" target="_blank" class="nav-link d-flex align-items-center">
-            <span class="sidebar-icon">
-              <img src="{% static 'frontend_app//img/themesberg.svg' %}" height="20" width="20" alt="Themesberg Logo">
-            </span>
-                    <span>Themesberg</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="../../pages/upgrade-to-pro.html" class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">
-                    <span class="sidebar-icon"><span class="fas fa-rocket mr-2"></span></span>
-                    <span>Upgrade to Pro</span>
-                </a>
-            </li>
+
         </ul>
     </div>
 </nav>
@@ -244,7 +225,7 @@
                                         <div class="col pl-0 ml--2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <h4 class="h6 mb-0 text-small">Neil Sims</h4>
+                                                    <h4 class="h6 mb-0 text-small">김 개발</h4>
                                                 </div>
                                                 <div class="text-right">
                                                     <small class="text-danger">2 hrs ago</small>
@@ -356,103 +337,143 @@
             <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
         </div>
     </div>
-    <div class="row justify-content-md-center">
-        <div class="col-12 mb-4">
-            <div class="card bg-yellow-alt shadow-sm">
-                <div class="card-header d-flex flex-row align-items-center flex-0">
-                    <div class="d-block">
-                        <div class="h5 font-weight-normal mb-2">Sales Value</div>
-                        <h2 class="h3">$10,567</h2>
-                        <div class="small mt-2">
-                            <span class="font-weight-bold mr-2">Yesterday</span>
-                            <span class="fas fa-angle-up text-success"></span>
-                            <span class="text-success font-weight-bold">10.57%</span>
+
+    {% comment %} 프로필 component{% endcomment %}
+     <div class="row">
+         <div class="col-12 col-xl-4">
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="card border-light text-center p-0">
+                                <div class="profile-cover rounded-top" data-background="{%  static 'frontend_app/img/profile-cover.jpg' %}"></div>
+                                <div class="card-body pb-5">
+                                    <img src="{%  static 'frontend_app/img/team/profile-picture-1.jpg' %}" class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4" alt="Neil Portrait">
+                                    <h4 class="h3">김 개발</h4>
+                                    <h5 class="font-weight-normal">Junior Software Engineer</h5>
+                                    <p class="text-gray mb-4">Python Backend Programmer</p>
+                                    <a class="btn btn-sm btn-primary mr-2" href="#"><span class="fas fa-user-plus mr-1"></span> Github 보러가기</a>
+                                    <a class="btn btn-sm btn-secondary" href="#">메일 보내기</a>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card card-body bg-white border-light shadow-sm mb-4">
+                                <h2 class="h5 mb-4">Select profile photo</h2>
+                                <div class="d-xl-flex align-items-center">
+                                    <div>
+                                        <!-- Avatar -->
+                                        <div class="user-avatar xl-avatar mb-3">
+                                            <img class="rounded" src=".{%  static 'frontend_app/img/team/profile-picture-3.jpg' %}" alt="change avatar">
+                                        </div>
+                                    </div>
+                                    <div class="file-field">
+                                        <div class="d-flex justify-content-xl-center ml-xl-3">
+                                           <div class="d-flex">
+                                              <span class="icon icon-md"><span class="fas fa-paperclip mr-3"></span></span> <input type="file">
+                                              <div class="d-md-block text-left">
+                                                 <div class="font-weight-normal text-dark mb-1">Choose Image</div>
+                                                 <div class="text-gray small">JPG, GIF or PNG. Max size of 800K</div>
+                                              </div>
+                                           </div>
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex ml-auto">
-                        <a href="#" class="btn btn-secondary text-dark btn-sm mr-2">Month</a>
-                        <a href="#" class="btn btn-primary btn-sm mr-3">Week</a>
+                </div>
+                <div class="col-12 col-xl-8">
+                    <div class="card card-body bg-white border-light shadow-sm mb-4">
+                        <h2 class="h5 mb-4">프로필 인적사항</h2>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label for="first_name">First Name</label>
+                                        <input class="form-control" id="first_name" type="text" placeholder="Enter your first name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label for="last_name">Last Name</label>
+                                        <input class="form-control" id="last_name" type="text" placeholder="Also your last name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-6 mb-3">
+                                    <label for="birthday">Birthday</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><span class="far fa-calendar-alt"></span></span>
+                                        <input data-datepicker="" class="form-control" id="birthday" type="text" placeholder="dd/mm/yyyy" required>
+                                     </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-select mb-0" id="gender" aria-label="Gender select example">
+                                        <option selected>Gender</option>
+                                        <option value="1">Female</option>
+                                        <option value="2">Male</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" id="email" type="email" placeholder="name@company.com" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input class="form-control" id="phone" type="number" placeholder="+12-345 678 910" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2 class="h5 my-4">Adress</h2>
+                            <div class="row">
+                                <div class="col-sm-9 mb-3">
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <input class="form-control" id="address" type="text" placeholder="Enter your home address" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 mb-3">
+                                    <div class="form-group">
+                                        <label for="number">Number</label>
+                                        <input class="form-control" id="number" type="number" placeholder="No." required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="city">City</label>
+                                        <input class="form-control" id="city" type="text" placeholder="City" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="zip">ZIP</label>
+                                        <input class="form-control" id="zip" type="tel" placeholder="ZIP" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">저장</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="card-body p-2">
-                    <div class="ct-chart-sales-value ct-double-octave ct-series-g"></div>
-                </div>
+
             </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-4 mb-4">
-            <div class="card border-light shadow-sm">
-                <div class="card-body">
-                    <div class="row d-block d-xl-flex align-items-center">
-                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                            <div class="icon icon-shape icon-md icon-shape-blue rounded mr-4 mr-sm-0"><span class="fas fa-chart-line"></span></div>
-                            <div class="d-sm-none">
-                                <h2 class="h5">Customers</h2>
-                                <h3 class="mb-1">345,678</h3>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xl-7 px-xl-0">
-                            <div class="d-none d-sm-block">
-                                <h2 class="h5">Customers</h2>
-                                <h3 class="mb-1">345k</h3>
-                            </div>
-                            <small>Feb 1 - Apr 1, <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> WorldWide</small>
-                            <div class="small mt-2">
-                                <span class="fas fa-angle-up text-success"></span>
-                                <span class="text-success font-weight-bold">18.2%</span> Since last month
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-4 mb-4">
-            <div class="card border-light shadow-sm">
-                <div class="card-body">
-                    <div class="row d-block d-xl-flex align-items-center">
-                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                            <div class="icon icon-shape icon-md icon-shape-secondary rounded mr-4"><span class="fas fa-cash-register"></span></div>
-                            <div class="d-sm-none">
-                                <h2 class="h5">Revenue</h2>
-                                <h3 class="mb-1">$43,594</h3>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xl-7 px-xl-0">
-                            <div class="d-none d-sm-block">
-                                <h2 class="h5">Revenue</h2>
-                                <h3 class="mb-1">$43,594</h3>
-                            </div>
-                            <small>Feb 1 - Apr 1, <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> Worldwide</small>
-                            <div class="small mt-2">
-                                <span class="fas fa-angle-up text-success"></span>
-                                <span class="text-success font-weight-bold">28.2%</span> Since last month
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-4 mb-4">
-            <div class="card border-light shadow-sm">
-                <div class="card-body">
-                    <div class="row d-block d-xl-flex align-items-center">
-                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                            <div class="ct-chart-traffic-share ct-golden-section ct-series-a"></div>
-                        </div>
-                        <div class="col-12 col-xl-7 px-xl-0">
-                            <h2 class="h5 mb-3">Traffic Share</h2>
-                            <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-secondary mr-1"><span class="fas fa-desktop"></span></span> Desktop <a href="#"
-                                                                                                                                                                                class="h6">60%</a></h6>
-                            <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-primary mr-1"><span class="fas fa-mobile-alt"></span></span> Mobile Web <a href="#" class="h6">30%</a>
-                            </h6>
-                            <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-tertiary mr-1"><span class="fas fa-tablet-alt"></span></span> Tablet Web <a href="#"
-                                                                                                                                                                                     class="h6">10%</a>
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+
+
+
+
+
     <div class="row">
         <div class="col-12 col-xl-8 mb-4">
             <div class="row">
@@ -461,7 +482,7 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h2 class="h5">Page visits</h2>
+                                    <h2 class="h5">포트폴리오 목록</h2>
                                 </div>
                                 <div class="col text-right">
                                     <a href="#" class="btn btn-sm btn-secondary">See all</a>

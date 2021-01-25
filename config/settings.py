@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -6,7 +7,7 @@ SECRET_KEY = 'h^jz=pr_u0c&%b-@b9%=j93)t&mf_s&1h!w+mf*i$mm*ithp94'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: List[str] = []
 
 # Application definition
 
@@ -22,7 +23,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'drf_spectacular',
     'frontend_app',
-    'chapter1_app',
+    'study_example_app',
 ]
 
 MIDDLEWARE = [
@@ -70,20 +71,35 @@ SPECTACULAR_SETTINGS = {
         'url': 'https://github.com/KimSoungRyoul/DjangoBackendProgramming/blob/main/LICENSE',
     },
     'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,  # OAS3 명세 API를 비노출 처리합니다.
+    'SERVE_INCLUDE_SCHEMA': False,  # OAS3 Meta정보 API를 비노출 처리합니다.
     'SWAGGER_UI_DIST': '//unpkg.com/swagger-ui-dist@3.38.0',  # Swagger UI 버전을 조절할수 있습니다.
     # https://www.npmjs.com/package/swagger-ui-dist 해당 링크에서 최신버전을 확인후 취향에 따라 version을 수정해서 사용하세요.
 }
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # },
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_backend_programming_db',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
+        'PORT': '5436',
     },
+
 }
+
+# https://docs.djangoproject.com/en/3.1/ref/settings/#sessions 자세한 정보는 여기서 확인할 수 있습니다.
+# 공식문서를 잘 읽을줄 알아야합니다.
+SESSION_COOKIE_AGE = 60 * 60 * 24  # 로그인시 세션의 만료시간은 1day default
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # 세션 저장소를 관계형 Database로 지정 Django의 default값
+
 
 TEMPLATES = [
     {
