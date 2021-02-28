@@ -16,9 +16,10 @@ from study_example_app.views import UserViewSet
 
 router = DefaultRouter()
 
-router.register(r'users', UserViewSet, basename='user')
+#router.register(r'users', UserViewSet, basename='user')
 router.register(r'djang-models', DjangoModelViewSet, basename='django_model')
 router.register(r'a-model', AModelViewSet,basename='a_model')
+
 
 urlpatterns = [
     path('api/', include(router.urls)),

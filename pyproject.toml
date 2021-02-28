@@ -15,6 +15,9 @@ drf-nested-routers = "^0.92.1"
 requests = "^2.25.1"
 psycopg2-binary = "^2.8.6"
 ipython = {extras = ["notebook"], version = "^7.19.0"}
+Werkzeug = "^1.0.1"
+bootstrap-admin = "^0.4.4"
+channels = "^3.0.3"
 
 
 [tool.poetry.dev-dependencies]
