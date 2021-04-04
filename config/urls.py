@@ -8,6 +8,7 @@ from drf_spectacular.views import SpectacularYAMLAPIView
 from rest_framework.routers import DefaultRouter
 
 from frontend_app.views import MainPageTemplateView
+from study_example_app.views import AModelViewSet, hello_django_fbv, hello_drf_fbv
 from study_example_app.views import DjangoModelViewSet
 
 router = DefaultRouter()
@@ -17,14 +18,16 @@ router.register(r'djang-models', DjangoModelViewSet, basename='django_model')
 
 
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path("api/", include(router.urls)),
     path('study-example-app/', include('study_example_app.urls')),
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # Open API 문서 소스코드 형태
-    path('docs/json/', SpectacularJSONAPIView.as_view(), name='schema-json'),
-    path('docs/yaml/', SpectacularYAMLAPIView.as_view(), name='swagger-yaml'),
-    path('', MainPageTemplateView.as_view(), name='frontend_main_page'),
+    path("docs/json/", SpectacularJSONAPIView.as_view(), name="schema-json"),
+    path("docs/yaml/", SpectacularYAMLAPIView.as_view(), name="swagger-yaml"),
+    path("", MainPageTemplateView.as_view(), name="frontend_main_page"),
     # Open API Document UI 형태:
-    path('docs/swagger/', SpectacularSwaggerView.as_view(url_name='schema-json'), name='swagger-ui'),
-    path('docs/redoc/', SpectacularRedocView.as_view(url_name='schema-json'), name='redoc'),
+    path("docs/swagger/", SpectacularSwaggerView.as_view(url_name="schema-json"), name="swagger-ui",),
+    path("docs/redoc/", SpectacularRedocView.as_view(url_name="schema-json"), name="redoc",),
+    path("django-fbv/", view=hello_django_fbv, name="hello-django-fbv"),
+    path("drf-fbv/", view=hello_drf_fbv, name="hello-drf-fbv"),
 ]

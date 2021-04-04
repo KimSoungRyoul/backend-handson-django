@@ -80,18 +80,20 @@ SPECTACULAR_SETTINGS = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # },
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     },
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'django_backend_programming_db',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '1234',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5436',
+    # },
+
 }
 
 # https://docs.djangoproject.com/en/3.1/ref/settings/#sessions 자세한 정보는 여기서 확인할 수 있습니다.
