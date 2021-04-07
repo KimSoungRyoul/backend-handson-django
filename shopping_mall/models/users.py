@@ -19,6 +19,14 @@ class ShoppingMallUser(AbstractUser):
     date_joined = models.DateTimeField(default=timezone.now)
     """
 
+    class TestssdfChoide(models.TextChoices):
+        Af = 'sdfsdf', 'sdfsdf'
+
+
+
+
+    username = models.CharField(max_length=1234)
+
     user_type = models.CharField(help_text='사장님 유형', default=UserType.CUSTOMER, max_length=16, choices=UserType.choices)
 
     class Meta:

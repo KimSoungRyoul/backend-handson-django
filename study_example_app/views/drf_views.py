@@ -5,7 +5,14 @@ from rest_framework.views import APIView
 
 
 @api_view(http_method_names=['GET', 'POST'])
-def function_based_view_with_drf(request: Request):
+def function_based_view_with_drf(request: Request) -> Response:
+    request.query_params['a_param']  # "aa"
+    request.query_params['b_param']  # "bb"
+    request.path  # "/drf-fbv"
+    request.headers['Content-Type']  # "application/json"
+    request.content_type  # "application/json"
+    request.data  # {"message": "hello DRF FBV"}
+
     if request.method == 'GET':
         # API 동작에 필요한 로직 작성....
         return Response(data={'message': 'FBV GET 응답입니다.'})

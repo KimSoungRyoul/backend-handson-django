@@ -9,5 +9,5 @@ urlpatterns = [
     path('cbv-drf/', ClassBasedView.as_view()),
 
     # FBV의 단점을 보여주는 예시
-    path('users/',users_api),
+    # path('users/',users_api),
 ]
