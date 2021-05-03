@@ -1,6 +1,6 @@
 from django.urls import path
 
-from study_example_app.views.drf_views import ClassBasedView
+from study_example_app.views.drf_views import ClassBasedView, users_api
 from study_example_app.views.drf_views import function_based_view_with_drf
 
 urlpatterns = [

@@ -4,8 +4,8 @@ from django.db import models
 
 class ShoppingMallUser(AbstractUser):
     class UserType(models.TextChoices):
-        CUSTOMER = 'customer', '고객'
-        OWNER = 'store_owner', '사장님'
+        CUSTOMER = "customer", "고객"
+        OWNER = "store_owner", "사장님"
 
     """
     AbstractUser를 상속받았기때문에 ShoppingMallUser에는 아래 7개 Field들이 이미 선언되어있다.
@@ -18,16 +18,7 @@ class ShoppingMallUser(AbstractUser):
     is_active = models.BooleanField(default=True,)
     date_joined = models.DateTimeField(default=timezone.now)
     """
-
-    class TestssdfChoide(models.TextChoices):
-        Af = 'sdfsdf', 'sdfsdf'
-
-
-
-
-    username = models.CharField(max_length=1234)
-
-    user_type = models.CharField(help_text='사장님 유형', default=UserType.CUSTOMER, max_length=16, choices=UserType.choices)
+    user_type = models.CharField(help_text="회원 유형", default=UserType.CUSTOMER, max_length=16, choices=UserType.choices)
 
     class Meta:
-        db_table = 'shopping_mall_user'
+        db_table = "shopping_mall_user"

@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  django-backend-db:
+  django-backend-postgres:
     image: kartoza/postgis:12.1
     container_name: django-backend-db
     ports:
@@ -12,6 +12,18 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1234
       - POSTGRES_DBNAME=django_db
+
+  django-backend-mysql:
+    image: "mysql:5.7"
+    container_name: "django-backend-mysql"
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: "django_db"
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - "3306:3306"
 
   djang-backend-redis:
     image: redis:alpine3.13

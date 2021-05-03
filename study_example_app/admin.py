@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
 
-# Register your models here.
+from study_example_app.models import DjangoModel
 
-from study_example_app.models import ExampleUser
+
+# Register your models here.
 
 
 @admin.register(Permission)
@@ -11,8 +12,9 @@ class PermissionAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(ExampleUser)
+@admin.register(DjangoModel)
 class ExampleUserAdmin(admin.ModelAdmin):
-    date_hierarchy = "date_joined"
-    fields = ( "username", "first_name", "last_name", "email",  ("is_active", "is_staff"),)
+    date_hierarchy = "datetime_field"
+    list_display = ("str_field", "int_field", "float_field", "date_field")
+
     enable_nav_sidebar = True
