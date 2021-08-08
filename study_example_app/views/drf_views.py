@@ -20,6 +20,8 @@ def function_based_view_with_drf(request: Request) -> Response:
         # API 동작에 필요한 로직 작성....
         return Response(data={'message': 'FBV POST 응답입니다.'})
 
+    return Response(data={'message': '그 이외 http method 입니다.'})
+
 
 class ClassBasedView(APIView):
     def get(self, request: Request, *args, **kwargs):
@@ -40,9 +42,12 @@ def users_api(request):
         # API 동작에 필요한 로직 작성....
         return Response(data={'message': 'User POST 응답입니다.'})
 
+    return Response(data={'message': '그 이외 http method 입니다.'})
+
 
 @api_view(http_method_names=['GET', 'PATCH', 'PUT', 'DELETE'])
-def users_detail_api(request):
+def users_detail_api(request: Request):
+
     if request.method == 'GET':
         # API 동작에 필요한 로직 작성....
         return Response(data={'message': 'User GET 응답입니다.'})
@@ -56,12 +61,14 @@ def users_detail_api(request):
         # API 동작에 필요한 로직 작성....
         return Response(data={'message': 'User DELETE 응답입니다.'})
 
+    return Response(data={'message': '그 이외 http method 입니다.'})
 
-class UserAPIView(APIView):
-    authentication_classes = ...
-    permission_classes = ...
-
-
-class OrderAPIView(APIView):
-    authentication_classes = ...
-    permission_classes = ...
+#
+# class UserAPIView(APIView):
+#     authentication_classes = ...
+#     permission_classes = ...
+#
+#
+# class OrderAPIView(APIView):
+#     authentication_classes = ...
+#     permission_classes = ...

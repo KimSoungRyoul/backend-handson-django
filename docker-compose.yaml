@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  django-backend-postgres:
+  django-backend-db:
     image: kartoza/postgis:12.1
     container_name: django-backend-db
     ports:
@@ -13,20 +13,31 @@ services:
       - POSTGRES_PASSWORD=1234
       - POSTGRES_DBNAME=django_db
 
-  django-backend-mysql:
-    image: "mysql:5.7"
-    container_name: "django-backend-mysql"
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: "django_db"
-      MYSQL_USER: user
-      MYSQL_PASSWORD: 1234
-      MYSQL_ROOT_PASSWORD: 1234
+  django-backend-mysql-db:
+    image: mysql:8.0.25
+    container_name: django-backend-mysql-db
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_USER: user
+      MYSQL_DATABASE: django_test
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_PASSWORD: 1234
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
   djang-backend-redis:
     image: redis:alpine3.13
     container_name: djang-backend-redis
     ports:
       - "6379:6379"
+
+  django-backend-oracle-db:
+    image: store/oracle/database-enterprise:12.2.0.1
+    container_name:  django-backend-oracle-db
+    ports:
+    - 1521:1521
+#      USER = sys / Oradoc_db1
+#      DB_SID=ORCLCDB
+#      DB_PDB=ORCLPDB1
+#      DB_MEMORY=2GB
+#      DB_DOMAIN=localdomain
