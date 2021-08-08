@@ -8,8 +8,8 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from aggregate.user.models import User
-from aggregate.user.serializers import UserSerializer
+from aggregate.users.models import User
+from aggregate.users.serializers import UserSerializer
 from user_management.serializers import UserQueryParamSerializer
 # Create your views here.
 

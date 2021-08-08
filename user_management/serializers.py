@@ -2,7 +2,7 @@ from abc import ABC
 
 from rest_framework import serializers
 
-from aggregate.user.models import User
+from aggregate.users.models import User
 
 
 class UserQueryParamSerializer(serializers.Serializer):

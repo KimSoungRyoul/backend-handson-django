@@ -13,7 +13,7 @@ class Product(models.Model):
     price = models.IntegerField(help_text='상품 가격')
     created_at = models.DateTimeField(auto_now_add=True)
     product_type = models.CharField(choices=ProductType.choices, max_length=32)
-    store = models.ForeignKey(to='store.Store', on_delete=models.CASCADE, help_text='이 상품을 판매하는 가게')
+    store = models.ForeignKey(to='stores.Store', on_delete=models.CASCADE, help_text='이 상품을 판매하는 가게')
 
     class Meta:
         db_table = 'product'

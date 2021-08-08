@@ -32,6 +32,7 @@ class User(AbstractUser):
     class Meta:
         db_table = 'user'
 
+
 class HModel(models.Model):
     aa = models.CharField(max_length=64,default='qqqqq', help_text='help_text')
 

@@ -33,7 +33,7 @@ from study_example_app.serializers import UserSerializer
 #                     "is_superuser": True,
 #                     "first_name": "성렬",
 #                     "last_name": "김",
-#                     "email": "user@example.com",
+#                     "email": "users@example.com",
 #                     "is_staff": True,
 #                     "is_active": True,
 #                     "date_joined": "2021-01-02T14:24:44.160Z",

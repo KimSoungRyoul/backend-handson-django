@@ -13,8 +13,8 @@ from user_management.views import UserViewSet
 
 router = DefaultRouter()
 
-# router.register(r'users', UserViewSet, basename='user')
-router.register(r'djang-models', DjangoModelViewSet, basename='django_model')
+# router.register(r'users', UserViewSet, basename='users')
+router.register(r'django-models', DjangoModelViewSet, basename='django_model')
 router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [

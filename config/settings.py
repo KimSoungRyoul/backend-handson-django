@@ -24,10 +24,10 @@ INSTALLED_APPS = [
     "django_filters",
     "channels",
     # 내가 만든 django app list
-    "aggregate.user",
-    "aggregate.store",
-    "aggregate.order",
-    "aggregate.product",
+    "aggregate.users",
+    "aggregate.stores",
+    "aggregate.orders",
+    "aggregate.products",
     "shopping_mall",
     "user_management",
     "store_management",
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "study_example_app",
 ]
 
-AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "users.User"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

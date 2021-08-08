@@ -185,7 +185,7 @@ paths:
                   password: django_1234
                   first_name: 성렬
                   last_name: 김
-                  email: user@example.com
+                  email: users@example.com
                 summary: success_example
               InvalidExample1:
                 value:
@@ -193,7 +193,7 @@ paths:
                   password: '1234'
                   first_name: 성렬
                   last_name: 김
-                  email: user@example.com
+                  email: users@example.com
                 summary: 비밀번호 너무 쉬움 예제
               InvalidExample2:
                 value:
@@ -201,7 +201,7 @@ paths:
                   password: django_1234
                   first_name: 성렬
                   last_name: 김
-                  email: user@example.com
+                  email: users@example.com
                 summary: 이름 필수 입력 예제
           application/x-www-form-urlencoded:
             schema:
@@ -227,7 +227,7 @@ paths:
                     password: django_1234
                     first_name: 성렬
                     last_name: 김
-                    email: user@example.com
+                    email: users@example.com
                   summary: success_example
                 SuccessExample2:
                   value:
@@ -235,7 +235,7 @@ paths:
                     password: django_1234
                     first_name: 성렬
                     last_name: 김
-                    email: user@example.com
+                    email: users@example.com
                   summary: success_example2
           description: ''
   /api/users/{id}/:
@@ -247,7 +247,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this shopping mall user.
+        description: A unique integer value identifying this shopping mall users.
         required: true
       tags:
       - api
@@ -270,7 +270,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this shopping mall user.
+        description: A unique integer value identifying this shopping mall users.
         required: true
       tags:
       - api
@@ -305,7 +305,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this shopping mall user.
+        description: A unique integer value identifying this shopping mall users.
         required: true
       tags:
       - api
@@ -339,7 +339,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this shopping mall user.
+        description: A unique integer value identifying this shopping mall users.
         required: true
       tags:
       - api
