@@ -21,7 +21,8 @@ channels = "^3.0.3"
 mypy = "^0.812"
 django-stubs = "^1.8.0"
 djangorestframework-stubs = "^1.4.0"
-models = "^0.9.3"
+django-mysql = "^3.12.0"
+Pillow = "^8.3.1"
 
 
 [tool.poetry.dev-dependencies]

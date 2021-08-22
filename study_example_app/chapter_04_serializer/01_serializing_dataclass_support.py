@@ -13,6 +13,11 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
+from django.core.serializers.json import DjangoJSONEncoder
+from django.forms import model_to_dict
+from rest_framework.utils.encoders import JSONEncoder
+
+DjangoJSONEncoder
 
 @dataclasses.dataclass
 class Organization:
@@ -38,14 +43,22 @@ class User:
     organization: Optional[Organization] = dataclasses.field(default=None)
 
 
-class DateTimeEncoder(json.JSONEncoder):
+class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, (datetime, date, time)):
+        if isinstance(obj, (datetime, date)):
             return obj.strftime("%Y-%m-%d %H:%M:%S")
+
         if isinstance(obj, Organization):
             return obj.__dict__
+        return super().default(obj)
 
-        return super(DateTimeEncoder, self).default(obj)
+dictionary_data= {"나는datetime객체": datetime.now(),"나는time객체":time(11,34),"나는date객체":date(2020,8,22)}
+JSONEncoder
+model_to_dict()
+print(json.dumps(dictionary_data, cls=DjangoJSONEncoder))
+
+print(json.dumps(dictionary_data, cls=CustomJSONEncoder))
+
 
 
 if __name__ == "__main__":
@@ -65,7 +78,7 @@ if __name__ == "__main__":
     user_serializing_dict: Dict[str, Any] = dataclasses.asdict(user)
     print(f"Type: {type(user_serializing_dict)}", f"Data: {user_serializing_dict}")
 
-    user_serializing_json: str = json.dumps(user_serializing_dict, cls=DateTimeEncoder)
+    user_serializing_json: str = json.dumps(user_serializing_dict, cls=CustomJSONEncoder)
     print(f"Type: {type(user_serializing_json)}", f"Data: {user_serializing_json}")
 
     user_serializing_bytes: bytes = user_serializing_json.encode("utf-8")

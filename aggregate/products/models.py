@@ -19,11 +19,11 @@ class Product(models.Model):
         db_table = 'product'
         ordering = ('-created_at',)
         indexes = (
-            models.Index(
+            models.Index( # django는 이런방식으로 Database에 Index를 생성 할 수 있다.
                 fields=['created_at'], name='created_at_index',
-            ),  #  created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+            ),
             models.Index(fields=['name', 'product_type'], name='name_pt_composite_index'),
-            # 각 database별로 Index의 종류가 다양한데 postgres의 경우 django가 선탟할수있도록 기능을 제공한다.
+            # 각 database별로 제공하는 Index의 전략이 다양한데 postgres의 경우 django가 선탟할수있도록 기능을 제공한다.
             HashIndex(fields=['name'], name='name_hash_index'),
         )
         constraints = (

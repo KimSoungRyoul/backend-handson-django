@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import BooleanField, TimeField
+from django.db.models import BooleanField
 from django.db.models import CharField
 from django.db.models import DateField
 from django.db.models import DateTimeField
@@ -14,6 +14,8 @@ from django.db.models import IntegerChoices
 from django.db.models import IntegerField
 from django.db.models import Model
 from django.db.models import TextChoices
+from django.db.models import TextField
+from django.db.models import TimeField
 from django.utils import timezone
 from django_mysql.models import SizedTextField
 
@@ -26,7 +28,7 @@ def file_upload_to(self, filename):
     # 확장자 추출
     extension = os.path.splitext(filename)[-1].lower()
     # 결합 후 return
-    return "/".join([ymd_path, uuid_name + extension, ])
+    return "/".join([ymd_path, uuid_name + extension])
 
 
 class ExampleUser(models.Model):
@@ -67,10 +69,6 @@ class DjangoModel(Model):
         AA = "aaa", "에이에이"
         BB = "bb", "비비"
 
-    str_choices_field = models.CharField(max_length=128, choices=Alphabet.choices, default=Alphabet.AA)
-
-    text_choices_field = models.TextField(choices=Alphabet.choices, null=True)
-
     class JobType(TextChoices):
         DEV = "developer", "개발자"
         SALES = "sales", "세일즈"
@@ -94,24 +92,6 @@ class DjangoModel(Model):
         default="값을 채우지 않으면 이 값을 db을 채운다.",
         choices=Alphabet.choices,
         db_column="str_field",  # Model의 Field 변수명과 db Table의 column명을 다르게 주고싶은경우 이 값을 사용
-        validators=(),  # 해당 필드 값의 유효성 검증이 필요한 경우 사용 3장에서 자세히 설명함
-        error_messages={  # 해당 필드에 불순한값이 들어온 경우 어떤 에러메시지를 보낼지 여기서 재정의 가능 아래 값들은 django가 제공하는 기본 에러메시지
-            "invalid_choice": "Value %(value)r is not a valid choice.",
-            "null": "This field cannot be null.",
-            "blank": "This field cannot be blank.",
-            "unique": "%(model_name)s with this %(field_label)s " "already exists.",
-            "max_length": "Ensure this value has at most %(limit_value)d characters (it has %(show_value)d).",
-        },
-    )
-
-    text_field = SizedTextField(
-        size_class=1,
-        blank=True,  # 빈문자열 ""을 저장하는 것을 허용할것인가?
-        # CharField와 다르게 문자열 최대길이 제한이 존재하지 않는다.
-        null=False,
-        # unique=True,  # TextField에는 unique제약과 더불어 db_index 옵션을 부여할수는 있지만 권장하지 않는다.
-        # db_index=True,
-        db_column="text_field",  # Model의 Field 변수명과 db Table의 column명을 다르게 주고싶은경우 이 값을 사용
         validators=(),  # 해당 필드 값의 유효성 검증이 필요한 경우 사용 3장에서 자세히 설명함
         error_messages={  # 해당 필드에 불순한값이 들어온 경우 어떤 에러메시지를 보낼지 여기서 재정의 가능 아래 값들은 django가 제공하는 기본 에러메시지
             "invalid_choice": "Value %(value)r is not a valid choice.",
@@ -148,9 +128,9 @@ class DjangoModel(Model):
 
     date_field = DateField(
         help_text="auto_now가 True이면 해당 모델이 .save()될때 마다 최신날짜로 값을 자동으로 갱신해준다."
-                  "auto_now_add가  True이면 해당모델이 .create()되는 최초1회만 날짜값을 최신날짜를 채워준다."
-                  "이런 옵션들은 주로 생성날짜, 최근수정날짜를 로깅할때 사용한다.",
-        # auto_now=True,
+        "auto_now_add가  True이면 해당모델이 .create()되는 최초1회만 날짜값을 최신날짜를 채워준다."
+        "이런 옵션들은 주로 생성날짜, 최근수정날짜를 로깅할때 사용한다.",
+        auto_now=True,
         # auto_now_add=True,
         error_messages={
             "invalid": "“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.",
@@ -163,17 +143,10 @@ class DjangoModel(Model):
             "invalid_datetime": "“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time.",
         },
     )
-    time_field = TimeField(default=timezone.localtime)
-
     duration_field = DurationField(
         help_text="python의 timedelta(days=3)를 저장할 수 있다.",
         error_messages={
             "invalid": "“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[.uuuuuu] format.",
         },
     )
-    file_field = models.FileField(upload_to=file_upload_to, max_length=256, )
-
-    class Meta:
-        db_table = "django_model"
-
     # https://docs.djangoproject.com/en/3.1/ref/models/fields/#field-types 더 다양한 장고의 필드들을 보고싶다면 공식문서 참고

@@ -13,7 +13,10 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.forms import model_to_dict
+from rest_framework.renderers import JSONRenderer
 
 
 class Organization(models.Model):
@@ -24,7 +27,7 @@ class Organization(models.Model):
 
     name: str = models.CharField(max_length=32)
     organization_type = models.CharField(choices=OrganizationType.choices)
-    leader: Optional[User] = models.ForeignKey(to="User")
+    leader: Optional[User] = models.ForeignKey(to="User", on_delete=models.CASCADE)
 
 
 class User(models.Model):
@@ -38,16 +41,7 @@ class User(models.Model):
     organization: Optional[Organization] = models.ForeignKey(to=Organization, on_delete=models.CASCADE)
 
 
-class DateTimeEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (datetime, date, time)):
-            return obj.strftime("%Y-%m-%d %H:%M:%S")
-        if isinstance(obj, Organization):
-            return obj.__dict__
-
-        return super(DateTimeEncoder, self).default(obj)
-
-
+# 실제 수행은 안됩니다.
 if __name__ == "__main__":
 
     user: User = User(
@@ -61,11 +55,12 @@ if __name__ == "__main__":
             name="서버 개발1팀", leader=User(username="teamjang.kim0102", password="qwer1234!", name="김팀장"),
         ),
     )
+    JSONRenderer
+    user_serializing_dict = model_to_dict(user)
 
-    user_serializing_dict: Dict[str, Any] = dataclasses.asdict(user)
     print(f"Type: {type(user_serializing_dict)}", f"Data: {user_serializing_dict}")
 
-    user_serializing_json: str = json.dumps(user_serializing_dict, cls=DateTimeEncoder)
+    user_serializing_json: str = json.dumps(user_serializing_dict, cls=DjangoJSONEncoder)
     print(f"Type: {type(user_serializing_json)}", f"Data: {user_serializing_json}")
 
     user_serializing_bytes: bytes = user_serializing_json.encode("utf-8")
