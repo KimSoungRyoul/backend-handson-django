@@ -17,6 +17,7 @@ router = DefaultRouter()
 router.register(r'django-models', DjangoModelViewSet, basename='django_model')
 router.register(r'users', UserViewSet, basename='user')
 
+
 urlpatterns = [
     path('api/', include(router.urls)),
     path('study-example-app/', include('study_example_app.urls')),

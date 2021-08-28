@@ -1,22 +1,26 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema_view
 from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema_view
+from drf_spectacular.utils import OpenApiExample
+from drf_spectacular.utils import OpenApiParameter
+from rest_framework import serializers
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import serializers, status
-from shopping_mall.models import ShoppingMallUser
+
 from study_example_app.models import DjangoModel
-from study_example_app.schemas import USER_CREATE_EXAMPLES, USER_CREATE_QUERY_PARAM_EXAMPLES
-from study_example_app.serializers import Django2ModelSerializer, DjangoModelSerializer
+from study_example_app.schemas import USER_CREATE_EXAMPLES
+from study_example_app.schemas import USER_CREATE_QUERY_PARAM_EXAMPLES
+from study_example_app.serializers import  DjangoModelSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ShoppingMallUser
+        model = User
         depth = 1
         fields = "__all__"
 
@@ -25,7 +29,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     user_type = serializers.CharField(help_text="회원의 유형값을 받습니다.", default="customer")
 
     class Meta:
-        model = ShoppingMallUser
+        model = User
         fields = "__all__"
 
 
@@ -39,7 +43,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     ),
 )
 class UserViewSet(ModelViewSet):
-    queryset = ShoppingMallUser.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
     @extend_schema(
@@ -77,7 +81,7 @@ class DjangoModelViewSet(ModelViewSet):
     @extend_schema(
         tags=["사용자"],
         summary="23232323",
-        request=Django2ModelSerializer,
+        request=DjangoModelSerializer,
     )
     def create(self, request, *args, **kwargs):
         return super(DjangoModelViewSet, self).create(request,*args, **kwargs)

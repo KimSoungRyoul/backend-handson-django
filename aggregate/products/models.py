@@ -8,6 +8,7 @@ class Product(models.Model):
         GROCERY = 'grocery', '식료품'
         FURNITURE = 'furniture', '가구'
         BOOKS = 'books', '책'
+        FOOD =  "food", "음식"
 
     name = models.CharField(max_length=128, help_text='상품명')
     price = models.IntegerField(help_text='상품 가격')
