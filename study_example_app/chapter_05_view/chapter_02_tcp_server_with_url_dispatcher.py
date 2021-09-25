@@ -24,7 +24,7 @@ server_socket.listen()
 
 
 def hello_function_view(http_request_packet):
-    response_body: bytes = '{"message" : "안녕 나도 반가워 난 TCP/IP 서버야"}'.encode('utf-8')
+    response_body: bytes = '{"message" : "안녕 나도 반가워 난 웹서버야"}'.encode('utf-8')
     response_body_length = len(response_body)
     http_response = (
         default_http_response_packet + f'Content-Length: {response_body_length}\r\n\r\n'.encode('utf-8') + response_body
@@ -33,7 +33,7 @@ def hello_function_view(http_request_packet):
 
 
 def bye_function_view(http_request_packet):
-    response_body: bytes = '{"message" : "그래 잘가 나는 TCP/IP 서버야"}'.encode('utf-8')
+    response_body: bytes = '{"message" : "그래 잘가 나는 웹서버야"}'.encode('utf-8')
     response_body_length = len(response_body)
     http_response = (
         default_http_response_packet + f'Content-Length: {response_body_length}\r\n\r\n'.encode('utf-8') + response_body

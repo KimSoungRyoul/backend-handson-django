@@ -13,14 +13,14 @@ class UserSerializer(serializers.ModelSerializer[User]):
     class Meta:
         model = User
         depth = 1
-        fields = '__all__'
+        fields = "__all__"
 
 
 class DjangoModelSerializer(serializers.ModelSerializer[DjangoModel]):
     class Meta:
         model = DjangoModel
-        fields = '__all__'
+        fields = "__all__"
 
 
 class LoginSerializer(serializers.Serializer):
-    username =  serializers.CharField(validators=[UnicodeUsernameValidator, UniqueValidator])
+    username = serializers.CharField(validators=[UnicodeUsernameValidator, UniqueValidator])

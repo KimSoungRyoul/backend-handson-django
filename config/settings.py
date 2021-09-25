@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # 교육용 snippet app
     "frontend_app",
     "study_example_app",
+    "portfolio",
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -90,6 +91,7 @@ SPECTACULAR_SETTINGS = {
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
     #  "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3",},
+
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "django_db",
@@ -98,6 +100,15 @@ DATABASES = {
         "HOST": "127.0.0.1",
         "PORT": "5432",
     },
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'django_test22',
+    #     'USER': 'root',
+    #     'PASSWORD': 'password',
+    #     'HOST': '127.0.0.1',
+    #     'PORT':3306
+    # }
 }
 
 # https://docs.djangoproject.com/en/3.1/ref/settings/#sessions 자세한 정보는 여기서 확인할 수 있습니다.

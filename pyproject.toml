@@ -23,6 +23,8 @@ django-stubs = "^1.8.0"
 djangorestframework-stubs = "^1.4.0"
 django-mysql = "^3.12.0"
 Pillow = "^8.3.1"
+mysqlclient = "^2.0.3"
+django-ninja = "^0.15.0"
 
 
 [tool.poetry.dev-dependencies]
@@ -33,6 +35,7 @@ pytest-django = "^3.10.0"
 pytest-mock = "^3.4.0"
 pytest-freezegun = "^0.4.2"
 pytest-mypy-plugins = "^1.7.0"
+coverage = "^5.5"
 
 
 [tool.poetry.extras]

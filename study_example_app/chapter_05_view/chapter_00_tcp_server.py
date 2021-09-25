@@ -16,7 +16,7 @@ server_socket.bind((HOST, PORT))
 server_socket.listen()
 
 
-print('서버가 실행되었습니다....\n')
+print('서버가 실행되었습니다.... 웹브라우저에서(크롬, 사파리...) http://127.0.0.1:9999 로 접속하면 이 서버와 통신할수있습니다. \n')
 
 # 서버가 계속 Client요청을 받기위해 무한루프
 while True:
@@ -35,7 +35,7 @@ while True:
         print('웹브라우저가 보내준 패킷에 담겨진 데이터들입니다 : ', packet)
 
     # 1. Status Line : HTTP Response 패킷입니다. HTT Protocol(규칙)을 지키지 않으면 웹브라우저(Chrome, Safari, Internet Explorer)는 내가 보낸 데이터 패킷을 이해하지 못합니다.
-    response_body: bytes = '{"message" : "안녕 나는 TCP/IP 서버야"}'.encode('utf-8')  # 여기있는 값은 마음데로 수정해도됩니다.
+    response_body: bytes = '{"message" : "안녕 나는 웹서버야"}'.encode('utf-8')  # 여기있는 값은 마음데로 수정해도됩니다.
     response_body_length = len(response_body)
 
     # HTTP Response 패킷을 직접 만들어줍니다.

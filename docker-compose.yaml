@@ -33,6 +33,9 @@ services:
 
   django-backend-oracle-db:
     image: store/oracle/database-enterprise:12.2.0.1
+#    build:
+#      context: ./.
+#      dockerfile: ./oracle_db.dockerfile
     container_name:  django-backend-oracle-db
     ports:
     - 1521:1521
