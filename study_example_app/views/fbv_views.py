@@ -14,6 +14,7 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 
 from aggregate.orders.models import Order
+from study_example_app.serializers.serializer_structure_analysis import EmployeeSerializer
 from study_example_app.serializers.serializer_structure_analysis import OrderWriteOnlySerializer
 from study_example_app.serializers.serializer_structure_analysis import SignUpSerializer
 
@@ -128,10 +129,24 @@ def modify_order_function_view_to_learn_serializer(request: Request, pk):
 
     instance: Order = get_object_or_404(queryset=Order.objects.all(), pk=pk)
     before_status = instance.status
-    serializer = OrderWriteOnlySerializer(data=request.data, instance=instance)
+    serializer = OrderWriteOnlySerializer(data=request.data, instance=instance, partial=True)
     serializer.is_valid(raise_exception=True)
     serializer.save()
 
     return Response(
         data={"detail": f"주문 상태값이 {before_status}->{serializer.data['status']}로 변경됐습니다."}, status=status.HTTP_200_OK,
     )
+
+
+@extend_schema(
+    tags=["학습용 예제 APIs"],
+    summary="Serializer 학습용 asdfsdff",
+    request=EmployeeSerializer,
+
+)
+@api_view(http_method_names=["POST"])
+def asdf(request):
+    e = EmployeeSerializer(data=request.data)
+    e.is_valid(raise_exception=True)
+    e.save()
+    return Response(data={})

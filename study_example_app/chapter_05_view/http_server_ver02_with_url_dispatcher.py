@@ -1,7 +1,7 @@
 """
  http를 모르는 원시적인(tcp)서버
 
- 1. 서버를 실행합니다.  python chapter_00_tcp_server.py
+ 1. 서버를 실행합니다.  python http_server_ver00.py
  2. 웹브라우저(Chrome, Safari, Internet Explorer)에 들어가서  http://127.0.0.1:9999 로 접속합니다.
  3. 실행된 서버에 출력되는 로그를 확인합니다.
 """
@@ -66,16 +66,9 @@ while True:
     # 브라우저에서 접속했습니다.
     print(f'{addr} 클라이언트에서 HTTP 패킷을 보냈습니다.')
     # 클라이언트가 보낸 패킷을 전부 받습니다(receive).
-    data: bytes = client_socket.recv(1024)
-
+    http_request_packet: bytes = client_socket.recv(1024)
     print('----')
-    http_request_packets = data.decode('utf-8').split('\r\n')
-
-    # 수신받은 문자열을 출력합니다.
-    for idx, packet in enumerate(http_request_packets):
-        # print("웹브라우저가 보내준 패킷에 담겨진 데이터들입니다 : ", packet)
-        if idx == 0:
-            http_method, http_path, http_version = packet.split(' ')
+    http_method, http_path, http_version = http_request_packet.decode('utf-8').split('\r\n')[0].split(" ")
 
     # http response 의 body 정보를 웹브라우저가 보내준 http_path 에 따라서 다르게 작성해줍니다
     try:
@@ -85,8 +78,8 @@ while True:
         print(f'서버에서 url_patterns에 이러한 {http_path}를 따로 정의해준적이 없기때문에 KeyError가 발생했습니다,')
         view_function = url_not_fount_view
 
-    http_response = view_function(http_request_packet=http_request_packets)
+    http_response_packet = view_function(http_request_packet=http_request_packet)
 
     # 직접 만든 HTTP 패킷을 Client에게 응답값으로 전달해줍니다.
-    client_socket.sendall(http_response)
+    client_socket.sendall(http_response_packet)
     client_socket.close()

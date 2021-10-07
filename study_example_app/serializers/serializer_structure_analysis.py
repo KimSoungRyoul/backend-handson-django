@@ -12,11 +12,12 @@ from rest_framework.validators import UniqueValidator
 
 from aggregate.orders.models import Order
 from aggregate.orders.models import OrderedProduct
-from aggregate.products.models import Product
 from aggregate.products.serializers import OrderedProductSerializer
 from aggregate.stores.models import Store
 from aggregate.stores.serializers import StoreSerializer
 from aggregate.users.models import User
+from study_example_app.models import Department
+from study_example_app.models import Employee
 from study_example_app.serializers.validators import EnglishOnlyValidator
 from study_example_app.serializers.validators import KoreanOnlyValidator
 
@@ -130,12 +131,15 @@ class OrderReadOnlySerializer(serializers.Serializer):
 
 class OrderWriteOnlySerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    status = serializers.ChoiceField(choices=Order.Status.choices)
+    status = serializers.ChoiceField(choices=Order.Status.choices, required=False)
+    aaa = serializers.DateTimeField()
     total_price = serializers.IntegerField(read_only=True, help_text="해당 필드는 역정규화 필드임으로 API외부에서 계산된 값을 사용하지 않는다.")
-    store_id = serializers.PrimaryKeyRelatedField(
-        queryset=Store.objects.all(), source="store", help_text="주문이 접수된 가게", required=False,
-    )
-    orderedproduct_set = OrderedProductSerializer(many=True, help_text="주문한 상품과 갯수 목록", required=False)
+    store_id = serializers.PrimaryKeyRelatedField(queryset=Store.objects.all(), source="store", help_text="주문이 접수된 가게")
+    orderedproduct_set = OrderedProductSerializer(many=True, help_text="주문한 상품과 갯수 목록")
+
+    def validate_aaa(self, attr):
+
+        return attr
 
     @transaction.atomic
     def create(self, validated_data: dict[str, Any]) -> Order:
@@ -156,3 +160,32 @@ class OrderWriteOnlySerializer(serializers.Serializer):
         instance.status = validated_data["status"]
         instance.save()
         return instance
+
+
+class CompanySerializer(serializers.Serializer):
+    name = serializers.CharField()
+    company_number = serializers.CharField()
+
+
+class EmployeeSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    age = serializers.IntegerField()
+    company = CompanySerializer()
+    is_deleted = serializers.BooleanField()
+    birth_date = serializers.DateField(format="%Y-%m-%d")
+    employment_period = serializers.FloatField(help_text="재직 기간 ex: 3.75년")
+    programming_language_skill = serializers.ListField(child=serializers.CharField())
+    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
+
+    def create(self, validated_data: dict[str, Any]) -> Employee:
+        print(validated_data["name"])
+        print(validated_data["age"])
+        print(validated_data["company"])
+        print(validated_data["is_deleted"])
+        print(validated_data["birth_date"])
+        print(validated_data["employment_period"])
+        print(validated_data["programming_language_skill"])
+        print(validated_data["department"])
+
+
+        return Employee.objects.first()

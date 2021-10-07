@@ -91,7 +91,6 @@ SPECTACULAR_SETTINGS = {
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
     #  "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3",},
-
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "django_db",
@@ -100,7 +99,6 @@ DATABASES = {
         "HOST": "127.0.0.1",
         "PORT": "5432",
     },
-
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'django_test22',
@@ -171,3 +169,7 @@ STATIC_URL = "/static/"
 #     "handlers": {"console": {"level": "DEBUG", "filters": ["require_debug_true"], "class": "logging.StreamHandler",}},
 #     "loggers": {"django.db.backends": {"level": "DEBUG", "handlers": ["console"],}},
 # }
+
+
+AES256_ENCRYPTION_KEY = b"d40e150996e5e6c10f08ba4efab746a3"
+SEED256_ENCRYPTION_KEY = b"bd9fc900714c1f94"

@@ -1,7 +1,7 @@
 """
  http를 모르는 원시적인(tcp)서버
 
- 1. 서버를 실행합니다.  python chapter_00_tcp_server.py
+ 1. 서버를 실행합니다.  python http_server_ver00.py
  2. 웹브라우저(Chrome, Safari, Internet Explorer)에 들어가서  http://127.0.0.1:9999 로 접속합니다.
  3. 실행된 서버에 출력되는 로그를 확인합니다.
 """
@@ -20,19 +20,24 @@ server_socket.listen()
 
 
 def hello_function_view(http_request: HTTPRequest) -> HTTPResponse:
-    print(http_request.http_method)  # "GET"
-    print(http_request.http_path)
+    print(http_request.http_method)  # "GET or POST or ..."
+    print(http_request.http_path) # "/hello or /bye or ..."
     print(http_request.http_version)
     print(http_request.headers)
     print(http_request.request_body)
 
-    response_body: str = '{"message" : "안녕 나도 반가워 난 TCP/IP 서버야"}'
+    response_body: str = '{"message" : "안녕 나도 반가워 난 HTTP 서버야"}'
 
     return HTTPResponse(headers={"Content-Type": "application/json"}, response_body=response_body)
 
 
 def bye_function_view(http_request: HTTPRequest) -> HTTPResponse:
-    response_body: str = '{"message" : "그래 잘가 나는 TCP/IP 서버야"}'
+    print(http_request.http_method)  # "GET or POST or ..."
+    print(http_request.http_path)  # "/hello or /bye or ..."
+    print(http_request.http_version)
+    print(http_request.headers)
+    print(http_request.request_body)
+    response_body: str = '{"message" : "그래 잘가 나는 HTTP 서버야"}'
     return HTTPResponse(headers={"Content-Type": "application/json"}, response_body=response_body)
 
 
@@ -58,9 +63,8 @@ while True:
     # 브라우저에서 접속했습니다.
     print(f"{addr} 클라이언트에서 HTTP 패킷을 보냈습니다.")
     # 클라이언트가 보낸 패킷을 전부 받습니다(receive).
-    data: bytes = client_socket.recv(1024)
-
-    http_request = HTTPRequest(http_request_packet=data)
+    http_request_packet: bytes = client_socket.recv(1024)
+    http_request = HTTPRequest(http_request_packet=http_request_packet)
 
     # http response 의 body 정보를 웹브라우저가 보내준 http_path 에 따라서 다르게 작성해줍니다
     try:
@@ -70,7 +74,7 @@ while True:
         print(f"서버에서 url_patterns에 이러한 {http_request.http_path}를 따로 정의해준적이 없기때문에 KeyError가 발생했습니다,")
         view_function = url_not_fount_view
 
-    http_response = view_function(http_request=http_request)
+    http_response: HTTPResponse = view_function(http_request=http_request)
 
     # 직접 만든 HTTP 패킷을 Client에게 응답값으로 전달해줍니다.
     client_socket.sendall(http_response.serialize())

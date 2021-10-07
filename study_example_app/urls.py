@@ -9,6 +9,7 @@ from study_example_app.views.example_views import ninja_api
 from study_example_app.views.example_views import OrderViewSet
 from study_example_app.views.example_views import StoreViewSet
 from study_example_app.views.example_views import UserClassBasedViewSet
+from study_example_app.views.fbv_views import asdf
 from study_example_app.views.fbv_views import create_order_function_view_to_learn_serializer
 from study_example_app.views.fbv_views import modify_order_function_view_to_learn_serializer
 from study_example_app.views.fbv_views import signup_function_view_to_learn_serializer
@@ -32,4 +33,7 @@ urlpatterns = [
     path("signup/", signup_function_view_to_learn_serializer, name="signup-api"),
     path("order/", create_order_function_view_to_learn_serializer, name="create-order-api"),
     path("order/<int:pk>/", modify_order_function_view_to_learn_serializer, name="modify-order-api"),
+
+path("osdf/", asdf, name="mosdf"),
+
 ]
