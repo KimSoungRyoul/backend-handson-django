@@ -73,3 +73,29 @@ class BooksProduct(Product):
 
     class Meta:
         proxy = True
+
+
+#  base_manager_name 관련 옵션 설명 필요
+#
+# class Book(models.Model):
+#     title = models.CharField(max_length=50)
+#     author = models.CharField(max_length=30)
+#     is_published = models.BooleanField(default=False)
+#     authors = models.ManyToManyField(Person, related_name='books')
+#     fun_authors = models.ManyToManyField(FunPerson, related_name='books')
+#     favorite_things = GenericRelation(
+#         Person,
+#         content_type_field='favorite_thing_type',
+#         object_id_field='favorite_thing_id',
+#     )
+#     fun_people_favorite_things = GenericRelation(
+#         FunPerson,
+#         content_type_field='favorite_thing_type',
+#         object_id_field='favorite_thing_id',
+#     )
+#
+#     published_objects = PublishedBookManager()
+#     annotated_objects = AnnotatedBookManager()
+#
+#     class Meta:
+#         base_manager_name = 'annotated_objects'

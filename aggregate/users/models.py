@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as _UserManager
 from django.db import models
@@ -5,6 +7,8 @@ from django_extensions.db.models import TimeStampedModel
 
 from study_example_app.models import fields as custom_fields
 from study_example_app.models.fields import encrypt_max_length
+
+
 # Create your models here.
 
 
@@ -17,10 +21,7 @@ class UserManager(_UserManager):
 
 
 class User(AbstractUser):
-
-
     objects = UserManager()
-
 
     class UserStatus(models.TextChoices):
         ACTIVE = "active", "활성화"
@@ -50,13 +51,35 @@ class User(AbstractUser):
         max_length=encrypt_max_length(16), help_text="주민등록번호", blank=True,
     )
 
-
     class Meta:
         db_table = "user"
 
-User.objects.filter(is_active=False)
 
-User.objects.inactive()
+class StoreOwner(User):
+
+    @property
+    def has_multi_store(self) -> bool:
+        """
+            상점 여러개 소유한 사장님인가?
+        """
+
+        return True
+
+    class Meta:
+        proxy = True
+
+
+class Customer(User):
+
+    @property
+    def is_init_user(self) -> bool:
+        """
+            아직 첫 주문을 완료하지 않은 고객인가?
+        """
+        return False
+
+    class Meta:
+        proxy = True
 
 
 class HModel(models.Model):
