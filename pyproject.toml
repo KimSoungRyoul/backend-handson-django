@@ -6,17 +6,17 @@ authors = ["SoungRyoul Kim <KimSoungRyoul@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9.1"
-django = "^3.1.3"
+django = "^4.0.0"
 djangorestframework = "^3.12.2"
 django-filter = "^2.4.0"
 drf-spectacular = "0.12.0"
 django-extensions = "^3.0.9"
 drf-nested-routers = "^0.92.1"
 requests = "^2.25.1"
-psycopg2-binary = "^2.8.6"
 ipython = {extras = ["notebook"], version = "^7.19.0"}
 Werkzeug = "^1.0.1"
 bootstrap-admin = "^0.4.4"
+psycopg2 = "^2.9.2"
 channels = "^3.0.3"
 mypy = "^0.812"
 django-stubs = "^1.8.0"
@@ -26,6 +26,8 @@ Pillow = "^8.3.1"
 mysqlclient = "^2.0.3"
 django-ninja = "^0.15.0"
 #cryptography = "^3.4.8"
+django-dotenv = "^1.4.2"
+django-redis = "^5.2.0"
 
 
 [tool.poetry.dev-dependencies]
