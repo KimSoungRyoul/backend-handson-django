@@ -10,7 +10,7 @@ class Account(models.Model):
 @transaction.atomic
 def account_transfer_scenario(sender_name: str, receiver_name: str, amount: int):
     """
-        계좌 이체 시나리오
+    계좌 이체 시나리오
     """
 
     sender_account: Account = Account.objects.select_for_update().get(owner_name=sender_name)

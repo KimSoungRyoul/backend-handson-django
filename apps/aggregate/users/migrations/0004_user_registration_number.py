@@ -7,13 +7,15 @@ import authentication.encryption.encryption_fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0003_user_name_kor'),
+        ("users", "0003_user_name_kor"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='registration_number',
-            field=authentication.encryption.encryption_fields.EncryptedField(blank=True, help_text='주민등록번호', max_length=64),
+            model_name="user",
+            name="registration_number",
+            field=authentication.encryption.encryption_fields.EncryptedField(
+                blank=True, help_text="주민등록번호", max_length=64
+            ),
         ),
     ]

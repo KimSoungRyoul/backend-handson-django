@@ -46,7 +46,7 @@ class DjangoModelViewSet(ModelViewSet):
     queryset = DjangoModel.objects.all()
     serializer_class = DjangoModelSerializer
 
-    @extend_schema(summary='자동으로 만들어지는 API 문서 (이 API사용시에 주의해야할점 블라블라....)')
+    @extend_schema(summary="자동으로 만들어지는 API 문서 (이 API사용시에 주의해야할점 블라블라....)")
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
@@ -58,7 +58,7 @@ class DjangoModelViewSet(ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.http_request_packet)
 
-    def create(self, request:Request, *args, **kwargs):
+    def create(self, request: Request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -87,6 +87,7 @@ class DjangoModelViewSet(ModelViewSet):
     #
     #
     #     return Response(data={"sdf":"sdf"})
+
 
 #
 # @dataclasses.dataclass

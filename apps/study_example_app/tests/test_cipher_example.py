@@ -26,7 +26,10 @@ class CipherExampleTest(TestCase):
 
     def test_user_create(self):
         created_u: User = User.objects.create_user(
-            username="userna3me145", password="1234", registration_number="930823-1233456999", name_kor="a" * 64,
+            username="userna3me145",
+            password="1234",
+            registration_number="930823-1233456999",
+            name_kor="a" * 64,
         )
         print(created_u.registration_number)
 

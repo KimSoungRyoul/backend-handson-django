@@ -48,11 +48,11 @@ class QueryExpressionTest(TestCase):
 
     def test_aggregate(self):
 
-        with self.assertRaises(TypeError,msg="store_slug is not an aggregate expression"):
+        with self.assertRaises(TypeError, msg="store_slug is not an aggregate expression"):
             Store.objects.aggregate(
                 total_order_cnt=Count("order"),
                 total_revenue=Sum("order__total_price"),
-                store_slug=Concat(F("name"), Value(": 상점유형 ("), F("store_type"), Value(")")),# 이름은 통계값이 아님
+                store_slug=Concat(F("name"), Value(": 상점유형 ("), F("store_type"), Value(")")),  # 이름은 통계값이 아님
             )
 
         # print(store_aggregate)

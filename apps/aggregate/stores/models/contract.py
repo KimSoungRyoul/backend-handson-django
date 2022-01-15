@@ -13,27 +13,27 @@ if TYPE_CHECKING:
 class ContractQuerySet(models.QuerySet):
     def current_valid(self, store: Store):
         """
-            현재 유효한 계약
+        현재 유효한 계약
         """
         today = date.today()
         return self.filter(start_date__gte=today, end_date__lt=today, store=store)
 
     def recently_expired(self, store: Store):
         """
-            가장 최근에 만료된 계약 순서대로
+        가장 최근에 만료된 계약 순서대로
         """
         return self.filter(store=store).order_by("-end_date")
 
     def tomorrow_start(self):
         """
-            내일부터 시작되는 계약
+        내일부터 시작되는 계약
         """
         today = date.today()
         return self.filter(start_date=today + timedelta(days=1))
 
     def tomorrow_expired(self):
         """
-            내일이 계약 만료일이 도래하는
+        내일이 계약 만료일이 도래하는
         """
         today = date.today()
         return self.filter(end_date=today + timedelta(days=1))
@@ -41,7 +41,7 @@ class ContractQuerySet(models.QuerySet):
 
 class Contract(models.Model):
     """
-        상점 계약
+    상점 계약
     """
 
     store = models.ForeignKey(to="Store", on_delete=models.CASCADE)

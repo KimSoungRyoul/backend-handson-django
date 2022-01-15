@@ -22,8 +22,7 @@ class UserDetailSchema(UserSchema):
 
 
 class UserRequestBody(serializers.ModelSerializer):
-
-    def create(self, validated_data:Dict[str,Any]) -> User:
+    def create(self, validated_data: Dict[str, Any]) -> User:
 
         # 지금은 단순히 User생성만
         instance: User = User.objects.create_user(
@@ -41,14 +40,9 @@ class UserRequestBody(serializers.ModelSerializer):
 
         return instance
 
-
-    def update(self, validated_data:Dict[str,Any], instance:User)->User:
-
-
-
+    def update(self, validated_data: Dict[str, Any], instance: User) -> User:
 
         return instance
-
 
     class Meta:
         model = User

@@ -7,14 +7,14 @@ import aggregate
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0004_user_registration_number'),
+        ("users", "0004_user_registration_number"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='user',
+            name="user",
             managers=[
-                ('objects', aggregate.users.models.UserManager()),
+                ("objects", aggregate.users.models.UserManager()),
             ],
         ),
     ]

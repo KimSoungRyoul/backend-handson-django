@@ -54,7 +54,7 @@ class PythonModel(models.Model):
 
 
 class DjangoModel(Model):
-    id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")
 
     class Alphabet(TextChoices):
         """

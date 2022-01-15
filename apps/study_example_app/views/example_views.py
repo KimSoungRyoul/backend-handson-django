@@ -97,7 +97,10 @@ from rest_framework import mixins
     update=extend_schema(tags=["학습용 예제 APIs"], summary="회원 정보 일괄 수정"),
 )
 class UserClassBasedViewSet(
-    mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
 ):
     queryset = User.objects.all()
     serializer_class = UserSerializer

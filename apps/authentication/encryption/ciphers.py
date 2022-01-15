@@ -49,7 +49,7 @@ class ABCCipher(metaclass=abc.ABCMeta):
 
 class AES256Cipher(ABCCipher):
     """
-        프로젝트내 Column 암복호화 목적으로 사용
+    프로젝트내 Column 암복호화 목적으로 사용
     """
 
     _algorithm = algorithms.AES
@@ -58,7 +58,7 @@ class AES256Cipher(ABCCipher):
 
 class SEED128Cipher(ABCCipher):
     """
-        한국에서 자체적으로 개발한 암호화알고리즘, 주로 은행,공공기관에서 사용
+    한국에서 자체적으로 개발한 암호화알고리즘, 주로 은행,공공기관에서 사용
     """
 
     _algorithm = algorithms.SEED

@@ -14,7 +14,7 @@ from rest_framework.viewsets import ModelViewSet
 from study_example_app.models import DjangoModel
 from study_example_app.schemas import USER_CREATE_EXAMPLES
 from study_example_app.schemas import USER_CREATE_QUERY_PARAM_EXAMPLES
-from study_example_app.serializers import  DjangoModelSerializer
+from study_example_app.serializers import DjangoModelSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -66,7 +66,8 @@ class UserViewSet(ModelViewSet):
         return response
 
     @action(
-        detail=False, url_path="custom-action-api",
+        detail=False,
+        url_path="custom-action-api",
     )
     def i_am_custom_api(self, request: Request, *args, **kwargs):
 
@@ -74,7 +75,7 @@ class UserViewSet(ModelViewSet):
 
 
 class DjangoModelViewSet(ModelViewSet):
-    queryset =  DjangoModel.objects.all()
+    queryset = DjangoModel.objects.all()
     queryset = DjangoModelSerializer
 
     @extend_schema(
@@ -83,4 +84,4 @@ class DjangoModelViewSet(ModelViewSet):
         request=DjangoModelSerializer,
     )
     def create(self, request, *args, **kwargs):
-        return super(DjangoModelViewSet, self).create(request,*args, **kwargs)
+        return super(DjangoModelViewSet, self).create(request, *args, **kwargs)

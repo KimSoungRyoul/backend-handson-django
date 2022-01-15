@@ -21,7 +21,7 @@ from user_management.serializers import UserQueryParamSerializer
 
 class _UserViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-        학습용 UserViewSet
+    학습용 UserViewSet
     """
 
     queryset = User.objects.all()
@@ -56,7 +56,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
 )
 class UserViewSet(viewsets.ModelViewSet):
     """
-        ModelViewSet을 활용한
+    ModelViewSet을 활용한
     """
 
     queryset = User.objects.all()
@@ -73,5 +73,5 @@ class UserViewSet(viewsets.ModelViewSet):
         return self.serializer_classes.get(self.action, self.serializer_class)
 
     @action(detail=False, url_path="asdf/(?P<first>\w+)", url_name="asdf", methods=["GET"])
-    def asdf(self, request: Request,first,  *args, **kwargs):
+    def asdf(self, request: Request, first, *args, **kwargs):
         return Response(data={"slud": first})

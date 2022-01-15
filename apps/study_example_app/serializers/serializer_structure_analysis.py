@@ -2,6 +2,7 @@ from datetime import date
 from typing import Any
 
 from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import RegexValidator
 from django.db import transaction
 from rest_framework import serializers
@@ -14,7 +15,7 @@ from aggregate.products.serializers import OrderedProductSerializer
 from aggregate.stores.models import Store
 from aggregate.stores.serializers import StoreSerializer
 from aggregate.users.models import User
-from study_example_app.models import Department
+from study_example_app.models import Company, Department
 from study_example_app.models import Employee
 from study_example_app.serializers.validators import EnglishOnlyValidator
 from study_example_app.serializers.validators import KoreanOnlyValidator
@@ -22,11 +23,13 @@ from study_example_app.serializers.validators import KoreanOnlyValidator
 
 class SignUpSerializer(serializers.Serializer):
     """
-        validation 로직을 설명하기 위한 학습용 Serializer
+    validation 로직을 설명하기 위한 학습용 Serializer
     """
 
     username = serializers.CharField(
-        max_length=150, validators=[UniqueValidator(queryset=User.objects.all())], help_text="회원 아이디",
+        max_length=150,
+        validators=[UniqueValidator(queryset=User.objects.all())],
+        help_text="회원 아이디",
     )
     password = serializers.CharField(
         min_length=8,
@@ -57,7 +60,7 @@ class SignUpSerializer(serializers.Serializer):
 
     def is_valid(self, raise_exception):
         """
-            Serializer하위 모든 validation로직을 수행하는 메서드
+        Serializer하위 모든 validation로직을 수행하는 메서드
         """
         return super().is_valid(raise_exception)
 
@@ -80,7 +83,7 @@ class SignUpSerializer(serializers.Serializer):
 
     def validate(self, attrs: dict[str, Any]) -> dict[str, Any]:
         """
-            개발자가 추가로 Validation 해주고 싶은 로직이 있다면 validate() 메서드를 오버라이딩 해서 작성한다.
+        개발자가 추가로 Validation 해주고 싶은 로직이 있다면 validate() 메서드를 오버라이딩 해서 작성한다.
         """
 
         # Field 수준 또는 객체 수준의 단순Validation 아니라 비지니스 레벨에서 걸리는 Validation들은 이곳에 작성한다.
@@ -104,13 +107,13 @@ class SignUpSerializer(serializers.Serializer):
 
     def to_representation(self, instance) -> dict[str, Any]:
         """
-            Class를 Dictionary로 변환
+        Class를 Dictionary로 변환
         """
         return super().to_representation(instance)
 
     def to_internal_value(self, data: dict[str, Any]) -> object:
         """
-            Dictionary를 Class로 변환
+        Dictionary를 Class로 변환
         """
         return super().to_internal_value(data)
 
@@ -136,7 +139,6 @@ class OrderWriteOnlySerializer(serializers.Serializer):
     orderedproduct_set = OrderedProductSerializer(many=True, help_text="주문한 상품과 갯수 목록")
 
     def validate_aaa(self, attr):
-
         return attr
 
     @transaction.atomic
@@ -185,5 +187,67 @@ class EmployeeSerializer(serializers.Serializer):
         print(validated_data["programming_language_skill"])
         print(validated_data["department"])
 
-
         return Employee.objects.first()
+
+
+class CustomRelatedField(serializers.PrimaryKeyRelatedField):
+    default_error_messages = {
+        "required": "해당 필드는 반드시 필요합니다.",
+        "does_not_exist": " department(pk={pk_value})는 존재하지 않습니다. 생성을 원하시면 pk필드를 제거후 요청해주세요.",
+        "incorrect_type": "department는 JSON Object 구조로 채워주셔야합니다. {data_type} 타입은 허용하지 않습니다.",
+    }
+
+    def __init__(self, **kwargs):
+        self.allow_get_or_create = kwargs.pop("allow_get_or_create", False)
+        super().__init__(**kwargs)
+
+    def to_internal_value(self, data):
+        queryset = self.get_queryset()
+        if not isinstance(data, dict):
+            self.fail("incorrect_type", data_type=type(data).__name__)
+
+        try:
+            if data.get("id"):
+                return queryset.get(pk=data["id"])
+        except ObjectDoesNotExist:
+            self.fail("does_not_exist", pk_value=data["id"])
+
+        if self.allow_get_or_create is True:
+            return queryset.create(**data)
+
+
+class CustomDepartmentField(CustomRelatedField):
+    class Meta:
+        model = Department
+        fields = "__all__"
+
+
+class CustomCompanyField(CustomRelatedField):
+    class Meta:
+        model = Company
+        fields = "__all__"
+
+
+class EmployeeWithCustomDepartmentSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    age = serializers.IntegerField()
+    company = CustomCompanyField(queryset=Company.objects.all(), allow_get_or_create=False)
+    is_deleted = serializers.BooleanField()
+    birth_date = serializers.DateField(format="%Y-%m-%d")
+    employment_period = serializers.FloatField(help_text="재직 기간 ex: 3.75년")
+    programming_language_skill = serializers.ListField(child=serializers.CharField())
+    department = CustomDepartmentField(queryset=Department.objects.all(), allow_get_or_create=True)
+
+    def create(self, validated_data: dict[str, Any]) -> Employee:
+        print(validated_data["name"])
+        print(validated_data["age"])
+        print(validated_data["company"])
+        print(validated_data["is_deleted"])
+        print(validated_data["birth_date"])
+        print(validated_data["employment_period"])
+        print(validated_data["programming_language_skill"])
+        print(validated_data["department"])
+
+        employee = Employee.objects.create(**validated_data)
+
+        return employee

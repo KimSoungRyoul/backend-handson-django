@@ -7,45 +7,53 @@ from django.db import models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stores', '0006_contract'),
+        ("stores", "0006_contract"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='StoreAddress',
+            name="StoreAddress",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('si', models.CharField(help_text='시', max_length=128)),
-                ('gu', models.CharField(help_text='구', max_length=128)),
-                ('gun', models.CharField(help_text='군', max_length=128)),
-                ('dongmyun', models.CharField(help_text='동,면,읍', max_length=128)),
-                ('lat', models.FloatField(help_text='위도')),
-                ('lng', models.FloatField(help_text='경도')),
-                ('detail', models.CharField(help_text='상세 주소', max_length=128)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("si", models.CharField(help_text="시", max_length=128)),
+                ("gu", models.CharField(help_text="구", max_length=128)),
+                ("gun", models.CharField(help_text="군", max_length=128)),
+                ("dongmyun", models.CharField(help_text="동,면,읍", max_length=128)),
+                ("lat", models.FloatField(help_text="위도")),
+                ("lng", models.FloatField(help_text="경도")),
+                ("detail", models.CharField(help_text="상세 주소", max_length=128)),
             ],
         ),
         migrations.CreateModel(
-            name='StoreText',
+            name="StoreText",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text_type', models.CharField(choices=[('legal_notice', '법적 고시'), ('origin', '원산지 정보')], max_length=32)),
-                ('text', models.TextField(help_text='대용량 텍스트')),
-                ('store', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='stores.store')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "text_type",
+                    models.CharField(choices=[("legal_notice", "법적 고시"), ("origin", "원산지 정보")], max_length=32),
+                ),
+                ("text", models.TextField(help_text="대용량 텍스트")),
+                ("store", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="stores.store")),
             ],
         ),
         migrations.CreateModel(
-            name='StoreActiveSwitch',
+            name="StoreActiveSwitch",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('switch_type', models.CharField(choices=[('is_open', '현재 영업 여부'), ('has_ad_mark', '현재 광고상품 사용여부')], max_length=32)),
-                ('is_active', models.BooleanField(default=False)),
-                ('store', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='stores.store')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "switch_type",
+                    models.CharField(choices=[("is_open", "현재 영업 여부"), ("has_ad_mark", "현재 광고상품 사용여부")], max_length=32),
+                ),
+                ("is_active", models.BooleanField(default=False)),
+                ("store", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="stores.store")),
             ],
         ),
         migrations.AddField(
-            model_name='store',
-            name='address',
-            field=models.OneToOneField(default=1, on_delete=django.db.models.deletion.CASCADE, to='stores.storeaddress'),
+            model_name="store",
+            name="address",
+            field=models.OneToOneField(
+                default=1, on_delete=django.db.models.deletion.CASCADE, to="stores.storeaddress"
+            ),
             preserve_default=False,
         ),
     ]

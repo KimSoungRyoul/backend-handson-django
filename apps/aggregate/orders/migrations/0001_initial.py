@@ -8,27 +8,26 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('total_price', models.IntegerField(default=0)),
-                ('address', models.CharField(help_text='주문 배송지', max_length=256)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("total_price", models.IntegerField(default=0)),
+                ("address", models.CharField(help_text="주문 배송지", max_length=256)),
             ],
         ),
         migrations.CreateModel(
-            name='OrderedProduct',
+            name="OrderedProduct",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('count', models.IntegerField(default=1, help_text='주문한 해당 메뉴의 갯수')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders.order')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("count", models.IntegerField(default=1, help_text="주문한 해당 메뉴의 갯수")),
+                ("order", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="orders.order")),
             ],
             options={
-                'db_table': 'ordered_product',
+                "db_table": "ordered_product",
             },
         ),
     ]

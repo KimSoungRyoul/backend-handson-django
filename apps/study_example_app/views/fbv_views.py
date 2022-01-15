@@ -105,7 +105,6 @@ def create_order_function_view_to_learn_serializer(request: Request):
 
     return Response(data={"detail": "주문접수가 완료됐습니다.", "order": serializer.data}, status=status.HTTP_201_CREATED)
 
-
     # from rest_framework.generics import get_object_or_404
     # 이 함수는 찾는 instance가 존재하지 않는경우 알아서 ValidationError를 일으켜준다.
     # try:
@@ -113,6 +112,7 @@ def create_order_function_view_to_learn_serializer(request: Request):
     # except Order.DoesNotExist:
     #    return Response(data={"detail":"존재하지 않는 주문번호입니다"}, status=status.HTTP_404_NOT_FOUND)
     # 이렇게 작성해야하는 4줄을 단 한줄로 줄일수있는 편리한 함수이기때문에 활용 빈도가 매우 높다.
+
 
 @extend_schema(
     tags=["학습용 예제 APIs"],
@@ -133,7 +133,8 @@ def modify_order_function_view_to_learn_serializer(request: Request, pk):
     serializer.save()
 
     return Response(
-        data={"detail": f"주문 상태값이 {before_status}->{serializer.data['status']}로 변경됐습니다."}, status=status.HTTP_200_OK,
+        data={"detail": f"주문 상태값이 {before_status}->{serializer.data['status']}로 변경됐습니다."},
+        status=status.HTTP_200_OK,
     )
 
 
@@ -141,7 +142,6 @@ def modify_order_function_view_to_learn_serializer(request: Request, pk):
     tags=["학습용 예제 APIs"],
     summary="Serializer 학습용 asdfsdff",
     request=EmployeeSerializer,
-
 )
 @api_view(http_method_names=["POST"])
 def asdf(request):

@@ -43,7 +43,9 @@ class User(AbstractUser):
     phone = models.CharField(max_length=64, blank=True, help_text="전화번호")
     name_kor = models.CharField(max_length=64, help_text="회원 성함(한국어)")
     registration_number = custom_fields.EncryptedField(
-        max_length=custom_fields.encrypt_max_length(16), help_text="주민등록번호", blank=True,
+        max_length=custom_fields.encrypt_max_length(16),
+        help_text="주민등록번호",
+        blank=True,
     )
 
     class Meta:
@@ -51,11 +53,10 @@ class User(AbstractUser):
 
 
 class StoreOwner(User):
-
     @property
     def has_multi_store(self) -> bool:
         """
-            상점 여러개 소유한 사장님인가?
+        상점 여러개 소유한 사장님인가?
         """
 
         return True
@@ -65,11 +66,10 @@ class StoreOwner(User):
 
 
 class Customer(User):
-
     @property
     def is_init_user(self) -> bool:
         """
-            아직 첫 주문을 완료하지 않은 고객인가?
+        아직 첫 주문을 완료하지 않은 고객인가?
         """
         return False
 

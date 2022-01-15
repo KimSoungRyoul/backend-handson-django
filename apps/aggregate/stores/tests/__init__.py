@@ -40,7 +40,12 @@ class StoreModelTest(TestCase):
             store_type=Store.StoreType.FOOD,
             store_owner=StoreOwner.objects.create_user(username="asdfasdf", password="1234"),
             address=StoreAddress.objects.create(
-                si="서울시", gu="서초구", gun="서초동", detail="마제스타시티 15층", lat=32.222, lng=128.234234,
+                si="서울시",
+                gu="서초구",
+                gun="서초동",
+                detail="마제스타시티 15층",
+                lat=32.222,
+                lng=128.234234,
             ),
         )
         store = StoreRepository.prefetch_related("storeactiveswitch_set", "storetext_set").get(id=store.id)

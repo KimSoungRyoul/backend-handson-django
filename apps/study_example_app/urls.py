@@ -5,14 +5,14 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.routers import DefaultRouter
 
-#from study_example_app.views.example_views import OrderViewSet
-#from study_example_app.views.example_views import StoreViewSet
+# from study_example_app.views.example_views import OrderViewSet
+# from study_example_app.views.example_views import StoreViewSet
 # from study_example_app.views.example_views import UserClassBasedViewSet
 
 router = DefaultRouter()
 # router.register(prefix=r"users", viewset=UserClassBasedViewSet, basename="user")
-#router.register(prefix="stores", viewset=StoreViewSet, basename="store")
-#router.register(prefix="orders", viewset=OrderViewSet, basename="order")
+# router.register(prefix="stores", viewset=StoreViewSet, basename="store")
+# router.register(prefix="orders", viewset=OrderViewSet, basename="order")
 
 
 # views.py
@@ -38,8 +38,9 @@ from django.urls import path
 
 
 urlpatterns = [
-    path(route="users/detail/<slug:user_pk>/", view=user_show_detail_function_view22, name="user-detail-api"),  # 회원 상세 조회
-
+    path(
+        route="users/detail/<slug:user_pk>/", view=user_show_detail_function_view22, name="user-detail-api"
+    ),  # 회원 상세 조회
 ]
 
 # urls.py

@@ -19,7 +19,9 @@ class Migration(migrations.Migration):
             model_name="product",
             name="store",
             field=models.ForeignKey(
-                help_text="이 상품을 판매하는 가게", on_delete=django.db.models.deletion.CASCADE, to="stores.store",
+                help_text="이 상품을 판매하는 가게",
+                on_delete=django.db.models.deletion.CASCADE,
+                to="stores.store",
             ),
         ),
         migrations.CreateModel(
@@ -42,7 +44,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddIndex(model_name="product", index=models.Index(fields=["created_at"], name="created_at_index")),
         migrations.AddIndex(
-            model_name="product", index=models.Index(fields=["name", "product_type"], name="name_pt_composite_index"),
+            model_name="product",
+            index=models.Index(fields=["name", "product_type"], name="name_pt_composite_index"),
         ),
         migrations.AddIndex(
             model_name="product",
@@ -51,7 +54,8 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name="product",
             constraint=models.CheckConstraint(
-                check=models.Q(("price__lte", 100000000)), name="check_unreasonalbe_price",
+                check=models.Q(("price__lte", 100000000)),
+                name="check_unreasonalbe_price",
             ),
         ),
         migrations.AddConstraint(

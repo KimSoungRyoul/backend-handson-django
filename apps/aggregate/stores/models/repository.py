@@ -47,7 +47,7 @@ class _StoreRepository(BaseRepository):
 
     def active(self) -> _StoreRepository:
         """
-            현재 운영중인 상점들
+        현재 운영중인 상점들
         """
         from aggregate.stores.models import Contract
 
@@ -55,19 +55,20 @@ class _StoreRepository(BaseRepository):
         return self.filter(Exists(Contract.objects.filter(start_date__gte=today, end_date__lt=today)))
 
     def switch_on(self, instance, switch_type: StoreActiveSwitch.SwitchType) -> int:
-        cnt =  instance.storeactiveswitch_set.filter(switch_type=switch_type).update(is_active=True)
-        instance._prefetched_objects_cache.pop('storeactiveswitch_set', None)
+        cnt = instance.storeactiveswitch_set.filter(switch_type=switch_type).update(is_active=True)
+        instance._prefetched_objects_cache.pop("storeactiveswitch_set", None)
         return cnt
 
     def switch_off(self, instance, switch_type: StoreActiveSwitch.SwitchType) -> int:
-        cnt =  instance.storeactiveswitch_set.filter(switch_type=switch_type).update(is_active=False)
-        instance._prefetched_objects_cache.pop('storeactiveswitch_set', None)
+        cnt = instance.storeactiveswitch_set.filter(switch_type=switch_type).update(is_active=False)
+        instance._prefetched_objects_cache.pop("storeactiveswitch_set", None)
         return cnt
 
     def update_text(self, instance, text_type: StoreText.TextType, contents) -> int:
         cnt = instance.storetext_set.filter(text_type=text_type).update(contents=contents)
-        instance._prefetched_objects_cache.pop('storetext_set', None)
+        instance._prefetched_objects_cache.pop("storetext_set", None)
         return cnt
+
 
 class StoreQuerySet(models.QuerySet):
     def create_vendor(self, name, store_owner, *args, **kwargs):
@@ -82,27 +83,27 @@ class StoreQuerySet(models.QuerySet):
 
     def current_valid(self, store):
         """
-            현재 유효한 계약
+        현재 유효한 계약
         """
         today = date.today()
         return self.filter(start_date__gte=today, end_date__lt=today, store=store)
 
     def recently_expired(self, store):
         """
-            가장 최근에 만료된 계약 순서대로
+        가장 최근에 만료된 계약 순서대로
         """
         return self.filter(store=store).order_by("-end_date")
 
     def tomorrow_start(self):
         """
-            내일부터 시작되는 계약
+        내일부터 시작되는 계약
         """
         today = date.today()
         return self.filter(start_date=today + timedelta(days=1))
 
     def tomorrow_expired(self):
         """
-            내일이 계약 만료일이 도래하는
+        내일이 계약 만료일이 도래하는
         """
         today = date.today()
         return self.filter(end_date=today + timedelta(days=1))

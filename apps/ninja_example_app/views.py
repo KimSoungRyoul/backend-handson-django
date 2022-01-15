@@ -3,6 +3,7 @@ from ninja import NinjaAPI
 from ninja.responses import NinjaJSONEncoder
 
 from aggregate.stores.models import Store
+
 # Create your views here.
 NinjaJSONEncoder
 

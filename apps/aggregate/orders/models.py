@@ -33,7 +33,7 @@ class Order(models.Model):
 
 class DailyReportQuerySet(models.QuerySet):
     """
-        통계쿼리 Manager :  django Manager에 대한 내용은 3장을 참고하라
+    통계쿼리 Manager :  django Manager에 대한 내용은 3장을 참고하라
     """
 
     def get_list_by_created_at(self, created_at__gte, created_at__lt) -> List[DailyReport]:
@@ -54,7 +54,7 @@ class DailyReportQuerySet(models.QuerySet):
 
 class DailyReport(models.Model):
     """
-        일별 통계
+    일별 통계
     """
 
     day = models.DateField(help_text="날짜", primary_key=True)
@@ -71,6 +71,7 @@ class DailyReport(models.Model):
         return (
             f" {self.day.strftime('%Y-%m-%d')}:DailyReport(total_cnt:{self.total_cnt} total_sales: {self.total_sales})"
         )
+
 
 #
 # report_list: List[DailyReport] = DailyReport.objects.get_list_by_created_at(

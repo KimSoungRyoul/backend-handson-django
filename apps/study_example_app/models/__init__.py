@@ -17,7 +17,9 @@ class Team(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=128, help_text="학생 이름")
     phone = models.CharField(
-        max_length=32, help_text="연락처", validators=[validators.RegexValidator(regex=r"\d{2,3}-\d{3,4}-\d{4}")],
+        max_length=32,
+        help_text="연락처",
+        validators=[validators.RegexValidator(regex=r"\d{2,3}-\d{3,4}-\d{4}")],
     )
     age = models.PositiveIntegerField(help_text="나이", default=0)
     major = models.CharField(max_length=34, help_text="전공", default="sdf")

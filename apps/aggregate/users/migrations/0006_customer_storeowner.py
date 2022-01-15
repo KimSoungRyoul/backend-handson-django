@@ -7,36 +7,34 @@ import aggregate
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0005_alter_user_managers'),
+        ("users", "0005_alter_user_managers"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Customer',
-            fields=[
-            ],
+            name="Customer",
+            fields=[],
             options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('users.user',),
+            bases=("users.user",),
             managers=[
-                ('objects', aggregate.users.models.UserManager()),
+                ("objects", aggregate.users.models.UserManager()),
             ],
         ),
         migrations.CreateModel(
-            name='StoreOwner',
-            fields=[
-            ],
+            name="StoreOwner",
+            fields=[],
             options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('users.user',),
+            bases=("users.user",),
             managers=[
-                ('objects', aggregate.users.models.UserManager()),
+                ("objects", aggregate.users.models.UserManager()),
             ],
         ),
     ]

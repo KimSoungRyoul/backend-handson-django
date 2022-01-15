@@ -6,14 +6,14 @@ from django.db import models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0002_auto_20210922_1218'),
+        ("users", "0002_auto_20210922_1218"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='name_kor',
-            field=models.CharField(default='', help_text='회원 성함(한국어)', max_length=64),
+            model_name="user",
+            name="name_kor",
+            field=models.CharField(default="", help_text="회원 성함(한국어)", max_length=64),
             preserve_default=False,
         ),
     ]

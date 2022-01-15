@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import List
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "h^jz=pr_u0c&%b-@b9%=j93)t&mf_s&1h!w+mf*i$mm*ithp94"
@@ -28,7 +29,6 @@ INSTALLED_APPS = [
     "aggregate.stores",
     "aggregate.orders",
     "aggregate.products",
-    "shopping_mall",
     "user_management",
     "store_management",
     "order_management",
@@ -84,7 +84,6 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,  # OAS3 Meta정보 API를 비노출 처리합니다.
     "SWAGGER_UI_DIST": "//unpkg.com/swagger-ui-dist@3.38.0",  # Swagger UI 버전을 조절할 수 있습니다. https://www.npmjs.com/package/swagger-ui-dist 해당 링크에서 최신버전을 확인후 취향에 따라 version을 수정해서 사용하세요.
-
 }
 
 # Database
@@ -92,7 +91,6 @@ SPECTACULAR_SETTINGS = {
 DATABASES = {
     # sqlite 를 DB로 사용하려면 주석처리를 해제하세요
     #  "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3",},
-
     # postgres를 DB로 사용하려면 주석처리를 해제하세요
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -102,7 +100,6 @@ DATABASES = {
         "HOST": "127.0.0.1",
         "PORT": "5432",
     },
-
     # mysql를 DB로 사용하려면 주석처리를 해제하세요.
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -116,16 +113,19 @@ DATABASES = {
 
 # https://docs.djangoproject.com/en/3.1/ref/settings/#sessions 자세한 정보는 여기서 확인할 수 있습니다. (공식문서를 잘 읽을줄 알아야 합니다.)
 SESSION_COOKIE_AGE = 60 * 60 * 24  # 로그인시 세션의 만료시간은 1day default
+
+
 # 세션 저장소(SessionStore)를 관계형 Database로 지정 Django의 default값
-SESSION_ENGINE = "django.contrib.sessions.backends.db"
 # 세션 저장소로 다음 3가지 값 중에 하나를 선택할 수 있습니다.
 # 'django.contrib.sessions.backends.db'  # rdb(ex: mysql,postgres를 세션 저장소로 사용합니다)
 # 'django.contrib.sessions.backends.file' # 임의 파일을 생성해서 세션 저장소로 사용합니다.
 # 'django.contrib.sessions.backends.cache' # 메모리 DB (ex: redis)를 세션 저장소로 사용합니다. 실서버 운용시 가장 적절한 선택입니다.
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379',
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
     }
 }
 
