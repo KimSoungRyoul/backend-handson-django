@@ -179,12 +179,12 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # 이 세팅을 주석처리하면 console에 SQL 로그들이 출력되지 않습니다.
-LOGGING = {
-    "version": 1,
-    "filters": {"require_debug_true": {"()": "django.utils.log.RequireDebugTrue"}},
-    "handlers": {"console": {"level": "DEBUG", "filters": ["require_debug_true"], "class": "logging.StreamHandler"}},
-    "loggers": {"django.db.backends": {"level": "DEBUG", "handlers": ["console"]}},
-}
+# LOGGING = {
+#     "version": 1,
+#     "filters": {"require_debug_true": {"()": "django.utils.log.RequireDebugTrue"}},
+#     "handlers": {"console": {"level": "DEBUG", "filters": ["require_debug_true"], "class": "logging.StreamHandler"}},
+#     "loggers": {"django.db.backends": {"level": "DEBUG", "handlers": ["console"]}},
+# }
 
 AES256_ENCRYPTION_KEY = b"d40e150996e5e6c10f08ba4efab746a3"
 SEED256_ENCRYPTION_KEY = b"bd9fc900714c1f94"

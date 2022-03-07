@@ -12,6 +12,7 @@ from rest_framework.routers import DefaultRouter
 
 from frontend_app.views import MainPageTemplateView
 from ninja_example_app.views import ninja_api
+from store_management.views import AGenericView, drf_fbv
 from study_example_app.views.drf_spectacular_views import EmployeeWithCustomDepartmentViewSet
 
 from user_management.views import UserViewSet
@@ -36,13 +37,16 @@ urlpatterns = [
     path("ninja-api/", ninja_api.urls),
     path("asdf/<slug:username>/", view=asdf, name="asdf-api"),
     path("api/", include(router.urls)),
+    path("store11/", view=AGenericView.as_view(), name="generic_api_view1"),
+    path("store22/", view=drf_fbv, name="generic_api_view2"),
+
     path("study-example-app/", include("study_example_app.urls")),
     path("admin/", admin.site.urls),
-    # Open API 문서 소스코드 형태
+    # Open API 문서
     path("docs/json/", SpectacularJSONAPIView.as_view(), name="schema-json"),
     path("docs/yaml/", SpectacularYAMLAPIView.as_view(), name="swagger-yaml"),
     path("", MainPageTemplateView.as_view(), name="frontend_main_page"),
-    # Open API Document UI 형태:
+    # Open API Document with UI:
     path("docs/swagger/", SpectacularSwaggerView.as_view(url_name="schema-json"), name="swagger-ui"),
     path("docs/redoc/", SpectacularRedocView.as_view(url_name="schema-json"), name="redoc"),
 ]
