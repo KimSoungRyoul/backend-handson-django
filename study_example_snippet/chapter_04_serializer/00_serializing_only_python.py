@@ -33,7 +33,13 @@ class User:
     # created_at: datetime = None
 
     def __init__(
-        self, username: str, password: str, email: str, name: str, age: int, is_superuser: bool,
+        self,
+        username: str,
+        password: str,
+        email: str,
+        name: str,
+        age: int,
+        is_superuser: bool,
     ):
         self.username = username
         self.password = password
@@ -82,7 +88,7 @@ a = {
             "name": "김팀장",
             "age": -1,
             "is_superuser": true,
-            "created_at":"2021-04-08 12:45:18",
+            "created_at": "2021-04-08 12:45:18",
             "organization": null,
         },
     },

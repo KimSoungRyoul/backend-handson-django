@@ -5,7 +5,7 @@ description = "한빛미디어 '처음 시작하는 장고' 학습용 예제 코
 authors = ["SoungRyoul Kim <KimSoungRyoul@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9.1"
+python = "^3.9.6"
 django = "^4.0.0"
 djangorestframework = "^3.12.2"
 django-filter = "^2.4.0"
@@ -13,41 +13,37 @@ drf-spectacular = "0.12.0"
 django-extensions = "^3.0.9"
 drf-nested-routers = "^0.92.1"
 requests = "^2.25.1"
-ipython = {extras = ["notebook"], version = "^7.19.0"}
-Werkzeug = "^1.0.1"
-bootstrap-admin = "^0.4.4"
+# ipython = {extras = ["notebook"], version = "^7.19.0"}
+
 psycopg2 = "^2.9.2"
 channels = "^3.0.3"
-mypy = "^0.812"
-django-stubs = "^1.8.0"
-djangorestframework-stubs = "^1.4.0"
+
+
 django-mysql = "^3.12.0"
 Pillow = "^8.3.1"
 mysqlclient = "^2.0.3"
 django-ninja = "^0.15.0"
-#cryptography = "^3.4.8"
-django-dotenv = "^1.4.2"
 django-redis = "^5.2.0"
+djangorestframework-simplejwt = "^5.1.0"
+uvicorn = "^0.17.5"
+gunicorn = "^20.1.0"
 
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.9.3"
-black = "^20.8b1"
-pytest = "^6.1.2"
-pytest-django = "^3.10.0"
-pytest-mock = "^3.4.0"
-pytest-freezegun = "^0.4.2"
-pytest-mypy-plugins = "^1.7.0"
-coverage = "^5.5"
+django-stubs = "^1.8.0"
+djangorestframework-stubs = "^1.4.0"
+Werkzeug = "^2.0.3"
+mypy = "^0.941"
+#
+#[tool.poetry.extras]
 
-
-[tool.poetry.extras]
-production = [ "psycopg2", "Collectfast", "django-storages", "dj-database-url"]
+#production = [ "psycopg2", "Collectfast", "django-storages", "dj-database-url"]
 
 
 [tool.black]
 line-length = 120
-target-version = ['py38']
+target-version = ['py39']
 include = '\.pyi?$'
 exclude = '''
 

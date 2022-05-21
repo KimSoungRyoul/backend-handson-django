@@ -28,17 +28,29 @@ services:
       - ./.volumes/mysql/:/var/lib/mysql:rw
     environment:
       MYSQL_USER: user
-      MYSQL_DATABASE: django_test
+      MYSQL_DATABASE: django_db
       MYSQL_ROOT_PASSWORD: "password"
       MYSQL_PASSWORD: 1234
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
-  djang-backend-redis:
+  django-backend-redis:
     image: redis:alpine3.13
-    container_name: djang-backend-redis
+    container_name: django-backend-redis
     ports:
       - "6379:6379"
-#
+
+  django-backend-rabbitmq:
+    image: bitnami/rabbitmq:3.9.13
+    container_name: django-backend-rabbitmq
+    ports:
+      - '15672:15672'
+    environment:
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=1234
+
+
+
+
 #  django-backend-oracle-db:
 #    image: store/oracle/database-enterprise:12.2.0.1
 ##    build:

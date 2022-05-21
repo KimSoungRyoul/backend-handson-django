@@ -21,6 +21,7 @@ class ABCCipher(metaclass=abc.ABCMeta):
     def _padding(cls):
         return padding.PKCS7(cls._algorithm.block_size)
 
+
     @classmethod
     @property
     def _cipher(cls) -> Cipher:

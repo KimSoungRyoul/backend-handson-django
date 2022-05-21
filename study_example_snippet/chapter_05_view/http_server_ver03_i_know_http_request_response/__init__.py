@@ -21,7 +21,7 @@ server_socket.listen()
 
 def hello_function_view(http_request: HTTPRequest) -> HTTPResponse:
     print(http_request.http_method)  # "GET or POST or ..."
-    print(http_request.http_path) # "/hello or /bye or ..."
+    print(http_request.http_path)  # "/hello or /bye or ..."
     print(http_request.http_version)
     print(http_request.headers)
     print(http_request.request_body)

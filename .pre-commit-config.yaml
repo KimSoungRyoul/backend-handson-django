@@ -1,3 +1,5 @@
+default_language_version:
+  python: python3.9
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
@@ -11,18 +13,40 @@ repos:
       - id: requirements-txt-fixer
       - id: name-tests-test
         args: [ "--django" ]
-  - repo: https://github.com/pre-commit/pre-commit
-    rev: v2.14.0
+  - repo: https://github.com/pre-commit/mirrors-isort
+      rev: v5.9.3
+      hooks:
+        - id: isort
+          name: isort (python)
+          args: [ "--profile", "black" ]
+        - id: isort
+          name: isort (pyi)
+          types: [ pyi ]
+          args: [ "--profile", "black" ]
+  - repo: https://github.com/psf/black
+      rev: 21.12b0
+      hooks:
+        - id: black
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.2
     hooks:
-      - id: validate_manifest
-  - repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.6.0
-    hooks:
-      - id: reorder-python-imports
-  - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.1.0
-    hooks:
-      - id: add-trailing-comma
+      - id: flake8
+  - repo: local
+      hooks:
+        - id: mypy
+          name: mypy
+          entry: mypy
+          language: system
+          types: [ python ]
+          exclude: "scripts/|django_stubs_ext/"
+          args: [ "--config=mypy.ini", "--cache-dir=/dev/null", "--no-incremental" ]
+        - id: mypy
+          name: mypy (django_stubs_ext)
+          entry: mypy
+          language: system
+          types: [ python ]
+          files: "django_stubs_ext/|django_stubs_ext/tests/"
+          args: [ "--config=mypy.ini", "--cache-dir=/dev/null", "--no-incremental", "--strict" ]
   # django-stub 버그 있어서 일단 mypy 제외합니다
   # https://github.com/typeddjango/django-stubs/issues/417
 #  - repo: https://github.com/pre-commit/mirrors-mypy

@@ -10,10 +10,12 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.routers import DefaultRouter
 
+from drf_example_app.views import UniversityViewSet
 from frontend_app.views import MainPageTemplateView
 from ninja_example_app.views import ninja_api
 from store_management.views import AGenericView, drf_fbv
 from study_example_app.views.drf_spectacular_views import EmployeeWithCustomDepartmentViewSet
+from table_document_app.views import db_schema_docs_template_view
 
 from user_management.views import UserViewSet
 
@@ -26,10 +28,11 @@ router.register(
     viewset=EmployeeWithCustomDepartmentViewSet,
     basename="employee-with-custom-department",
 )
+router.register(prefix=r"universites", viewset=UniversityViewSet, basename="university")
 
 
 @api_view(http_method_names=["GET"])
-def asdf(request:Request, username, *args, **kwargs):
+def asdf(request: Request, username, *args, **kwargs):
     return Response(data={"sdfsdf": username})
 
 
@@ -39,7 +42,6 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path("store11/", view=AGenericView.as_view(), name="generic_api_view1"),
     path("store22/", view=drf_fbv, name="generic_api_view2"),
-
     path("study-example-app/", include("study_example_app.urls")),
     path("admin/", admin.site.urls),
     # Open API 문서
@@ -49,4 +51,6 @@ urlpatterns = [
     # Open API Document with UI:
     path("docs/swagger/", SpectacularSwaggerView.as_view(url_name="schema-json"), name="swagger-ui"),
     path("docs/redoc/", SpectacularRedocView.as_view(url_name="schema-json"), name="redoc"),
+    # asdf
+    path("docs/db-schema/", view=db_schema_docs_template_view, name="db-schema-docs-template-view"),
 ]

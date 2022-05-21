@@ -15,7 +15,7 @@ django를 비롯한 라이브러리 설치하기
 
 ```shell
 
-docker-compose -f docker/docker-compose.yaml --project-name="DjangoBackendProgramming-DockerCompose" up -d
+docker-compose -f docker/docker-compose.yaml --project-name="DjangoBackendProgramming" up -d
 
 
 ```

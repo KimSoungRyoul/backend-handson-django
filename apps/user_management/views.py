@@ -51,6 +51,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
     list=extend_schema(summary="회원 목록조회", tags=["회원관리"]),
     retrieve=extend_schema(summary="회원 상세조회", tags=["회원관리"]),
     create=extend_schema(summary="회원 가입", tags=["회원관리"]),
+    update=extend_schema(summary="회원 일괄 수정", tags=["회원관리"]),
     partial_update=extend_schema(summary="회원 수정", tags=["회원관리"]),
     asdf=extend_schema(summary="asdf", tags=["회원관리"]),
 )

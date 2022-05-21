@@ -69,7 +69,8 @@ if __name__ == "__main__":
         age=37,
         is_superuser=False,
         organization=Organization(
-            name="서버 개발1팀", leader=User(username="teamjang.kim0102", password="qwer1234!", name="김팀장"),
+            name="서버 개발1팀",
+            leader=User(username="teamjang.kim0102", password="qwer1234!", name="김팀장"),
         ),
     )
 

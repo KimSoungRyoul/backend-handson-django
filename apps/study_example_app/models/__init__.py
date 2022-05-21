@@ -68,6 +68,11 @@ class Employee(models.Model):
     is_deleted = models.BooleanField()
     birth_date = models.DateField(null=True)
     employment_period = models.FloatField(help_text="재직 기간 ex: 3.75년")
-    programming_language_skill = postgres_fields.ArrayField(base_field=models.CharField(max_length=32), size=5)
+
+    # postgres에서만 사용가능합니다.
+    # programming_language_skill = postgres_fields.ArrayField(base_field=models.CharField(max_length=32), size=5)
+
+    # mysql에서만 사용가능합니다.
     # programming_language_skill = mysql_fields.ListCharField(base_field=CharField(max_length=32), size=5, max_length=(5 * 33))
+
     department = models.ForeignKey(to="Department", on_delete=models.CASCADE)

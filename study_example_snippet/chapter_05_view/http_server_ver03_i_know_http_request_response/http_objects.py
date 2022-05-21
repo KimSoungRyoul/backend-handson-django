@@ -37,7 +37,12 @@ class HTTPResponse:
     response_body: str
 
     def __init__(
-            self, response_body: str, headers={}, http_status=200, http_message="OK", http_version="HTTP/1.1",
+        self,
+        response_body: str,
+        headers={},
+        http_status=200,
+        http_message="OK",
+        http_version="HTTP/1.1",
     ):
         self.http_version = http_version
         self.http_status = http_status

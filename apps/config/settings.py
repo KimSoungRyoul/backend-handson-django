@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import List
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "h^jz=pr_u0c&%b-@b9%=j93)t&mf_s&1h!w+mf*i$mm*ithp94"
@@ -25,6 +24,7 @@ INSTALLED_APPS = [
     "django_filters",
     "channels",
     # 내가 만든 django app list
+    "table_document_app",
     "aggregate.users",
     "aggregate.stores",
     "aggregate.orders",
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "frontend_app",
     "study_example_app",
     "portfolio",
+    "drf_example_app",
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -48,7 +49,7 @@ MIDDLEWARE = [
     # 'django.middleware.csrf.CsrfViewMiddleware',
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+   #  "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -58,6 +59,8 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",
+
+    "PAGE_SIZE":100,
 }
 
 SPECTACULAR_SETTINGS = {
@@ -92,28 +95,29 @@ DATABASES = {
     # sqlite 를 DB로 사용하려면 주석처리를 해제하세요
     #  "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3",},
     # postgres를 DB로 사용하려면 주석처리를 해제하세요
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django_db",
-        "USER": "postgres",
-        "PASSWORD": "1234",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    },
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": "django_db",
+    #     "USER": "postgres",
+    #     "PASSWORD": "1234",
+    #     "HOST": "127.0.0.1",
+    #     "PORT": "5432",
+    # },
+
+
     # mysql를 DB로 사용하려면 주석처리를 해제하세요.
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'django_test22',
-    #     'USER': 'root',
-    #     'PASSWORD': 'password',
-    #     'HOST': '127.0.0.1',
-    #     'PORT':3306
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_db',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
+    }
 }
 
 # https://docs.djangoproject.com/en/3.1/ref/settings/#sessions 자세한 정보는 여기서 확인할 수 있습니다. (공식문서를 잘 읽을줄 알아야 합니다.)
 SESSION_COOKIE_AGE = 60 * 60 * 24  # 로그인시 세션의 만료시간은 1day default
-
 
 # 세션 저장소(SessionStore)를 관계형 Database로 지정 Django의 default값
 # 세션 저장소로 다음 3가지 값 중에 하나를 선택할 수 있습니다.

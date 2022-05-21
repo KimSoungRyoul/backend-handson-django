@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="{% static "drf-yasg/swagger-ui-dist/favicon-32x32.png" %}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>VMS Models Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Vendor Squad">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+    <h1 class="mt-5">Vendor Management Service Apps/Models</h1>
+
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+
+        <h2 class="display-6">1. Application 목차 </h2>
+        <ul class="list-group">
+            {% for app in apps %}
+                <li class="list-group-item justify-content-between align-items-center"><a href="#app_{{ app.app_name }}">{{ app.app_name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+
+        <h2 class="display-6">2. VMS Entity Relation Diagram </h2>
+        <button type="button" class="btn btn-info" onclick="location.href='{% static "img/vms_erd_all.svg" %}' ">ERD 보러가기</button>
+    </div>
+
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+        <h2 class="display-6">3. Models 상세</h2>
+    </div>
+
+    {% for app in apps %}
+        <h3 class="display-6"> App: {{ app.app_name }}<a name="app_{{ app.app_name }}" href="#{{ app.app_name }}"> #</a></h3>
+
+        {% for model in app.models %}
+            <div class="card card-accent-success" style=" margin-top: -0.25rem !important">
+
+                <div class="card-body">
+                    <h4 class="mt-5 card-title"> {{ model.model_name }} <a name="{{ model.table_name }}">(테이블명: {{ model.table_name }})</a>
+                        <small> <a href="#{{ model.table_name }}" class="badge badge-warning">#</a> </small></h4>
+                    <table class="table table-striped table-bordered table-responsive-md">
+                        <thead>
+                        <th>Column Name</th>
+                        <th>Django Field Type</th>
+                        <th>DB Field Type</th>
+                        <th>Help text</th>
+                        <th>Default( Nullable 여부)</th>
+                        <th>Choices</th>
+                        </thead>
+                        <tbody>
+                        {% for field in model.fields %}
+                            <tr>
+                                <td>
+                                    {% if field.primary_key %}  {% endif %}
+                                    {{ field.name }}
+                                    {% if field.primary_key %} <span class="badge badge-pill badge-primary">PK</span> {% endif %}
+                                    {% if field.db_index %} <span class="badge badge-pill badge-success">Index</span> {% endif %}
+                                    {% if field.unique %} <span class="badge badge-pill badge-info">Unique</span> {% endif %}
+                                </td>
+                                <td>
+                                    {% if field.fk %}
+                                        <strong>{{ field.django_field_type }}</strong>
+                                        <a href="#{{ field.fk }}" class="badge badge-warning"># {{ field.fk }}</a>
+                                    {% else %}
+                                        {{ field.django_field_type }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ field.db_column_type }}</td>
+                                <td>{{ field.help_text }} {% if field.verbose_name %}{{ field.verbose_name }} {% endif %}</td>
+                                <td>
+                                    {% if field.default == "" %} ""
+                                    {% elif field.default != "None" %}
+                                        {{ field.default }}
+                                    {% else %}
+                                        null
+                                    {% endif %}
+                                    <small>({% if field.null %} Nullable {% else %} Non-Nullable {% endif %})</small></td>
+                                <td>
+                                    {% if field.choices %}
+                                        <a href="javascript:$('#{{ model.table_name }}-{{ field.name }}').toggle();" class="badge badge-danger">열어보기</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% if field.choices %}
+
+                                <tr id="{{ model.table_name }}-{{ field.name }}" style="display:none">
+                                    <td class="table-light">{{ field.name }} 에 입력가능한 데이터</td>
+                                    <td colspan="7">
+                                        <table class="table table-sm ">
+                                            <thead class="table-success">
+                                            <th>Value</th>
+                                            <th>상세설명</th>
+                                            </thead>
+                                            <tbody>
+                                            {% for value, desc in field.choices %}
+                                                <tr>
+                                                    <td>{{ value }}</td>
+                                                    <td>{{ desc }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if model.unique_together %}
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5 class="display-6">Composite Unique(복합 유니크)</h5>
+                            </div>
+
+                            <ul class="list-group ">
+                                {% for columns in model.unique_together %}
+                                    <li class="list-group-item list-group-item-info">{{ columns|join:", " }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5 class="display-6">Composite Index(복합 인덱스)</h5>
+                            </div>
+                            <ul class="list-group">
+                                {% for columns in model.index_together %}
+                                    <li class="list-group-item list-group-item-success">{{ columns|join:", " }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+</body>
+
+</html>

@@ -8,6 +8,6 @@ from .views import hello_function_view
 
 # URL Dispatcher
 url_patterns: Dict[str, Callable[[HTTPRequest], HTTPResponse]] = {
-    '/hello': hello_function_view,
-    '/bye': bye_function_view,
+    "/hello": hello_function_view,
+    "/bye": bye_function_view,
 }
