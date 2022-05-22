@@ -1,5 +1,7 @@
 from typing import Type
 
+from django.db import models
+from django.db.models import QuerySet
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -8,6 +10,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
+from aggregate.stores.models import Store
 from aggregate.users.models import User
 from aggregate.users.serializers import UserSerializer
 from user_management.schemas import UserDetailSchema
@@ -76,3 +79,33 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=False, url_path="asdf/(?P<first>\w+)", url_name="asdf", methods=["GET"])
     def asdf(self, request: Request, first, *args, **kwargs):
         return Response(data={"slud": first})
+
+#
+# from django.contrib.auth.hashers import PBKDF2PasswordHasher
+# from django.contrib.auth.models import User
+#
+# user = User.objects.get(id=1)
+# # 비밀변호 변경 로직
+# hasher = PBKDF2PasswordHasher()
+# salt = hasher.salt()
+# encoded_password = PBKDF2PasswordHasher.encode(password="1234", salt=salt)
+# user.password = encoded_password
+# user.save()
+#
+#
+# class User(models.Model):
+#     ...
+#
+#     def set_password(self, raw_password):
+#         hasher = PBKDF2PasswordHasher()
+#         salt = hasher.salt()
+#         encoded_password = PBKDF2PasswordHasher.encode(password="1234", salt=salt)
+#         user.password = encoded_password
+#
+#
+# user = User.objects.get(id=1)
+# # 비밀변호 변경 로직
+# user.set_password(raw_password="1234")
+# user.save()
+
+QuerySet

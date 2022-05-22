@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     "aggregate.products",
     "user_management",
     "store_management",
-    "order_management",
+    "django_app_name",
     # 교육용 snippet app
     "frontend_app",
     "study_example_app",

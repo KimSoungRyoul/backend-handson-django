@@ -82,3 +82,8 @@ class HModel(models.Model):
 
     class Meta:
         db_table = "h_model"
+
+
+class Organization(models.Model):
+    name= models.CharField(max_length=32)
+
