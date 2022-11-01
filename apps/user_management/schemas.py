@@ -1,9 +1,7 @@
-from typing import Any
-from typing import Dict
-
-from rest_framework import serializers
+from typing import Any, Dict
 
 from aggregate.users.models import User
+from rest_framework import serializers
 
 
 class UserQueryParams(serializers.Serializer):
@@ -17,8 +15,14 @@ class UserSchema(serializers.ModelSerializer):
 
 
 class UserDetailSchema(UserSchema):
+    # full_name = serializers.SerializerMethodField(method_name="full_name_function")
+    #
+    # def full_name_function(self, obj:User) -> str:
+    #     full_name: str = obj.last_name + obj.first_name
+    #     return full_name
+
     class Meta(UserSchema.Meta):
-        excludes = ("password",)
+        fields = ("id", "username", "email", "first_name", "last_name", "full_name", "owned_store_count")
 
 
 class UserRequestBody(serializers.ModelSerializer):

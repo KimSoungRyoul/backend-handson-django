@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import random
+from functools import cached_property
+
+from authentication.encryption import encryption_fields as custom_fields
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as _UserManager
 from django.db import models
-
-from authentication.encryption import encryption_fields as custom_fields
+from rest_framework import status
+from rest_framework.exceptions import APIException
 
 
 class UserManager(_UserManager):
@@ -13,6 +17,21 @@ class UserManager(_UserManager):
 
     def active(self):
         return self.filter(is_active=False)
+
+
+class DomainException(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = {"message": "도메인 로직상 문제 발생..."}
+    default_code = "invalid"
+
+
+def something_check_about_welcome_coupon(phone_number: str, username: str):
+    if User.objects.filter(phone=phone_number).exists():
+        raise DomainException({"message": "이미 해당 전화번호로 발급받은 아이디로 쿠폰이 발급되어있습니다."})
+
+    if user := User.objects.filter(username=username).first():
+        user.has_welcome_coupon()
+        user.check_already_use_welcome_coupon()
 
 
 class User(AbstractUser):
@@ -47,6 +66,22 @@ class User(AbstractUser):
         help_text="주민등록번호",
         blank=True,
     )
+
+    @property
+    def full_name(self) -> str:
+        return self.last_name + self.first_name
+
+    @cached_property
+    def owned_store_count(self) -> int:
+        return self.store_set.count()
+
+    # def has_welcome_coupon(self) -> None:
+    #     if not # (실제 쿠폰을 가지고있는지 확인하는 로직) :
+    #         raise DomainExcpetion({"message": "이미 해당 계정은 쿠폰을 가지고 있습니다."})
+    #
+    # def check_already_use_welcome_coupon(self)-> bool:
+    #     if not  # (이미 쿠폰을 사용했는지 확인하는 로직) :
+    #         raise DomainExcpetion({"message": "이미 쿠폰을 사용했습니다."})
 
     class Meta:
         db_table = "user"
@@ -85,5 +120,4 @@ class HModel(models.Model):
 
 
 class Organization(models.Model):
-    name= models.CharField(max_length=32)
-
+    name = models.CharField(max_length=32)

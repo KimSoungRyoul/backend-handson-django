@@ -49,7 +49,7 @@ MIDDLEWARE = [
     # 'django.middleware.csrf.CsrfViewMiddleware',
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-   #  "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    #  "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -58,9 +58,13 @@ REST_FRAMEWORK = {
     # YOUR SETTINGS
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",
-
-    "PAGE_SIZE":100,
+    "PAGE_SIZE": 100,
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        # 'rest_framework.authentication.SessionAuthentication',
+    ],
 }
 
 SPECTACULAR_SETTINGS = {
@@ -103,18 +107,33 @@ DATABASES = {
     #     "HOST": "127.0.0.1",
     #     "PORT": "5432",
     # },
-
-
     # mysql를 DB로 사용하려면 주석처리를 해제하세요.
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_db',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
-    }
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "django_db",
+        "USER": "root",
+        "PASSWORD": "password",
+        "HOST": "127.0.0.1",
+        "PORT": 3306,
+    },
+    "replica1": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "django_db",
+        "USER": "root",
+        "PASSWORD": "password",
+        "HOST": "127.0.0.1",
+        "PORT": 3306,
+    },
+    "replica2": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "django_db",
+        "USER": "root",
+        "PASSWORD": "password",
+        "HOST": "127.0.0.1",
+        "PORT": 3306,
+    },
 }
+# DATABASE_ROUTERS = ['config.db_router.PrimaryReplicaRouter']
 
 # https://docs.djangoproject.com/en/3.1/ref/settings/#sessions 자세한 정보는 여기서 확인할 수 있습니다. (공식문서를 잘 읽을줄 알아야 합니다.)
 SESSION_COOKIE_AGE = 60 * 60 * 24  # 로그인시 세션의 만료시간은 1day default
@@ -125,6 +144,7 @@ SESSION_COOKIE_AGE = 60 * 60 * 24  # 로그인시 세션의 만료시간은 1day
 # 'django.contrib.sessions.backends.file' # 임의 파일을 생성해서 세션 저장소로 사용합니다.
 # 'django.contrib.sessions.backends.cache' # 메모리 DB (ex: redis)를 세션 저장소로 사용합니다. 실서버 운용시 가장 적절한 선택입니다.
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 CACHES = {
     "default": {
@@ -183,12 +203,12 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # 이 세팅을 주석처리하면 console에 SQL 로그들이 출력되지 않습니다.
-# LOGGING = {
-#     "version": 1,
-#     "filters": {"require_debug_true": {"()": "django.utils.log.RequireDebugTrue"}},
-#     "handlers": {"console": {"level": "DEBUG", "filters": ["require_debug_true"], "class": "logging.StreamHandler"}},
-#     "loggers": {"django.db.backends": {"level": "DEBUG", "handlers": ["console"]}},
-# }
+LOGGING = {
+    "version": 1,
+    "filters": {"require_debug_true": {"()": "django.utils.log.RequireDebugTrue"}},
+    "handlers": {"console": {"level": "DEBUG", "filters": ["require_debug_true"], "class": "logging.StreamHandler"}},
+    "loggers": {"django.db.backends": {"level": "DEBUG", "handlers": ["console"]}},
+}
 
 AES256_ENCRYPTION_KEY = b"d40e150996e5e6c10f08ba4efab746a3"
 SEED256_ENCRYPTION_KEY = b"bd9fc900714c1f94"

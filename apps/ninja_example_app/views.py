@@ -1,13 +1,56 @@
-from django.forms import model_to_dict
-from ninja import NinjaAPI
-from ninja.responses import NinjaJSONEncoder
+import json
+from datetime import date, datetime, time, timedelta
+from typing import Any, Dict
 
 from aggregate.stores.models import Store
+from django.core.handlers.wsgi import WSGIRequest
+from django.forms import model_to_dict
+from django.http import HttpRequest
+from ninja import NinjaAPI
+from ninja import Schema as NinjaSchema
+from ninja.renderers import JSONRenderer
+from ninja.responses import NinjaJSONEncoder
+from pydantic.json import pydantic_encoder
+from rest_framework.decorators import api_view
+from rest_framework.request import Request
+from rest_framework.response import Response
 
-# Create your views here.
-NinjaJSONEncoder
+DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
-ninja_api = NinjaAPI(title="django Ninja API 예시")
+
+class CustomJSONEncoder(NinjaJSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime):
+            return o.strftime(format=DATETIME_FORMAT)
+        elif isinstance(o, date):
+            ...
+        elif isinstance(o, time):
+            ...
+        elif isinstance(o, timedelta):
+            ...
+
+        return pydantic_encoder(o)
+
+
+class MyJsonRenderer(JSONRenderer):
+    encoder_class = CustomJSONEncoder
+
+
+ninja_api = NinjaAPI(title="django Ninja API 예시", renderer=MyJsonRenderer())
+
+
+class HelloResponseSchema(NinjaSchema):
+    aa_datetime: datetime
+
+    class Config(NinjaSchema.Config):
+        json_encoders = {
+            datetime: lambda v: v.strftime(format="%Y-%m-%d %H:%M:%S"),
+        }
+
+
+@ninja_api.get("/aaa")
+def api_aaa(request: WSGIRequest):
+    return 200, HelloResponseSchema(aa_datetime=datetime.now())
 
 
 @ninja_api.get("/stores")

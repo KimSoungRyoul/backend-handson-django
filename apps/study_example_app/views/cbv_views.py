@@ -1,20 +1,20 @@
+from aggregate.orders.models import Order
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema
-from drf_spectacular.utils import extend_schema_view
-from drf_spectacular.utils import OpenApiParameter
-from rest_framework import serializers
-from rest_framework import status
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from rest_framework import serializers, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-
 from study_example_app.models import DjangoModel
-from study_example_app.schemas import USER_CREATE_EXAMPLES
-from study_example_app.schemas import USER_CREATE_QUERY_PARAM_EXAMPLES
+from study_example_app.schemas import (
+    USER_CREATE_EXAMPLES,
+    USER_CREATE_QUERY_PARAM_EXAMPLES,
+)
 from study_example_app.serializers import DjangoModelSerializer
+from study_example_app.serializers.order_serializers import OrderSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):

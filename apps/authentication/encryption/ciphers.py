@@ -5,9 +5,7 @@ import base64
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
-from cryptography.hazmat.primitives.ciphers import algorithms
-from cryptography.hazmat.primitives.ciphers import Cipher
-from cryptography.hazmat.primitives.ciphers import modes
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from django.conf import settings
 
 
@@ -20,7 +18,6 @@ class ABCCipher(metaclass=abc.ABCMeta):
     @property  # python 3.9부터 classmethod와 property 혼합 사용이 가능합니다.
     def _padding(cls):
         return padding.PKCS7(cls._algorithm.block_size)
-
 
     @classmethod
     @property
@@ -57,10 +54,11 @@ class AES256Cipher(ABCCipher):
     _encryption_key = settings.AES256_ENCRYPTION_KEY
 
 
-class SEED128Cipher(ABCCipher):
-    """
-    한국에서 자체적으로 개발한 암호화알고리즘, 주로 은행,공공기관에서 사용
-    """
-
-    _algorithm = algorithms.SEED
-    _encryption_key = settings.SEED256_ENCRYPTION_KEY
+#
+# class SEED128Cipher(ABCCipher):
+#     """
+#     한국에서 자체적으로 개발한 암호화알고리즘, 주로 은행,공공기관에서 사용
+#     """
+#
+#     _algorithm = algorithms.SEED
+#     _encryption_key = settings.SEED256_ENCRYPTION_KEY

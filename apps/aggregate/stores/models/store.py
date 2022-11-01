@@ -1,9 +1,14 @@
 from __future__ import annotations
 
+from typing import Iterable, Optional
+
+from aggregate.stores.models.repository import StoreQuerySet, _StoreRepository
+from django.core.cache import cache
 from django.db import models
 
-from aggregate.stores.models.repository import _StoreRepository
-from aggregate.stores.models.repository import StoreQuerySet
+
+class CustomLogs:
+    pass
 
 
 class Store(models.Model):
@@ -25,6 +30,10 @@ class Store(models.Model):
 
     class Meta:
         db_table = "store"
+
+    def save(self, *args, **kwargs) -> None:
+
+        super().save(*args, **kwargs)
 
     @property
     def is_open(self):

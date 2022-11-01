@@ -1,23 +1,17 @@
 from typing import Type
 
+from aggregate.stores.models import Store
+from aggregate.users.models import User
+from aggregate.users.serializers import UserSerializer
 from django.db import models
 from django.db.models import QuerySet
-from rest_framework import mixins
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
-
-from aggregate.stores.models import Store
-from aggregate.users.models import User
-from aggregate.users.serializers import UserSerializer
-from user_management.schemas import UserDetailSchema
-from user_management.schemas import UserRequestBody
-from user_management.schemas import UserSchema
+from user_management.schemas import UserDetailSchema, UserRequestBody, UserSchema
 from user_management.serializers import UserQueryParamSerializer
-
 
 # Create your views here.
 
@@ -46,39 +40,56 @@ class _UserViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.Gene
         return Response(serializer.http_request_packet)
 
 
-from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import viewsets
 
 
-@extend_schema_view(
-    list=extend_schema(summary="회원 목록조회", tags=["회원관리"]),
-    retrieve=extend_schema(summary="회원 상세조회", tags=["회원관리"]),
-    create=extend_schema(summary="회원 가입", tags=["회원관리"]),
-    update=extend_schema(summary="회원 일괄 수정", tags=["회원관리"]),
-    partial_update=extend_schema(summary="회원 수정", tags=["회원관리"]),
-    asdf=extend_schema(summary="asdf", tags=["회원관리"]),
-)
-class UserViewSet(viewsets.ModelViewSet):
+# @extend_schema_view(
+#     list=extend_schema(summary="회원 목록조회", tags=["회원관리"]),
+#     retrieve=extend_schema(summary="회원 상세조회", tags=["회원관리"]),
+#     create=extend_schema(summary="회원 가입", tags=["회원관리"]),
+#     update=extend_schema(summary="회원 일괄 수정", tags=["회원관리"]),
+#     partial_update=extend_schema(summary="회원 수정", tags=["회원관리"]),
+#     asdf=extend_schema(summary="asdf", tags=["회원관리"]),
+# )
+class UserViewSet(viewsets.GenericViewSet):
     """
     ModelViewSet을 활용한
     """
 
     queryset = User.objects.all()
     serializer_class = UserSchema
-    serializer_classes = {
-        "list": UserSchema,
-        "retrieve": UserDetailSchema,
-        "create": UserRequestBody,
-        "update": UserRequestBody,
-        "partial_update": UserRequestBody,
-    }
+    # serializer_classes = {
+    #     "list": UserSchema,
+    #     "retrieve": UserDetailSchema,
+    #     "create": UserRequestBody,
+    #     "update": UserRequestBody,
+    #     "partial_update": UserRequestBody,
+    # }
 
-    def get_serializer_class(self) -> Type[Serializer]:
-        return self.serializer_classes.get(self.action, self.serializer_class)
+    @extend_schema(
+        summary="회원 상세조회",
+        tags=["회원관리"],
+        responses={
+            status.HTTP_200_OK: UserDetailSchema,
+        },
+    )
+    def retrieve(
+        self,
+        request: Request,
+        pk: str,
+    ) -> Response:
+        instance: User = User.objects.get(pk=pk)
+        serializer = UserDetailSchema(instance)
+        return Response(serializer.data)
 
-    @action(detail=False, url_path="asdf/(?P<first>\w+)", url_name="asdf", methods=["GET"])
-    def asdf(self, request: Request, first, *args, **kwargs):
-        return Response(data={"slud": first})
+    # def get_serializer_class(self) -> Type[Serializer]:
+    #     return self.serializer_classes.get(self.action, self.serializer_class)
+    #
+    # @action(detail=False, url_path="asdf/(?P<first>\w+)", url_name="asdf", methods=["GET"])
+    # def asdf(self, request: Request, first, *args, **kwargs):
+    #     return Response(data={"slud": first})
+
 
 #
 # from django.contrib.auth.hashers import PBKDF2PasswordHasher
@@ -107,5 +118,3 @@ class UserViewSet(viewsets.ModelViewSet):
 # # 비밀변호 변경 로직
 # user.set_password(raw_password="1234")
 # user.save()
-
-QuerySet
