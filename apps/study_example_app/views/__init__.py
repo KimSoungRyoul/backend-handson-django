@@ -4,7 +4,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from study_example_app.models import DjangoModel
+from study_example_app.models import DjangoModel, Menu, Restaurant
 from study_example_app.serializers import DjangoModelSerializer
 
 
@@ -68,14 +68,15 @@ class DjangoModelViewSet(ModelViewSet):
     #
     # @transaction.atomic
     # def create(self, request, *args, **kwargs):
-    #     r1 = Restaurant2.objects.create(name="고급 레스토랑 In Back 스테이크 하우스", tel_num="070-1111-2222")
+    #
+    #     r1 = Restaurant.objects.create(name="고급 레스토랑 In Back 스테이크 하우스", tel_num="070-1111-2222")
     #     Menu.objects.create(name="토마토 치오피노 파스타", price=20500, restaurant=r1)
     #     Menu.objects.create(name="투움바 스테이크 파스타", price=28900, restaurant=r1)
     #     Menu.objects.create(name="베이비 백 립", price=37900, restaurant=r1)
     #     Menu.objects.create(name="슈림프 감바스 셀러드", price=19900, restaurant=r1)
     #     Menu.objects.create(name="카프레제", price=19900, restaurant=r1)
     #
-    #     menu_queryset = Menu.objects.all()
+    #     menu_queryset = Menu.objects.filter(name__contains="파스타")
     #
     #     # 이 반복문 속에서 발생하는 SQL의 갯수는 몇개일까?
     #     for menu in menu_queryset:

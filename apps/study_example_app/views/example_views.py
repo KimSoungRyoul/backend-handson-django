@@ -1,6 +1,8 @@
 from typing import Any
 
-from aggregate.orders.models import Order
+from django.db.models import Prefetch
+
+from aggregate.orders.models import Order, OrderedProduct
 from aggregate.products.serializers import OrderSerializer
 from aggregate.stores.models import Store
 from aggregate.stores.serializers import StoreSerializer
@@ -142,7 +144,6 @@ class GenericAPIViewExampleView(generics.GenericAPIView):
     ]
 
     def list(self, request: Request, *args, **kwargs) -> Response:
-
         return Response(data={"message": "GenericAPIView GET응답입니다."})
 
 
@@ -160,7 +161,6 @@ def users_api(request):
 
 @api_view(http_method_names=["GET", "PATCH", "PUT", "DELETE"])
 def users_detail_api(request: Request):
-
     if request.method == "GET":
         # API 동작에 필요한 로직 작성....
         return Response(data={"message": "User GET 응답입니다."})
@@ -176,10 +176,25 @@ def users_detail_api(request: Request):
 
     return Response(data={"message": "그 이외 http method 입니다."})
 
-
+# todo: OrderedProduct 쿼리셋 N+1 문제 설명하기
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.prefetch_related("product_set").all()
+    queryset = Order.objects.prefetch_related(
+        Prefetch("orderedproduct_set", queryset=OrderedProduct.objects.select_related("product"))
+    )
     serializer_class = OrderSerializer
+
+    @extend_schema(summary="주문 리스트 조회 API", tags=["주문"])
+    # @transaction.atomic(using="replica1")
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        # list(Store.objects.all())
+        # page = self.paginate_queryset(queryset)
+        # if page is not None:
+        #     serializer = self.get_serializer(page, many=True)
+        #     return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     @extend_schema(summary="주문 상세 조회 API", tags=["주문"])
     # @transaction.atomic(using="replica1")
@@ -197,9 +212,11 @@ class OrderViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+    @extend_schema(summary="주문 approval 조회 API22", tags=["주문"])
     @action(url_path="approval", detail=True, methods=["PATCH"])
     def approval(self, request: Request, *args, **kwargs):
-        ...
+        list(self.filter_queryset(self.get_queryset()))
+        return Response(data={"sdf": ""})
 
     @action(url_path="delivery-platform", detail=True, methods=["PATCH"])
     def delivery_platform(self, request: Request, *args, **kwargs):
@@ -208,7 +225,6 @@ class OrderViewSet(viewsets.ModelViewSet):
     @action(url_path="delivery", detail=True, methods=["POST"])
     def delivery(self, request: Request, *args, **kwargs):
         ...
-
 
 #
 # class UserAPIView(APIView):
@@ -219,3 +235,4 @@ class OrderViewSet(viewsets.ModelViewSet):
 # class OrderAPIView(APIView):
 #     authentication_classes = ...
 #     permission_classes = ...
+from django.http.multipartparser import parse_boundary_stream

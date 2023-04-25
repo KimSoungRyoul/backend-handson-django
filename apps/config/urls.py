@@ -19,7 +19,7 @@ from study_example_app.views.drf_spectacular_views import (
 )
 from study_example_app.views.example_views import OrderViewSet
 from table_document_app.views import db_schema_docs_template_view
-from user_management.views import UserViewSet
+from user_management.views import UserViewSet, StaffViewSet
 
 router = DefaultRouter()
 
@@ -32,8 +32,9 @@ router.register(
 )
 router.register(prefix="universites", viewset=UniversityViewSet, basename="university")
 router.register(prefix="products", viewset=ProductViewSet, basename="product")
-router.register(prefix="stores", viewset=StoreViewSet, basename="store")
-router.register(prefix="orders", viewset=OrderViewSet, basename="order")
+#router.register(prefix="stores", viewset=StoreViewSet, basename="store")
+#router.register(prefix="orders", viewset=OrderViewSet, basename="order")
+router.register(prefix="staffs", viewset=StaffViewSet, basename="staff")
 
 
 @api_view(http_method_names=["GET"])

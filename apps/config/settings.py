@@ -1,5 +1,8 @@
 from pathlib import Path
 from typing import List
+import django_stubs_ext
+
+django_stubs_ext.monkeypatch()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -96,8 +99,11 @@ SPECTACULAR_SETTINGS = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
-    # sqlite 를 DB로 사용하려면 주석처리를 해제하세요
-    #  "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3",},
+   # sqlite 를 DB로 사용하려면 주석처리를 해제하세요
+   #  "default": {
+   #    "ENGINE": "django.db.backends.sqlite3",
+   #    "NAME": BASE_DIR / "db.sqlite3",
+   #  },
     # postgres를 DB로 사용하려면 주석처리를 해제하세요
     # "default": {
     #     "ENGINE": "django.db.backends.postgresql",
@@ -116,22 +122,22 @@ DATABASES = {
         "HOST": "127.0.0.1",
         "PORT": 3306,
     },
-    "replica1": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "django_db",
-        "USER": "root",
-        "PASSWORD": "password",
-        "HOST": "127.0.0.1",
-        "PORT": 3306,
-    },
-    "replica2": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "django_db",
-        "USER": "root",
-        "PASSWORD": "password",
-        "HOST": "127.0.0.1",
-        "PORT": 3306,
-    },
+    # "replica1": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "django_db",
+    #     "USER": "root",
+    #     "PASSWORD": "password",
+    #     "HOST": "127.0.0.1",
+    #     "PORT": 3306,
+    # },
+    # "replica2": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "django_db",
+    #     "USER": "root",
+    #     "PASSWORD": "password",
+    #     "HOST": "127.0.0.1",
+    #     "PORT": 3306,
+    # },
 }
 # DATABASE_ROUTERS = ['config.db_router.PrimaryReplicaRouter']
 
@@ -146,12 +152,12 @@ SESSION_COOKIE_AGE = 60 * 60 * 24  # 로그인시 세션의 만료시간은 1day
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379",
+#     }
+# }
 
 TEMPLATES = [
     {

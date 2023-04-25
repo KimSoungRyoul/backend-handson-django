@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from typing import Iterable, Optional
 
-from aggregate.stores.models.repository import StoreQuerySet, _StoreRepository
 from django.core.cache import cache
 from django.db import models
+
+from aggregate.stores.models.manager import StoreQuerySet
+from aggregate.users.models import User
 
 
 class CustomLogs:
@@ -30,9 +32,10 @@ class Store(models.Model):
 
     class Meta:
         db_table = "store"
+        db_table_comment = "상점"
+
 
     def save(self, *args, **kwargs) -> None:
-
         super().save(*args, **kwargs)
 
     @property
@@ -79,4 +82,40 @@ class StoreText(models.Model):
     contents = models.TextField(help_text="대용량 텍스트")
 
 
-StoreRepository = _StoreRepository.as_repository(Store)
+# StoreRepository = _StoreRepository.as_repository(Store)
+
+
+#
+# store = Store.objects.get(id=1)
+# print(store.name) # 싱싱청과물
+# product1 = Product.objects.get(id=1) # 사과
+# product2 = Product.objects.get(id=2) # 복숭아
+# order = Order.objects.create(
+#     total_price=product1.price+product2.price,
+#     address="서울시 서초구 마제스타시티 15층 문앞",
+#     store=store,
+# )
+# order.product_set.add(product1, product2, bulk=True)
+
+
+#
+# store.order_set.create(
+#
+# )
+# compile(source="""
+# a=1;
+# b=2;
+# c=a+b;
+# print(c);
+# """, filename="hello.py", mode="exec")
+
+
+#
+# list(User.objects.filter(first_name="점순"))
+#
+# User.objects.filter(first_name="점순").first()
+#
+# User.objects.get(first_name="점순")
+#
+#
+# User.objects.filter(first_name="점순")[0]

@@ -1,5 +1,8 @@
 from typing import Any
 
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field
+
 from aggregate.orders.models import Order, OrderedProduct
 from aggregate.products.models import Product
 from aggregate.stores.models import Store
@@ -22,7 +25,7 @@ class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
         fields = "__all__"
-
+@extend_schema_field(OpenApiTypes.STR)
 
 class OrderedProductSerializer(serializers.ModelSerializer):
     # product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
@@ -31,11 +34,11 @@ class OrderedProductSerializer(serializers.ModelSerializer):
     price = serializers.IntegerField(source="product.price")
     product_type = serializers.ChoiceField(source="product.product_type", choices=Product.ProductType.choices)
     created_at = serializers.DateTimeField(source="product.created_at")
-    store = StoreSerializer(source="product.store", read_only=True)
+    #store = StoreSerializer(source="product.store", read_only=True)
 
     class Meta:
         model = OrderedProduct
-        fields = ("id", "count", "name", "price", "created_at", "product_type", "store")
+        fields = ("id", "count", "name", "price", "created_at", "product_type", )
 
 
 class OrderSerializer(serializers.ModelSerializer):

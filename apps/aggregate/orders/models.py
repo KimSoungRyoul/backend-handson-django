@@ -13,6 +13,7 @@ class OrderedProduct(models.Model):
 
     class Meta:
         db_table = "ordered_product"
+        db_table_comment = "주문된 상품, Order와 Product사이 매핑테이블"
 
 
 class Order(models.Model):
@@ -25,7 +26,12 @@ class Order(models.Model):
     status = models.CharField(max_length=32, choices=Status.choices, help_text="주문 상태값", default=Status.WAITING)
     total_price = models.IntegerField(default=0)
     store = models.ForeignKey(to="stores.Store", on_delete=models.CASCADE)
-    product_set = models.ManyToManyField(to="products.Product", through="OrderedProduct")
+
+    product_set = models.ManyToManyField(
+        to="products.Product",
+
+        through="OrderedProduct",
+    )
     created_at = models.DateTimeField(auto_now_add=True, help_text="주문이 생성된 시간")
 
     address = models.CharField(max_length=256, help_text="주문 배송지")
@@ -73,7 +79,25 @@ class DailyReport(models.Model):
         )
 
 
+class DailyReportVModel(models.Model):
+    """
+    일별 통계
+    """
+
+    day = models.DateField(help_text="날짜", primary_key=True)
+    total_cnt = models.IntegerField(help_text="일 주문 총 갯수")
+    total_sales = models.IntegerField(help_text="일 주문 총 매출")
+    total_cnt = models.IntegerField(help_text="일 주문 총 갯수")
+
+    class Meta:
+        db_table = "daily_report_view_table"
+
+
+
 #
 # report_list: List[DailyReport] = DailyReport.objects.get_list_by_created_at(
 #     created_at__gte=date(2021, 10, 15), created_at__lt=date(2021, 10, 19)
 # )
+
+
+

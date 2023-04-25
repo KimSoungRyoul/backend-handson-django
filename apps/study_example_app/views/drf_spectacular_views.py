@@ -8,11 +8,10 @@ from rest_framework.decorators import action
 from rest_framework.request import Request
 
 from study_example_app.models import Employee
-from study_example_app.serializers.serializer_structure_analysis import EmployeeWithCustomDepartmentSerializer
+from study_example_app.serializers.serializer_structure_analysis import EmployeeWithCustomDepartment1Serializer
 
 
 class AppointmentViewSet(viewsets.ModelViewSet):
-    print(settings.ROOT_URLCONF)
     pass
 
 
@@ -40,4 +39,4 @@ class AppointmentViewSet(AppointmentViewSet):
 )
 class EmployeeWithCustomDepartmentViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
-    serializer_class = EmployeeWithCustomDepartmentSerializer
+    serializer_class = EmployeeWithCustomDepartment1Serializer

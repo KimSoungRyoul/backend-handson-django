@@ -30,6 +30,8 @@ class Student(models.Model):
 
     team = models.ForeignKey(to=Team, on_delete=models.CASCADE, help_text="sdfsdf2222", null=True)
 
+    aa = models.DateTimeField(null=True)
+
     class Meta:
         abstract = False
         app_label = "study_example_app"
@@ -51,7 +53,8 @@ class Student(models.Model):
         )
 
 
-class Department(models.Model):
+
+class Department1(models.Model):
     name = models.CharField(max_length=32, help_text="부서명")
     description = models.CharField(max_length=256, help_text="해당 부서가 하는 역할")
 
@@ -75,4 +78,4 @@ class Employee(models.Model):
     # mysql에서만 사용가능합니다.
     # programming_language_skill = mysql_fields.ListCharField(base_field=CharField(max_length=32), size=5, max_length=(5 * 33))
 
-    department = models.ForeignKey(to="Department", on_delete=models.CASCADE)
+    department = models.ForeignKey(to="Department1", on_delete=models.CASCADE)

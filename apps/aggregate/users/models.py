@@ -1,22 +1,14 @@
 from __future__ import annotations
 
-import random
 from functools import cached_property
 
-from authentication.encryption import encryption_fields as custom_fields
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import UserManager as _UserManager
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from django.db.models import Model, QuerySet
 from rest_framework import status
 from rest_framework.exceptions import APIException
 
-
-class UserManager(_UserManager):
-    def inactive(self):
-        return self.filter(is_active=False)
-
-    def active(self):
-        return self.filter(is_active=False)
+from authentication.encryption import encryption_fields as custom_fields
 
 
 class DomainException(APIException):
@@ -35,7 +27,7 @@ def something_check_about_welcome_coupon(phone_number: str, username: str):
 
 
 class User(AbstractUser):
-    objects = UserManager()
+#    objects = UserManager()
 
     class UserStatus(models.TextChoices):
         ACTIVE = "active", "활성화"
@@ -45,6 +37,7 @@ class User(AbstractUser):
     class UserType(models.TextChoices):
         CUSTOMER = "customer", "고객"
         OWNER = "store_owner", "사장님"
+        STAFF = "staff", "직원"
 
     """
     AbstractUser를 상속받았기때문에 User에는 아래 7개 Field들이 이미 선언되어있다.
@@ -58,13 +51,24 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(default=timezone.now)
     """
 
-    user_type = models.CharField(help_text="고객 유형", default=UserType.CUSTOMER, max_length=16, choices=UserType.choices)
+    user_type = models.CharField(
+        help_text="고객 유형",
+        default=UserType.CUSTOMER,
+        max_length=16,
+        choices=UserType.choices,
+    )
     phone = models.CharField(max_length=64, blank=True, help_text="전화번호")
     name_kor = models.CharField(max_length=64, help_text="회원 성함(한국어)")
     registration_number = custom_fields.EncryptedField(
         max_length=custom_fields.encrypt_max_length(16),
         help_text="주민등록번호",
         blank=True,
+    )
+    department = models.ForeignKey(
+        to="Department",
+        db_comment="소속부서",
+        null=True,
+        on_delete=models.CASCADE,
     )
 
     @property
@@ -120,4 +124,50 @@ class HModel(models.Model):
 
 
 class Organization(models.Model):
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32,db_column="org_name")
+
+
+class StaffManager(UserManager):
+    def get_queryset(self) -> QuerySet[Staff]:
+        return super().get_queryset().filter(user_type=User.UserType.STAFF.value)
+
+
+class Staff(User):
+    objects = StaffManager()
+
+    class Meta:
+        proxy = True
+
+
+class Department(models.Model):
+    parent1_name = models.CharField(max_length=32, db_comment="최상위 소속 부서명")
+    parent2_name = models.CharField(max_length=32, db_comment="중간 소속 부서명")
+    parent3_name = models.CharField(max_length=32, db_comment="상세 소속 부서명")
+
+    def __str__(self):
+        return f"{self.parent1_name}>{self.parent2_name}>{self.parent3_name}"
+
+    class Meta:
+        db_table = "department"
+
+#
+# class AModel(models.Model):
+#     b_model = models.ForeignKey(to="BModel")
+#
+#
+# class BModel(models.Model):
+#     ...
+
+# {
+#     # 직원생성,수정시 이러한 포맷의 문자열을 넣으면 해당 부서가 존재하면 직원을 부서에 할당,
+#     # 부서가 없으면 400 에러
+#     # 조회할때도 이런 문자열 포맷 유지
+#     "department": "BIZ>상점관리실>사장님관리팀",
+#     ...
+# }
+#
+# {
+#     # 이런 식을 비워서 요청하면 부서를 제거
+#     "department": ""
+#     ...
+# }

@@ -1,17 +1,21 @@
-from typing import Type
+from typing import Type, Any, List
 
+from rest_framework.viewsets import GenericViewSet
+
+from aggregate.products.models import  PurchaseDescriptions, Customer2
 from aggregate.stores.models import Store
-from aggregate.users.models import User
+from aggregate.users.models import User, Staff
 from aggregate.users.serializers import UserSerializer
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Prefetch
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from user_management.schemas import UserDetailSchema, UserRequestBody, UserSchema
-from user_management.serializers import UserQueryParamSerializer
+from user_management.serializers import UserQueryParamSerializer, StaffSchema, StaffDetailSchema
+
 
 # Create your views here.
 
@@ -91,6 +95,25 @@ class UserViewSet(viewsets.GenericViewSet):
     #     return Response(data={"slud": first})
 
 
+@extend_schema_view(
+    list=extend_schema(summary="직원 목록조회", tags=["직원관리"]),
+    retrieve=extend_schema(summary="직원 상세조회", tags=["직원관리"]),
+    create=extend_schema(summary="직원 가입", tags=["직원관리"]),
+    update=extend_schema(summary="직원 일괄 수정", tags=["직원관리"]),
+    partial_update=extend_schema(summary="직원 수정", tags=["직원관리"]),
+)
+class StaffViewSet(viewsets.ModelViewSet):
+    queryset = Staff.objects.all()
+    serializer_class = StaffSchema
+    serializer_classes = {
+        "list": StaffSchema,
+        "retrieve": StaffDetailSchema,
+        "create": StaffDetailSchema,
+        "update": StaffDetailSchema,
+        "partial_update": StaffDetailSchema,
+    }
+
+
 #
 # from django.contrib.auth.hashers import PBKDF2PasswordHasher
 # from django.contrib.auth.models import User
@@ -118,3 +141,33 @@ class UserViewSet(viewsets.GenericViewSet):
 # # 비밀변호 변경 로직
 # user.set_password(raw_password="1234")
 # user.save()
+
+
+#
+#
+# class User(models.Model):
+#     objects = UserManager()
+#     ...
+#
+#     class Config:
+#         db_table = "user"
+
+"""
+
+SELECT 1 FROM USER WHERE username='abc1234' limit 1;
+
+
+SELECT * FROM USER WHERE username='abc1234' AND first_name='김예제' LIMIT 1; 
+
+"""
+
+
+# user_queryset: QuerySet[User] = User.objects.filter(username="abc1234")  # (1번)
+#
+# if user_queryset.exists():  # (2번)
+#     user_queryset: QuerySet[User] = user_queryset.filter(first_name="김예제")  # (3번)
+#     user_list: List[User] = list(user_queryset)  # (4번)
+#     user1: User = user_queryset[0]  # (5번)
+
+
+#User.objects.filter(id=1)

@@ -15,7 +15,7 @@ from aggregate.products.serializers import OrderedProductSerializer
 from aggregate.stores.models import Store
 from aggregate.stores.serializers import StoreSerializer
 from aggregate.users.models import User
-from study_example_app.models import Company, Department
+from study_example_app.models import Company, Department1
 from study_example_app.models import Employee
 from study_example_app.serializers.validators import EnglishOnlyValidator
 from study_example_app.serializers.validators import KoreanOnlyValidator
@@ -175,7 +175,7 @@ class EmployeeSerializer(serializers.Serializer):
     birth_date = serializers.DateField(format="%Y-%m-%d")
     employment_period = serializers.FloatField(help_text="재직 기간 ex: 3.75년")
     programming_language_skill = serializers.ListField(child=serializers.CharField())
-    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
+    department1 = serializers.PrimaryKeyRelatedField(queryset=Department1.objects.all())
 
     def create(self, validated_data: dict[str, Any]) -> Employee:
         print(validated_data["name"])
@@ -185,7 +185,7 @@ class EmployeeSerializer(serializers.Serializer):
         print(validated_data["birth_date"])
         print(validated_data["employment_period"])
         print(validated_data["programming_language_skill"])
-        print(validated_data["department"])
+        print(validated_data["department1"])
 
         return Employee.objects.first()
 
@@ -193,8 +193,8 @@ class EmployeeSerializer(serializers.Serializer):
 class CustomRelatedField(serializers.PrimaryKeyRelatedField):
     default_error_messages = {
         "required": "해당 필드는 반드시 필요합니다.",
-        "does_not_exist": " department(pk={pk_value})는 존재하지 않습니다. 생성을 원하시면 pk필드를 제거후 요청해주세요.",
-        "incorrect_type": "department는 JSON Object 구조로 채워주셔야합니다. {data_type} 타입은 허용하지 않습니다.",
+        "does_not_exist": " department1(pk={pk_value})는 존재하지 않습니다. 생성을 원하시면 pk필드를 제거후 요청해주세요.",
+        "incorrect_type": "department1는 JSON Object 구조로 채워주셔야합니다. {data_type} 타입은 허용하지 않습니다.",
     }
 
     def __init__(self, **kwargs):
@@ -218,7 +218,7 @@ class CustomRelatedField(serializers.PrimaryKeyRelatedField):
 
 class CustomDepartmentField(CustomRelatedField):
     class Meta:
-        model = Department
+        model = Department1
         fields = "__all__"
 
 
@@ -228,7 +228,7 @@ class CustomCompanyField(CustomRelatedField):
         fields = "__all__"
 
 
-class EmployeeWithCustomDepartmentSerializer(serializers.Serializer):
+class EmployeeWithCustomDepartment1Serializer(serializers.Serializer):
     name = serializers.CharField()
     age = serializers.IntegerField()
     company = CustomCompanyField(queryset=Company.objects.all(), allow_get_or_create=False)
@@ -236,7 +236,7 @@ class EmployeeWithCustomDepartmentSerializer(serializers.Serializer):
     birth_date = serializers.DateField(format="%Y-%m-%d")
     employment_period = serializers.FloatField(help_text="재직 기간 ex: 3.75년")
     programming_language_skill = serializers.ListField(child=serializers.CharField())
-    department = CustomDepartmentField(queryset=Department.objects.all(), allow_get_or_create=True)
+    department1 = CustomDepartmentField(queryset=Department1.objects.all(), allow_get_or_create=True)
 
     def create(self, validated_data: dict[str, Any]) -> Employee:
         print(validated_data["name"])
@@ -246,7 +246,7 @@ class EmployeeWithCustomDepartmentSerializer(serializers.Serializer):
         print(validated_data["birth_date"])
         print(validated_data["employment_period"])
         print(validated_data["programming_language_skill"])
-        print(validated_data["department"])
+        print(validated_data["department1"])
 
         employee = Employee.objects.create(**validated_data)
 

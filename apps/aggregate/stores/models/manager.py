@@ -70,7 +70,7 @@ class _StoreRepository(BaseRepository):
         return cnt
 
 
-class StoreQuerySet(models.QuerySet):
+class StoreQuerySet(models.QuerySet["Store"]):
     def create_vendor(self, name, store_owner, *args, **kwargs):
         instance = super().create(name, store_owner, *args, **kwargs)
 
@@ -81,7 +81,7 @@ class StoreQuerySet(models.QuerySet):
     def only_food_store(self):
         return self.filter(store_type="food")
 
-    def current_valid(self, store):
+    def current_valid(self, store=None):
         """
         현재 유효한 계약
         """

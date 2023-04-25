@@ -1,6 +1,9 @@
 from django.contrib.postgres.indexes import HashIndex
 from django.db import models
-from django.db.models import TextChoices
+from django.db.models import TextChoices, Prefetch
+from rest_framework import mixins
+from rest_framework.serializers import Serializer, ModelSerializer
+from rest_framework.viewsets import GenericViewSet
 
 
 class Product(models.Model):
@@ -11,13 +14,21 @@ class Product(models.Model):
         FOOD = "food", "음식"
 
     name = models.CharField(max_length=128, help_text="상품명")
-    price = models.IntegerField(help_text="상품 가격")
-    created_at = models.DateTimeField(auto_now_add=True)
+    price = models.IntegerField(help_text="상품 가격",)
+    created_at = models.DateTimeField(auto_now_add=True,)
     product_type = models.CharField(choices=ProductType.choices, max_length=32)
-    store = models.ForeignKey(to="stores.Store", on_delete=models.CASCADE, help_text="이 상품을 판매하는 가게")
+    store = models.ForeignKey(to="stores.Store",
+                              on_delete=models.CASCADE,null=True,
+                              help_text="이 상품을 판매하는 가게",
+                              related_name="product_new",
+                              )
+
+    # store22 = models.ForeignKey(to="stores.Store",related_name="product22",null=True, on_delete=models.CASCADE, help_text="이 상품을 판매하는 가게",
+    #                          )
 
     class Meta:
         db_table = "product"
+        db_table_comment= "상품 테이블 입니다."
         ordering = ("-created_at",)
         indexes = (
             models.Index(  # django는 이런방식으로 Database에 Index를 생성 할 수 있다.
@@ -95,8 +106,22 @@ class BooksProduct(Product):
 #         object_id_field='favorite_thing_id',
 #     )
 #
-#     published_objects = PublishedBookManager()
+#     published_RelatedManagerobjects = PublishedBookManager()
 #     annotated_objects = AnnotatedBookManager()
 #
 #     class Meta:
 #         base_manager_name = 'annotated_objects'
+
+
+
+
+class Customer2(models.Model):
+    name = models.CharField(verbose_name="Customer name", max_length=32)
+
+class PurchaseDescriptions(models.Model):
+    customer =  models.ManyToManyField("Customer2", verbose_name="Customer")
+    description1 = models.CharField(verbose_name="Description 1", max_length=32)
+    description2 = models.CharField(verbose_name="Description 2", max_length=32)
+    description3 = models.CharField(verbose_name="Description 3", max_length=32)
+    description4 = models.CharField(verbose_name="Description 4", max_length=32)
+
