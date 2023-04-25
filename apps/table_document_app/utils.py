@@ -1,7 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 import os
 from collections import defaultdict
 from typing import Dict
@@ -11,6 +7,9 @@ from django.conf import settings
 from django.db import connections
 from django.db.models.fields import NOT_PROVIDED
 from django.shortcuts import render
+
+# Create your views here.
+
 
 DIRECTORY_PATH = os.path.dirname(__file__)
 
@@ -55,10 +54,9 @@ def get_dict_of_models_list():
     apps = {
         app_path.split(".")[-1]
         for app_path in settings.INSTALLED_APPS
-       # if "apps." in app_path or app_path == "django_db"
+        # if "apps." in app_path or app_path == "django_db"
     }
     for app_name in sorted(apps):
-
         models = sorted(
             [model for model in django_apps.app_configs.get(app_name).models.values() if not model._meta.proxy],
             key=lambda model: model._meta.db_table,

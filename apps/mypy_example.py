@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import List, TextIO,BinaryIO
+from typing import BinaryIO, List, TextIO
 
 
 def test_TypeHint_사용예시(self):
@@ -21,14 +21,9 @@ def test_python_개발자를_괴롭히는_방법1(self):
     b_str: List[str] = b_str.split()  # 처음에는 타입이 맞았지만 누군가 수정해서 타입이 맞지 않는 경우
 
 
-
-
-
-
 a: Decimal = Decimal("0.045")
 b: Decimal = Decimal("0.01")
 print(f"a-b: {a-b}")
-
 
 
 txt_file: TextIO = open("./i_am_file.txt")

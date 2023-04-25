@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
-from datetime import timedelta
+from datetime import date, timedelta
 from typing import TYPE_CHECKING
 
 from django.db import models

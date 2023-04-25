@@ -1,5 +1,4 @@
 def add_num(n1, n2):
-
     try:
         return n1 + n2
     except TypeError:

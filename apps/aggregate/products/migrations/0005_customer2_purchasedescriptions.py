@@ -4,28 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('products', '0004_product_store22_alter_product_store'),
+        ("products", "0004_product_store22_alter_product_store"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Customer2',
+            name="Customer2",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=32, verbose_name='Customer name')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=32, verbose_name="Customer name")),
             ],
         ),
         migrations.CreateModel(
-            name='PurchaseDescriptions',
+            name="PurchaseDescriptions",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description1', models.CharField(max_length=32, verbose_name='Description 1')),
-                ('description2', models.CharField(max_length=32, verbose_name='Description 2')),
-                ('description3', models.CharField(max_length=32, verbose_name='Description 3')),
-                ('description4', models.CharField(max_length=32, verbose_name='Description 4')),
-                ('customer', models.ManyToManyField(to='products.customer2', verbose_name='Customer')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("description1", models.CharField(max_length=32, verbose_name="Description 1")),
+                ("description2", models.CharField(max_length=32, verbose_name="Description 2")),
+                ("description3", models.CharField(max_length=32, verbose_name="Description 3")),
+                ("description4", models.CharField(max_length=32, verbose_name="Description 4")),
+                ("customer", models.ManyToManyField(to="products.customer2", verbose_name="Customer")),
             ],
         ),
     ]

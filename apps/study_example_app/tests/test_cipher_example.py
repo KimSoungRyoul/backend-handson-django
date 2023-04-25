@@ -1,13 +1,11 @@
-from django.db import connections
-from django.test import TestCase
-
 from aggregate.users.models import User
 from authentication.encryption import ciphers
+from django.db import connections
+from django.test import TestCase
 
 
 class CipherExampleTest(TestCase):
     def test_aes_encrypt_decrypt(self):
-
         plaintext = "안녕하세요... Hello @#$%^&"
         ciphertext: bytes = ciphers.AES256Cipher.encrypt(plaintext=plaintext)
         print(ciphertext)

@@ -1,24 +1,22 @@
 from datetime import date
 from typing import Any
 
+from aggregate.orders.models import Order, OrderedProduct
+from aggregate.products.serializers import OrderedProductSerializer
+from aggregate.stores.models import Store
+from aggregate.stores.serializers import StoreSerializer
+from aggregate.users.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import RegexValidator
 from django.db import transaction
 from rest_framework import serializers
-from rest_framework.validators import UniqueTogetherValidator
-from rest_framework.validators import UniqueValidator
-
-from aggregate.orders.models import Order
-from aggregate.orders.models import OrderedProduct
-from aggregate.products.serializers import OrderedProductSerializer
-from aggregate.stores.models import Store
-from aggregate.stores.serializers import StoreSerializer
-from aggregate.users.models import User
-from study_example_app.models import Company, Department1
-from study_example_app.models import Employee
-from study_example_app.serializers.validators import EnglishOnlyValidator
-from study_example_app.serializers.validators import KoreanOnlyValidator
+from rest_framework.validators import UniqueTogetherValidator, UniqueValidator
+from study_example_app.models import Company, Department1, Employee
+from study_example_app.serializers.validators import (
+    EnglishOnlyValidator,
+    KoreanOnlyValidator,
+)
 
 
 class SignUpSerializer(serializers.Serializer):

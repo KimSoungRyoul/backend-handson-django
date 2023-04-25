@@ -1,8 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres import fields as postgres_fields
 from django.core import validators
-from django.db.models import Model
-from django.db.models import Q
+from django.db.models import Model, Q
 from django_mysql.models import fields as mysql_fields
 
 from .file_field_example_models import *
@@ -51,7 +50,6 @@ class Student(models.Model):
             models.CheckConstraint(check=Q(age__lte=140), name="constraint_abnormal_age"),
             models.UniqueConstraint(fields=("phone",), name="constraint_unique_phone"),
         )
-
 
 
 class Department1(models.Model):

@@ -41,8 +41,6 @@ class DepartmentField(serializers.CharField):
 
 class MaskingField(serializers.CharField):
     def to_internal_value(self, data: str) -> str:
-
-
         return data
 
     def to_representation(self, value: str) -> str:
@@ -51,10 +49,7 @@ class MaskingField(serializers.CharField):
             current_logined_user = self.context["request"].user
         else:
             current_logined_user = AnonymousUser
-        if (
-            current_logined_user is not AnonymousUser
-            and current_logined_user.user_type == User.UserType.STAFF.value
-        ):
+        if current_logined_user is not AnonymousUser and current_logined_user.user_type == User.UserType.STAFF.value:
             return value
         if not value:
             return value
@@ -80,8 +75,8 @@ class StaffSchema(serializers.ModelSerializer):
         return staff
 
     def update(self, instance: Department, validated_data: Dict[str, Any]) -> Staff:
-        validated_data.pop("is_superuser",None)  # 고정값, 외부에서 주는값에 의해 수정되면 안됨
-        validated_data.pop("is_staff",None)  # 고정값, 외부에서 주는값에 의해 수정되면 안됨
+        validated_data.pop("is_superuser", None)  # 고정값, 외부에서 주는값에 의해 수정되면 안됨
+        validated_data.pop("is_staff", None)  # 고정값, 외부에서 주는값에 의해 수정되면 안됨
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)

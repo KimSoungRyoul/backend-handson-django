@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+
 import django_stubs_ext
 
 django_stubs_ext.monkeypatch()
@@ -99,11 +100,11 @@ SPECTACULAR_SETTINGS = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
-   # sqlite 를 DB로 사용하려면 주석처리를 해제하세요
-   #  "default": {
-   #    "ENGINE": "django.db.backends.sqlite3",
-   #    "NAME": BASE_DIR / "db.sqlite3",
-   #  },
+    # sqlite 를 DB로 사용하려면 주석처리를 해제하세요
+    #  "default": {
+    #    "ENGINE": "django.db.backends.sqlite3",
+    #    "NAME": BASE_DIR / "db.sqlite3",
+    #  },
     # postgres를 DB로 사용하려면 주석처리를 해제하세요
     # "default": {
     #     "ENGINE": "django.db.backends.postgresql",

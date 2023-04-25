@@ -4,18 +4,17 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('products', '0005_customer2_purchasedescriptions'),
+        ("products", "0005_customer2_purchasedescriptions"),
     ]
 
     operations = [
         migrations.AlterModelTableComment(
-            name='product',
-            table_comment='상품 테이블 입니다.',
+            name="product",
+            table_comment="상품 테이블 입니다.",
         ),
         migrations.RemoveField(
-            model_name='product',
-            name='store22',
+            model_name="product",
+            name="store22",
         ),
     ]

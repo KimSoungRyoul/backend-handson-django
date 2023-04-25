@@ -1,15 +1,9 @@
-from django.db.models import Count
-from django.db.models import F
-from django.db.models import QuerySet
-from django.db.models import Sum
-from django.db.models import Value
-from django.db.models.functions import Concat
-from django.test import TestCase
-
-from aggregate.orders.models import Order
-from aggregate.orders.models import OrderedProduct
+from aggregate.orders.models import Order, OrderedProduct
 from aggregate.products.models import Product
 from aggregate.stores.models import Store
+from django.db.models import Count, F, QuerySet, Sum, Value
+from django.db.models.functions import Concat
+from django.test import TestCase
 
 
 class QueryExpressionTest(TestCase):
@@ -47,7 +41,6 @@ class QueryExpressionTest(TestCase):
             print(f"상점 총 매출: {store.total_revenue}")
 
     def test_aggregate(self):
-
         with self.assertRaises(TypeError, msg="store_slug is not an aggregate expression"):
             Store.objects.aggregate(
                 total_order_cnt=Count("order"),

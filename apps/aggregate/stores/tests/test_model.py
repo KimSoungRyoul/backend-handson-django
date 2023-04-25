@@ -1,18 +1,12 @@
 from unittest import skip
 
 import requests
+from aggregate.orders.models import Order
+from aggregate.stores.models import Store, StoreRepository, StoreText
+from aggregate.stores.models.store import StoreActiveSwitch, StoreAddress
+from aggregate.users.models import StoreOwner, User
 from django.db.models import QuerySet
 from django.test import TestCase
-
-from aggregate.orders.models import Order
-from aggregate.stores.models import Store
-from aggregate.stores.models import StoreRepository
-from aggregate.stores.models import StoreText
-from aggregate.stores.models.store import StoreActiveSwitch
-from aggregate.stores.models.store import StoreAddress
-from aggregate.users.models import StoreOwner
-from aggregate.users.models import User
-
 
 # Create your tests here.
 
@@ -79,7 +73,6 @@ class StoreModelTest(TestCase):
         # print(new_store)
 
     def test_sdfsdff(self):
-
         user = User.objects.filter(id=1).first()
         order = Order.objects.create_order(...)
 
@@ -87,7 +80,7 @@ class StoreModelTest(TestCase):
         if response.status_code != 200:
             raise DomainException("결제 실패...")
 
-#        payment_history = create_payment_history(data=response.data)  # MongoDB INSERT
+    #        payment_history = create_payment_history(data=response.data)  # MongoDB INSERT
 
     def test_sdfdfgrgeg(self):
         user = User.objects.filter(id=1).first()  # RDB SELECT
@@ -96,8 +89,6 @@ class StoreModelTest(TestCase):
         payment_history = PaymentHistory.objects.create_paymenthistory(payment)  # MongoDB INSERT
 
         ph_list = list(PaymentHistory.objects.filter(user=user))  # https:~~~/payment-history/{user_pk}  GET //APICall
-
-
 
     def test_sdfsdfsdf11212(self):
         user_qs = User.objects.filter(last_name="kim")

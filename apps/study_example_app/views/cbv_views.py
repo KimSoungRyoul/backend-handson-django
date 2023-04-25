@@ -70,7 +70,6 @@ class UserViewSet(ModelViewSet):
         url_path="custom-action-api",
     )
     def i_am_custom_api(self, request: Request, *args, **kwargs):
-
         return Response(data={"hi": "i am custom api"})
 
 

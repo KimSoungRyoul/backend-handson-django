@@ -3,19 +3,21 @@ from uuid import uuid4
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import BooleanField
-from django.db.models import CharField
-from django.db.models import DateField
-from django.db.models import DateTimeField
-from django.db.models import DecimalField
-from django.db.models import DurationField
-from django.db.models import FloatField
-from django.db.models import IntegerChoices
-from django.db.models import IntegerField
-from django.db.models import Model
-from django.db.models import TextChoices
-from django.db.models import TextField
-from django.db.models import TimeField
+from django.db.models import (
+    BooleanField,
+    CharField,
+    DateField,
+    DateTimeField,
+    DecimalField,
+    DurationField,
+    FloatField,
+    IntegerChoices,
+    IntegerField,
+    Model,
+    TextChoices,
+    TextField,
+    TimeField,
+)
 from django.utils import timezone
 from django_mysql.models import SizedTextField
 

@@ -1,10 +1,8 @@
-from django.db.models import Q
-from django.test import TestCase
-
-from aggregate.orders.models import Order
-from aggregate.orders.models import OrderedProduct
+from aggregate.orders.models import Order, OrderedProduct
 from aggregate.products.models import Product
 from aggregate.stores.models import Store
+from django.db.models import Q
+from django.test import TestCase
 
 
 class QuerySetFilterTest(TestCase):

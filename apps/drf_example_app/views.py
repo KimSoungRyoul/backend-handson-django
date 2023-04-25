@@ -1,8 +1,5 @@
 from typing import Any, Dict, Optional
 
-from rest_framework.fields import CharField
-from rest_framework.serializers import Serializer
-
 from aggregate.users.models import DomainException, User
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
@@ -11,13 +8,19 @@ from drf_example_app.schemas import UNIVERSITY_SCHEMA_PARAMETERS
 from drf_example_app.serializers import UniversitySchema
 
 # Create your views here.
-from drf_spectacular.utils import extend_schema, OpenApiExample, extend_schema_serializer
+from drf_spectacular.utils import (
+    OpenApiExample,
+    extend_schema,
+    extend_schema_serializer,
+)
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException, ValidationError
+from rest_framework.fields import CharField
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 
 
 class UniversityViewSet(viewsets.ModelViewSet):
@@ -106,16 +109,14 @@ def example_api(request: Request, *args, **kwargs):
 #     )
 #
 
+
 @extend_schema_serializer(
     examples=[
         OpenApiExample(
-            'LoginExample1',
-            summary='LoginExample1',
+            "LoginExample1",
+            summary="LoginExample1",
             description="python manage.py createsuperuser 커맨드를 수행해서 어드민 계정을 만들어놔야 로그인이 가능합니다.",
-            value={
-                'username': "root",
-                'password': "1234"
-            },
+            value={"username": "root", "password": "1234"},
             request_only=True,
         ),
     ]
@@ -157,4 +158,3 @@ def login_example_api(request: Request, *args, **kwargs):
     )
     # resposne.set_cookie("sessionid", request.session.session_key)
     # return resposne
-

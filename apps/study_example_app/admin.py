@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
-
 from study_example_app.models import DjangoModel
-
 
 # Register your models here.
 

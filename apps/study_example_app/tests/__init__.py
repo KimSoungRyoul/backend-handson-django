@@ -1,7 +1,6 @@
-from django.test import TestCase
-
 # Create your tests here.
 from aggregate.users.models import User
+from django.test import TestCase
 
 
 class DjangoORMExampleTestCase(TestCase):

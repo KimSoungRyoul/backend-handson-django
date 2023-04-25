@@ -1,7 +1,5 @@
 from typing import Any
 
-from django.db.models import Prefetch
-
 from aggregate.orders.models import Order, OrderedProduct
 from aggregate.products.serializers import OrderSerializer
 from aggregate.stores.models import Store
@@ -9,6 +7,7 @@ from aggregate.stores.serializers import StoreSerializer
 from aggregate.users.models import User
 from aggregate.users.serializers import UserSerializer
 from django.db import transaction
+from django.db.models import Prefetch
 from django.forms import model_to_dict
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from ninja import NinjaAPI
@@ -176,6 +175,7 @@ def users_detail_api(request: Request):
 
     return Response(data={"message": "그 이외 http method 입니다."})
 
+
 # todo: OrderedProduct 쿼리셋 N+1 문제 설명하기
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.prefetch_related(
@@ -225,6 +225,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     @action(url_path="delivery", detail=True, methods=["POST"])
     def delivery(self, request: Request, *args, **kwargs):
         ...
+
 
 #
 # class UserAPIView(APIView):

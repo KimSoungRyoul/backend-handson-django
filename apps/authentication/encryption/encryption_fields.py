@@ -1,8 +1,7 @@
 import math
 from typing import Optional
 
-from django.db.models import CharField
-from django.db.models import Field
+from django.db.models import CharField, Field
 
 __all__ = ["EncryptedField", "encrypt_max_length"]
 

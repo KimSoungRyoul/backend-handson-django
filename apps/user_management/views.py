@@ -1,21 +1,23 @@
-from typing import Type, Any, List
+from typing import Any, List, Type
 
-from rest_framework.viewsets import GenericViewSet
-
-from aggregate.products.models import  PurchaseDescriptions, Customer2
+from aggregate.products.models import Customer2, PurchaseDescriptions
 from aggregate.stores.models import Store
-from aggregate.users.models import User, Staff
+from aggregate.users.models import Staff, User
 from aggregate.users.serializers import UserSerializer
 from django.db import models
-from django.db.models import QuerySet, Prefetch
+from django.db.models import Prefetch, QuerySet
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
+from rest_framework.viewsets import GenericViewSet
 from user_management.schemas import UserDetailSchema, UserRequestBody, UserSchema
-from user_management.serializers import UserQueryParamSerializer, StaffSchema, StaffDetailSchema
-
+from user_management.serializers import (
+    StaffDetailSchema,
+    StaffSchema,
+    UserQueryParamSerializer,
+)
 
 # Create your views here.
 
@@ -152,15 +154,6 @@ class StaffViewSet(viewsets.ModelViewSet):
 #     class Config:
 #         db_table = "user"
 
-"""
-
-SELECT 1 FROM USER WHERE username='abc1234' limit 1;
-
-
-SELECT * FROM USER WHERE username='abc1234' AND first_name='김예제' LIMIT 1; 
-
-"""
-
 
 # user_queryset: QuerySet[User] = User.objects.filter(username="abc1234")  # (1번)
 #
@@ -170,4 +163,4 @@ SELECT * FROM USER WHERE username='abc1234' AND first_name='김예제' LIMIT 1;
 #     user1: User = user_queryset[0]  # (5번)
 
 
-#User.objects.filter(id=1)
+# User.objects.filter(id=1)

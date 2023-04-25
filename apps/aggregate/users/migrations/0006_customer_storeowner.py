@@ -2,10 +2,7 @@
 from django.db import migrations
 
 
-
-
 class Migration(migrations.Migration):
-
     dependencies = [
         ("users", "0005_alter_user_managers"),
     ]
@@ -20,7 +17,6 @@ class Migration(migrations.Migration):
                 "constraints": [],
             },
             bases=("users.user",),
-
         ),
         migrations.CreateModel(
             name="StoreOwner",

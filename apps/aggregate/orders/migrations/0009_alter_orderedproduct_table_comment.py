@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('orders', '0008_create_dailyreport_vmodel'),
+        ("orders", "0008_create_dailyreport_vmodel"),
     ]
 
     operations = [
         migrations.AlterModelTableComment(
-            name='orderedproduct',
-            table_comment='주문된 상품, Order와 Product사이 매핑테이블',
+            name="orderedproduct",
+            table_comment="주문된 상품, Order와 Product사이 매핑테이블",
         ),
     ]

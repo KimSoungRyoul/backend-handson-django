@@ -6,9 +6,10 @@ from requests import Response
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
-
 from study_example_app.models import Employee
-from study_example_app.serializers.serializer_structure_analysis import EmployeeWithCustomDepartment1Serializer
+from study_example_app.serializers.serializer_structure_analysis import (
+    EmployeeWithCustomDepartment1Serializer,
+)
 
 
 class AppointmentViewSet(viewsets.ModelViewSet):

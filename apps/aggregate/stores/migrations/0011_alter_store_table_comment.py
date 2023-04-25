@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('stores', '0010_store_store_name_display_only'),
+        ("stores", "0010_store_store_name_display_only"),
     ]
 
     operations = [
         migrations.AlterModelTableComment(
-            name='store',
-            table_comment='상점',
+            name="store",
+            table_comment="상점",
         ),
     ]

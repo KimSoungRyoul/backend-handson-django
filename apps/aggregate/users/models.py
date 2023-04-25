@@ -2,13 +2,12 @@ from __future__ import annotations
 
 from functools import cached_property
 
+from authentication.encryption import encryption_fields as custom_fields
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.db.models import Model, QuerySet
 from rest_framework import status
 from rest_framework.exceptions import APIException
-
-from authentication.encryption import encryption_fields as custom_fields
 
 
 class DomainException(APIException):
@@ -27,7 +26,7 @@ def something_check_about_welcome_coupon(phone_number: str, username: str):
 
 
 class User(AbstractUser):
-#    objects = UserManager()
+    #    objects = UserManager()
 
     class UserStatus(models.TextChoices):
         ACTIVE = "active", "활성화"
@@ -124,7 +123,7 @@ class HModel(models.Model):
 
 
 class Organization(models.Model):
-    name = models.CharField(max_length=32,db_column="org_name")
+    name = models.CharField(max_length=32, db_column="org_name")
 
 
 class StaffManager(UserManager):
@@ -149,6 +148,7 @@ class Department(models.Model):
 
     class Meta:
         db_table = "department"
+
 
 #
 # class AModel(models.Model):

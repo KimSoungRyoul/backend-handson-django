@@ -1,13 +1,12 @@
 from unittest import skip
 
-from django.db.models import Subquery, Exists
-from django.test import TestCase
-from django_mysql.models import QuerySet
-
-from aggregate.orders.models import OrderedProduct, Order
+from aggregate.orders.models import Order, OrderedProduct
 from aggregate.products.models import Product
 from aggregate.stores.models import Store
 from aggregate.users.models import User
+from django.db.models import Exists, Subquery
+from django.test import TestCase
+from django_mysql.models import QuerySet
 
 
 class QuerySetTest(TestCase):
@@ -26,7 +25,8 @@ class QuerySetTest(TestCase):
     def test_asdf111(self):
         User.objects.create_user(
             username="asdf",
-            password="1234", last_name="kim",
+            password="1234",
+            last_name="kim",
             first_name="soungryoul",
             email="soungryoul@gmail.com",
         )
@@ -41,9 +41,11 @@ class QuerySetTest(TestCase):
 
         User.objects.limit(1)
 
-        store_queryset = Store.objects.filter(id__in=[1,2,3])
-        sql_array_str: str = ",".join(map(str,[1, 2, 3]))
-        store_raw_queryset = Store.objects.raw(raw_query="SELECT * FROM store WHERE id IN ( %(pk_list)s )", params={"pk_list": sql_array_str} )
+        store_queryset = Store.objects.filter(id__in=[1, 2, 3])
+        sql_array_str: str = ",".join(map(str, [1, 2, 3]))
+        store_raw_queryset = Store.objects.raw(
+            raw_query="SELECT * FROM store WHERE id IN ( %(pk_list)s )", params={"pk_list": sql_array_str}
+        )
 
         store_qs = Store.objects.current_valid()
 
@@ -51,6 +53,7 @@ class QuerySetTest(TestCase):
         Exists
 
         assert user_list
+
 
 # SELECT "post"."id", (
 #     SELECT U0."email"

@@ -59,8 +59,8 @@ class UserTest(TestCase):
 
         self.assertEquals(
             serialized_staff["department"],
-            'BIZ>상점관리실>사장님관리팀',
-             msg=" serialized_staff['department']는 문자열 포맷으로 조회되어야합니다."
+            "BIZ>상점관리실>사장님관리팀",
+            msg=" serialized_staff['department']는 문자열 포맷으로 조회되어야합니다.",
         )
 
     def test_staff_serializer_update(self):

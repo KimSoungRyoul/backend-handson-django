@@ -29,7 +29,6 @@ class Order(models.Model):
 
     product_set = models.ManyToManyField(
         to="products.Product",
-
         through="OrderedProduct",
     )
     created_at = models.DateTimeField(auto_now_add=True, help_text="주문이 생성된 시간")
@@ -93,11 +92,7 @@ class DailyReportVModel(models.Model):
         db_table = "daily_report_view_table"
 
 
-
 #
 # report_list: List[DailyReport] = DailyReport.objects.get_list_by_created_at(
 #     created_at__gte=date(2021, 10, 15), created_at__lt=date(2021, 10, 19)
 # )
-
-
-

@@ -15,5 +15,3 @@ class Menu(models.Model):
         on_delete=models.CASCADE,
         help_text="이 메뉴를 판매하는 음식점",
     )
-
-

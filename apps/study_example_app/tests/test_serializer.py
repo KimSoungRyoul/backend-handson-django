@@ -2,7 +2,9 @@ from datetime import date
 from unittest import TestCase
 
 from study_example_app.models import Company, Department, Employee
-from study_example_app.serializers.serializer_structure_analysis import EmployeeWithCustomDepartmentSerializer
+from study_example_app.serializers.serializer_structure_analysis import (
+    EmployeeWithCustomDepartmentSerializer,
+)
 
 
 class EmployeeWithCustomDepartmentSerializerTest(TestCase):
@@ -17,7 +19,6 @@ class EmployeeWithCustomDepartmentSerializerTest(TestCase):
         )
 
     def test_serializer(self):
-
         request_body = {
             "name": "string",
             "age": 0,

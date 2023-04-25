@@ -1,7 +1,5 @@
 from django.test import TestCase
-
-from study_example_app.models.n_plus_1_example_models import Menu
-from study_example_app.models.n_plus_1_example_models import Restaurant
+from study_example_app.models.n_plus_1_example_models import Menu, Restaurant
 
 
 class NPlus1ProblemTest(TestCase):

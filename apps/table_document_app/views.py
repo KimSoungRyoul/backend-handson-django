@@ -1,6 +1,5 @@
 from django.http import HttpRequest
 from django.shortcuts import render
-
 from table_document_app.utils import get_dict_of_models_list
 
 

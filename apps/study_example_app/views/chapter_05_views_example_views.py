@@ -1,11 +1,8 @@
+from aggregate.stores.models import Store
 from django.db.models import QuerySet
-from rest_framework import exceptions
-from rest_framework import generics
-from rest_framework import mixins
+from rest_framework import exceptions, generics, mixins
 from rest_framework.request import Request
 from rest_framework.response import Response
-
-from aggregate.stores.models import Store
 from study_example_app.serializers.store_serializers import StoreSerializer
 
 

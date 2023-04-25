@@ -1,6 +1,5 @@
 from ninja import Schema
-from pydantic import Field
-from pydantic import validator
+from pydantic import Field, validator
 from rest_framework import serializers
 from rest_framework.schemas import AutoSchema
 

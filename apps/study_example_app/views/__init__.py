@@ -3,10 +3,8 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-
 from study_example_app.models import DjangoModel, Menu, Restaurant
 from study_example_app.serializers import DjangoModelSerializer
-
 
 #
 # class UserViewSet(ModelViewSet):

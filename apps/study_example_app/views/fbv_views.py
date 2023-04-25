@@ -1,21 +1,20 @@
 import json
-from typing import Any
-from typing import Dict
+from typing import Any, Dict
 
+from aggregate.orders.models import Order
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from drf_spectacular.utils import extend_schema
-from drf_spectacular.utils import OpenApiExample
+from drf_spectacular.utils import OpenApiExample, extend_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
-
-from aggregate.orders.models import Order
-from study_example_app.serializers.serializer_structure_analysis import EmployeeSerializer
-from study_example_app.serializers.serializer_structure_analysis import OrderWriteOnlySerializer
-from study_example_app.serializers.serializer_structure_analysis import SignUpSerializer
+from study_example_app.serializers.serializer_structure_analysis import (
+    EmployeeSerializer,
+    OrderWriteOnlySerializer,
+    SignUpSerializer,
+)
 
 
 @require_http_methods(request_method_list=["GET", "POST"])
@@ -125,7 +124,6 @@ def create_order_function_view_to_learn_serializer(request: Request):
 )
 @api_view(http_method_names=["PATCH"])
 def modify_order_function_view_to_learn_serializer(request: Request, pk):
-
     instance: Order = get_object_or_404(queryset=Order.objects.all(), pk=pk)
     before_status = instance.status
     serializer = OrderWriteOnlySerializer(data=request.data, instance=instance, partial=True)

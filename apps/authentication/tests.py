@@ -1,16 +1,12 @@
+# Create your tests here.
+from aggregate.users.models import User
 from django.contrib.auth import authenticate
 from django.test import TestCase
 
-# Create your tests here.
-from aggregate.users.models import User
-
 
 class AuthenticateTestCase(TestCase):
-
     def test_authenticate(self):
-        user = User.objects.create_user(
-            username="soungryoul.kim", password="1234", email="kimsoungryoul@gmail.com"
-        )
+        user = User.objects.create_user(username="soungryoul.kim", password="1234", email="kimsoungryoul@gmail.com")
 
         logined_user: User = authenticate(username="soungryoul.kim", password="1234")
 

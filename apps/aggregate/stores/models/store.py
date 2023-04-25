@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from typing import Iterable, Optional
 
-from django.core.cache import cache
-from django.db import models
-
 from aggregate.stores.models.manager import StoreQuerySet
 from aggregate.users.models import User
+from django.core.cache import cache
+from django.db import models
 
 
 class CustomLogs:
@@ -33,7 +32,6 @@ class Store(models.Model):
     class Meta:
         db_table = "store"
         db_table_comment = "상점"
-
 
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
