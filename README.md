@@ -1,4 +1,6 @@
-# [백엔드 개발을 위한 핸즈온 장고 (한빛미디어) ] django-backend-starter
+# [백엔드 개발을 위한 핸즈온 장고 ] django-backend-starter
+
+
 
 * main : 학습용 예제 프로젝트
 * snippet-project: 책 예제 생성용
