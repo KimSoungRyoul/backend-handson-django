@@ -7,16 +7,40 @@ from django.db import transaction
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    # product_type = serializers.ChoiceField(
-    #     source="get_product_type_display", choices=Product.ProductType.choices,
-    # )
+class CustomChoiceField(serializers.ChoiceField):
+    def to_representation(self, value: str):
+        return self.choices[value]
+
+    def to_internal_value(self, data: str):
+        return data
+
+
+class ProductSchema(serializers.ModelSerializer):
+    product_type = CustomChoiceField(choices=Product.ProductType.choices)
 
     class Meta:
         model = Product
         fields = "__all__"
+        extra_kwargs = {
+            "name": {
+                "validators": [
+                    UniqueValidator(
+                        queryset=Product.objects.all(),
+                        message="이미 동일한 상품명이 존재합니다.",
+                    )
+                ]
+            },
+        }
+
+
+class ProductCreateSchema(ProductSchema):
+    product_type = serializers.ChoiceField(choices=Product.ProductType.choices)
+
+    class Meta(ProductSchema.Meta):
+        ...
 
 
 class StoreSerializer(serializers.ModelSerializer):

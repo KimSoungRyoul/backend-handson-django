@@ -74,8 +74,8 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     # General schema metadata. Refer to spec for valid inputs
     # https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#openapi-object
-    "TITLE": "DjangoBackendProgramming 학습예제 API 문서",
-    "DESCRIPTION": "[한빛 미디어] 주니어개발자를 위한 Django Backend Programming 실습예제 입니다.",
+    "TITLE": "백엔드 개발을 위한 핸즈온 장고  학습예제 API 문서",
+    "DESCRIPTION": "[한빛 미디어] 주니어개발자를 위한 백엔드 개발을 위한 핸즈온 장고 실습예제 입니다.",
     # Optional: MAY contain "name", "url", "email"
     "CONTACT": {"name": "김성렬", "url": "http://www.example.com/support", "email": "KimSoungRyoul@gmail.com"},
     # Swagger UI를 좀더 편리하게 사용하기위해 기본옵션들을 수정한 값들입니다.
@@ -106,23 +106,23 @@ DATABASES = {
     #    "NAME": BASE_DIR / "db.sqlite3",
     #  },
     # postgres를 DB로 사용하려면 주석처리를 해제하세요
-    # "default": {
-    #     "ENGINE": "django.db.backends.postgresql",
-    #     "NAME": "django_db",
-    #     "USER": "postgres",
-    #     "PASSWORD": "1234",
-    #     "HOST": "127.0.0.1",
-    #     "PORT": "5432",
-    # },
-    # mysql를 DB로 사용하려면 주석처리를 해제하세요.
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "django_db",
-        "USER": "root",
-        "PASSWORD": "password",
+        "USER": "postgres",
+        "PASSWORD": "1234",
         "HOST": "127.0.0.1",
-        "PORT": 3306,
+        "PORT": "5432",
     },
+    # mysql를 DB로 사용하려면 주석처리를 해제하세요.
+    # "default": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "django_db",
+    #     "USER": "root",
+    #     "PASSWORD": "password",
+    #     "HOST": "127.0.0.1",
+    #     "PORT": 3306,
+    # },
     # "replica1": {
     #     "ENGINE": "django.db.backends.mysql",
     #     "NAME": "django_db",

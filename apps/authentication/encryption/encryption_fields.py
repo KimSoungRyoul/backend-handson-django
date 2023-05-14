@@ -21,26 +21,31 @@ class EncryptedField(CharField):
     _cipher = ciphers.AES256Cipher
 
     def get_db_prep_save(self, value: str, connection) -> Optional[bytes]:
+        print("get_db_prep_save")
         value = super().get_db_prep_save(value, connection)
         if value is not None:
             return self._cipher.encrypt(value).decode("utf-8")
         return value
 
     def from_db_value(self, value, expression, connection, *args) -> Optional[str]:
+        print("from_db_value")
         return self.to_python(self._cipher.decrypt(value) if value else value)
 
     def to_python(self, value: str) -> Optional[str]:
+        print("to_python")
         if value is None:
             return value
         return value
 
     def get_prep_value(self, value: str) -> Optional[bytes]:
+        print("get_prep_value", value)
         value = super().get_prep_value(value)
         if value is not None:
             return self._cipher.encrypt(value).decode("utf-8")
         return value
 
     def get_db_prep_value(self, value, connection, prepared=False) -> Optional[str]:
+        print("get_db_prep_value", value)
         value = super().get_db_prep_value(value, connection, prepared)
         if not prepared and value is not None:
             return self._cipher.decrypt(value)

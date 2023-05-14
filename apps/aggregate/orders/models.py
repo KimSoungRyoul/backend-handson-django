@@ -36,7 +36,7 @@ class Order(models.Model):
     address = models.CharField(max_length=256, help_text="주문 배송지")
 
 
-class DailyReportQuerySet(models.QuerySet):
+class DailyReportManager(models.Manager):
     """
     통계쿼리 Manager :  django Manager에 대한 내용은 3장을 참고하라
     """
@@ -67,7 +67,7 @@ class DailyReport(models.Model):
     total_sales = models.IntegerField(help_text="일 주문 총 매출")
     total_cnt = models.IntegerField(help_text="일 주문 총 갯수")
 
-    objects = DailyReportQuerySet.as_manager()
+    objects = DailyReportManager()
 
     class Meta:
         managed = False
