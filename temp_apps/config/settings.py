@@ -28,10 +28,19 @@ INSTALLED_APPS = [
     "django_filters",
     "channels",
     # 내가 만든 django app list
-    "users",
-    "stores",
-    "orders",
-    "products",
+    "table_document_app",
+    "aggregate.users",
+    "aggregate.stores",
+    "aggregate.orders",
+    "aggregate.products",
+    "user_management",
+    "store_management",
+    "django_app_name",
+    # 교육용 snippet app
+    "frontend_app",
+    "study_example_app",
+    "portfolio",
+    "drf_example_app",
 ]
 
 AUTH_USER_MODEL = "users.User"
