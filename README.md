@@ -77,14 +77,8 @@
 
 
 ## Pycharm django 세팅
+<img src="./docs/img/Pycharm_projectInterpreter.png" width="70%" height="50%">
+<img src="./docs/img/Pycharm_projectStructure.png" width="70%" height="50%">
+<img src="./docs/img/Pycharm_djangoConfig.png" width="70%" height="50%">
+<img src="./docs/img/Pychamr_runserver.png" width="70%" height="50%">
 
-![asdf](./docs/img/Pycharm_projectInterpreter.png)
-
-
-![asdf](./docs/img/Pycharm_projectStructure.png)
-
-
-![asdf](./docs/img/Pycharm_djangoConfig.png)
-
-
-![asdf](./docs/img/Pychamr_runserver.png)
