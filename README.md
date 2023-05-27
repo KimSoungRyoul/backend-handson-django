@@ -1,4 +1,5 @@
 # [백엔드 개발을 위한 핸즈온 장고 ] django-backend-starter
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
 
 
@@ -57,6 +58,7 @@
 
 6. create virtualenv(venv) using poetry & install library
     ~~~shell
+    poetry config virtualenvs.in-project true # true이면 .venv 폴더가 프로젝트 하위에 생성됩니다.
     poetry shell
     poetry install
     ~~~
@@ -71,3 +73,18 @@
     ~~~shell
     python apps/manage.py runserver 8000
     ~~~
+
+
+
+## Pycharm django 세팅
+
+![asdf](./docs/img/Pycharm_projectInterpreter.png)
+
+
+![asdf](./docs/img/Pycharm_projectStructure.png)
+
+
+![asdf](./docs/img/Pycharm_djangoConfig.png)
+
+
+![asdf](./docs/img/Pychamr_runserver.png)

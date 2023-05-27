@@ -1,4 +1,4 @@
-name: django-backend
+name: django-backend-starter-compose
 services:
   django-backend-postgres-db:
     image: postgres:15.2
@@ -16,15 +16,11 @@ services:
   django-backend-mysql-db:
     image: mysql:8.0.33
     container_name: django-backend-mysql-db
-   # platform: linux/arm64/v8 # Mac OS M1 or M2 를 사용중이라면 필요한 옵션
     ports:
       - "3306:3306"
     command: # 명령어 실행
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
-#    volumes:
-#      - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
-#      - ./.volumes/mysql/:/var/lib/mysql:rw
     environment:
       MYSQL_USER: user
       MYSQL_DATABASE: django_db

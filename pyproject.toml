@@ -1,12 +1,11 @@
 [tool.poetry]
-name = "djangobackendprogramming"
-version = "0.1.0"
-description = "한빛미디어 '처음 시작하는 장고' 학습용 예제 코드"
+name = "django_backend_starter_project"
+version = "1.0.0"
+description = "django backend starter project"
 authors = ["SoungRyoul Kim <KimSoungRyoul@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.11.0"
-requests = "^2.25.1"
 
 # django
 django = "^4.2"
@@ -20,7 +19,6 @@ drf-spectacular = "^0.26.2"
 drf-nested-routers = "^0.92.1"
 djangorestframework-simplejwt = "^5.1.0"
 
-
 # file
 Pillow = "^8.3.1"
 
@@ -30,22 +28,16 @@ django-redis = "^5.2.0"
 # django-ninja[Function Based View] VS djangorestframework[Class Based View]
 django-ninja = "^0.21.0"
 
-#
+# deploy
 uvicorn = "^0.17.5"
 gunicorn = "^20.1.0"
-
-# stub
-djangorestframework-stubs = "^1.4.0"
-django-stubs = {extras = ["compatible-mypy"], version = "^1.13.1"}
-django-stubs-ext = "^0.7.0"
-
 # mysql
 mysqlclient = "^2.0.3"
 django-mysql = "^3.12.0"
-
 # postgresql
 psycopg = {extras = ["binary", "pool"], version = "^3.1.8"}
 django-postgres-extra = "^2.0.8"
+mypy = "^1.2"
 
 
 
@@ -54,7 +46,8 @@ ipython = "^8.3.0"
 pre-commit = "^2.9.3"
 Werkzeug = "^2.0.3"
 black = "^23.3.0"
-
+django-stubs = {extras = ["compatible-mypy"], version = "^4.2.0"}
+djangorestframework-stubs = "^1.4.0"
 
 
 [tool.poetry.group.test.dependencies]
@@ -62,10 +55,9 @@ freezegun = "^1.2.2"
 
 [tool.black]
 line-length = 120
-target-version = ['py39']
+target-version = ['py311']
 include = '\.pyi?$'
 exclude = '''
-
 (
   /(
       \.eggs         # exclude a few common directories in the
