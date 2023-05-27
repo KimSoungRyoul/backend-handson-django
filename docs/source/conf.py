@@ -51,4 +51,6 @@ html_theme_options = {
     "globaltoc_collapse": False,
     # If True, show hidden TOC entries
     "globaltoc_includehidden": False,
+    "version_dropdown": True,
+    "version_dropdown_text": "Versions",
 }
