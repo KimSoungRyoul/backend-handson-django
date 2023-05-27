@@ -49,7 +49,7 @@
 
 4. Infra 를 컨테이너로 전부 올립니다.
     ```shell
-    docker compose -f docker/docker-compose.yaml up -d
+    docker compose -f docker/compose.yaml up -d
     ```
 
 5. Install python using pyenv
