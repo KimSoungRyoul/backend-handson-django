@@ -53,6 +53,11 @@ djangorestframework-stubs = "^1.4.0"
 [tool.poetry.group.test.dependencies]
 freezegun = "^1.2.2"
 
+
+[tool.poetry.group.docs.dependencies]
+piccolo-theme = "^0.15.0"
+sphinx = "^7.0.1"
+
 [tool.black]
 line-length = 120
 target-version = ['py311']
