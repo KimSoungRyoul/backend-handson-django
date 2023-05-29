@@ -1,15 +1,47 @@
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from datetime import date, timedelta
 
-from aggregate.stores.models.manager import StoreQuerySet
-from aggregate.users.models import User
-from django.core.cache import cache
 from django.db import models
 
 
-class CustomLogs:
-    pass
+class StoreManager(models.Manager["Store"]):
+    def create_store(self, name, store_owner, *args, **kwargs):
+        instance = super().create(name, store_owner, *args, **kwargs)
+
+        # ... 애그리거트 객체들 추가 선언
+
+        return instance
+
+    def only_food_store(self):
+        return self.filter(store_type="food")
+
+    def current_valid(self, store=None):
+        """
+        현재 유효한 계약
+        """
+        today = date.today()
+        return self.filter(start_date__gte=today, end_date__lt=today, store=store)
+
+    def recently_expired(self, store):
+        """
+        가장 최근에 만료된 계약 순서대로
+        """
+        return self.filter(store=store).order_by("-end_date")
+
+    def tomorrow_start(self):
+        """
+        내일부터 시작되는 계약
+        """
+        today = date.today()
+        return self.filter(start_date=today + timedelta(days=1))
+
+    def tomorrow_expired(self):
+        """
+        내일이 계약 만료일이 도래하는
+        """
+        today = date.today()
+        return self.filter(end_date=today + timedelta(days=1))
 
 
 class Store(models.Model):
@@ -18,16 +50,17 @@ class Store(models.Model):
         GROCERY = "grocery", "식료품/가공식품"
         PET_FOOD = "pet_food", "반려동물음식"
 
-    name = models.CharField(max_length=128, help_text="음식점 가게명")
+    name = models.CharField(max_length=128, db_comment="음식점 가게명")
     owner = models.ForeignKey(to="users.User", on_delete=models.CASCADE, null=True)
-    tel_num = models.CharField(max_length=16, help_text="음식점 연락처")
+    tel_num = models.CharField(max_length=16, db_comment="음식점 연락처")
     created_at = models.DateTimeField(auto_now_add=True)
-    store_type = models.CharField(choices=StoreType.choices, help_text="상점 유형", max_length=32)
+    store_type = models.CharField(choices=StoreType.choices, db_comment="상점 유형", max_length=32)
 
     address = models.OneToOneField("StoreAddress", on_delete=models.CASCADE, null=True)
-    store_name_display_only = models.CharField(max_length=128, help_text="직원이 해당 상점을 한눈에 볼수있게 관리하는 필드입니다.")
+    store_name_display_only = models.CharField(max_length=128, db_comment="직원이 해당 상점을 한눈에 볼수있게 관리하는 필드입니다.")
+    description = models.TextField(db_comment="상점 소개 문구")
 
-    objects = StoreQuerySet.as_manager()
+    objects = StoreManager()
 
     class Meta:
         db_table = "store"
@@ -44,20 +77,17 @@ class Store(models.Model):
             if store_switch.switch_type == StoreActiveSwitch.SwitchType.OPEN
         )
 
-    def text(self, text_type: StoreText.TextType):
-        return next(store_text for store_text in self.storetext_set.all() if store_text.text_type == text_type)
-
 
 class StoreAddress(models.Model):
-    si = models.CharField(max_length=128, help_text="시")
-    gu = models.CharField(max_length=128, help_text="구")
-    gun = models.CharField(max_length=128, help_text="군")
-    dongmyun = models.CharField(max_length=128, help_text="동,면,읍")
+    si = models.CharField(max_length=128, db_comment="시")
+    gu = models.CharField(max_length=128, db_comment="구")
+    gun = models.CharField(max_length=128, db_comment="군")
+    dongmyun = models.CharField(max_length=128, db_comment="동,면,읍")
 
-    lat = models.FloatField(help_text="위도")
-    lng = models.FloatField(help_text="경도")
+    lat = models.FloatField(db_comment="위도")
+    lng = models.FloatField(db_comment="경도")
 
-    detail = models.CharField(max_length=128, help_text="상세 주소")
+    detail = models.CharField(max_length=128, db_comment="상세 주소")
 
 
 class StoreActiveSwitch(models.Model):
@@ -68,52 +98,3 @@ class StoreActiveSwitch(models.Model):
     store = models.ForeignKey(to="Store", on_delete=models.CASCADE)
     switch_type = models.CharField(choices=SwitchType.choices, max_length=32)
     is_active = models.BooleanField(default=False)
-
-
-class StoreText(models.Model):
-    class TextType(models.TextChoices):
-        LEGAL = "legal_notice", "법적 고시"
-        ORIGIN = "origin", "원산지 정보"
-
-    store = models.ForeignKey(to="Store", on_delete=models.CASCADE)
-    text_type = models.CharField(choices=TextType.choices, max_length=32)
-    contents = models.TextField(help_text="대용량 텍스트")
-
-
-# StoreRepository = _StoreRepository.as_repository(Store)
-
-
-#
-# store = Store.objects.get(id=1)
-# print(store.name) # 싱싱청과물
-# product1 = Product.objects.get(id=1) # 사과
-# product2 = Product.objects.get(id=2) # 복숭아
-# order = Order.objects.create(
-#     total_price=product1.price+product2.price,
-#     address="서울시 서초구 마제스타시티 15층 문앞",
-#     store=store,
-# )
-# order.product_set.add(product1, product2, bulk=True)
-
-
-#
-# store.order_set.create(
-#
-# )
-# compile(source="""
-# a=1;
-# b=2;
-# c=a+b;
-# print(c);
-# """, filename="hello.py", mode="exec")
-
-
-#
-# list(User.objects.filter(first_name="점순"))
-#
-# User.objects.filter(first_name="점순").first()
-#
-# User.objects.get(first_name="점순")
-#
-#
-# User.objects.filter(first_name="점순")[0]

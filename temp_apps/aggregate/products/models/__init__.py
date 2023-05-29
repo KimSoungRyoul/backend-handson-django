@@ -1,9 +1,6 @@
 from django.contrib.postgres.indexes import HashIndex
 from django.db import models
-from django.db.models import Prefetch, TextChoices
-from rest_framework import mixins
-from rest_framework.serializers import ModelSerializer, Serializer
-from rest_framework.viewsets import GenericViewSet
+from django.db.models import TextChoices
 
 
 class Product(models.Model):
@@ -117,15 +114,3 @@ class BooksProduct(Product):
 #
 #     class Meta:
 #         base_manager_name = 'annotated_objects'
-
-
-class Customer2(models.Model):
-    name = models.CharField(verbose_name="Customer name", max_length=32)
-
-
-class PurchaseDescriptions(models.Model):
-    customer = models.ManyToManyField("Customer2", verbose_name="Customer")
-    description1 = models.CharField(verbose_name="Description 1", max_length=32)
-    description2 = models.CharField(verbose_name="Description 2", max_length=32)
-    description3 = models.CharField(verbose_name="Description 3", max_length=32)
-    description4 = models.CharField(verbose_name="Description 4", max_length=32)

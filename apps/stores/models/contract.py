@@ -44,9 +44,9 @@ class Contract(models.Model):
     """
 
     store = models.ForeignKey(to="Store", on_delete=models.CASCADE)
-    sales_commission = models.DecimalField(decimal_places=2, max_digits=5, help_text="판매 수수료(%)")
+    sales_commission = models.DecimalField(decimal_places=2, max_digits=5, db_comment="판매 수수료(%)")
 
-    start_date = models.DateField(null=True, help_text="계약 시작날짜")
-    end_date = models.DateField(null=True, help_text="계약 종료날짜")
+    start_date = models.DateField(null=True, db_comment="계약 시작날짜")
+    end_date = models.DateField(null=True, db_comment="계약 종료날짜")
 
     objects = ContractQuerySet.as_manager()

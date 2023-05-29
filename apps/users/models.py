@@ -29,16 +29,16 @@ class User(AbstractUser):
         STAFF = "staff", "직원"
 
     user_type = models.CharField(
-        help_text="고객 유형",
+        db_comment="고객 유형",
         default=UserType.CUSTOMER,
         max_length=16,
         choices=UserType.choices,
     )
-    phone = models.CharField(max_length=64, blank=True, help_text="전화번호")
-    name_kor = models.CharField(max_length=64, help_text="회원 성함(한국어)")
+    phone = models.CharField(max_length=64, blank=True, db_comment="전화번호")
+    name_kor = models.CharField(max_length=64, db_comment="회원 성함(한국어)")
     # registration_number = custom_fields.EncryptedField(
     #     max_length=custom_fields.encrypt_max_length(16),
-    #     help_text="주민등록번호",
+    #     db_comment="주민등록번호",
     #     blank=True,
     # )
     department = models.ForeignKey(
@@ -91,17 +91,6 @@ class Customer(User):
 
     class Meta:
         proxy = True
-
-
-class HModel(models.Model):
-    aa = models.CharField(max_length=64, default="qqqqq", help_text="help_text")
-
-    class Meta:
-        db_table = "h_model"
-
-
-class Organization(models.Model):
-    name = models.CharField(max_length=32, db_column="org_name")
 
 
 class StaffManager(UserManager):

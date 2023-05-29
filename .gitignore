@@ -93,3 +93,6 @@ dmypy.json
 .pyre/
 
 */.volumes
+
+static
+media
