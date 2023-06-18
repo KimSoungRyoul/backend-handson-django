@@ -51,7 +51,20 @@
 
 8. you can see default API Docs in http://localhost:8000/docs
 
-   <img src="./hello_django_backend_template.png" width="70%" height="50%">
+   <img src="docs/hello_django_backend_template.png" width="60%" height="50%">
+
+
+   8-1. get JWT Token with Login API
+
+   <img src="docs/login_example.png" width="60%" height="50%">
+
+   8-2. set JWT Token to API Docs
+
+   <img src="docs/sample_auth.png" width="60%" height="50%">
+
+   8-3. you can use other APIs
+
+   <img src="docs/api_with_auth.png" width="60%" height="50%">
 
 
 ## build
