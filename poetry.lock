@@ -685,22 +685,6 @@ coreapi = ["coreapi (>=2.0.0)"]
 markdown = ["types-Markdown (>=0.1.5)"]
 
 [[package]]
-name = "drf-nested-routers"
-version = "0.92.5"
-description = "Nested resources for the Django Rest Framework"
-category = "main"
-optional = false
-python-versions = ">=3.5"
-files = [
-    {file = "drf-nested-routers-0.92.5.tar.gz", hash = "sha256:9d6a326333e9b16549e63b893c27075d98bbc217cd05fb10bbfa770d728d3f66"},
-    {file = "drf_nested_routers-0.92.5-py2.py3-none-any.whl", hash = "sha256:995b831be036911e330a86b7129dc6589de62f2a53d72067e7ce2b4a90f28c35"},
-]
-
-[package.dependencies]
-Django = ">=1.11"
-djangorestframework = ">=3.6.0"
-
-[[package]]
 name = "drf-spectacular"
 version = "0.26.2"
 description = "Sane and flexible OpenAPI 3 schema generation for Django REST framework"
@@ -2137,4 +2121,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11.0"
-content-hash = "5b157330e956c3bf5d549738ec020f7a0b185e434a02681d224c088d86acdc7f"
+content-hash = "747adf252b26aa1369650982fad1bfd9f5d6d5eee1a9da1a96ad126754bcc3e2"

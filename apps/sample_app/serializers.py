@@ -1,5 +1,5 @@
-from project_name.models import Contract, Store
 from rest_framework import serializers
+from sample_app.models import Contract, Store
 
 
 class ContractSchema(serializers.ModelSerializer):

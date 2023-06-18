@@ -7,10 +7,9 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularYAMLAPIView,
 )
-from project_name.views import ContractViewSet, StoreViewSet
-from project_name.views.authentication import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
-from rest_framework_nested.routers import NestedDefaultRouter
+from sample_app.views import ContractViewSet, StoreViewSet
+from sample_app.views.authentication import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
 router.register(prefix="stores", viewset=StoreViewSet, basename="store")

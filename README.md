@@ -34,31 +34,22 @@
    docker compose -f docker/compose.yaml up -d
    ~~~
 
-5. register your sample_app
-   ~~~Python
-   INSTALLED_APPS = [
-    ...
-    # your apps
-    "hello_django_project",
-   ]
-   ~~~
-
-6. django migration
+5. django migration
     ~~~shell
     python apps/manage.py migrate
     ~~~
 
-7. create superuser for test
+6. create superuser for test
    ~~~shell
    python apps/manage.py createsuperuser --username=root --email=kimsoungryoul@gmail.com
    ~~~
 
-8. django runserver
+7. django runserver
     ~~~shell
     python apps/manage.py runserver 8000
     ~~~
 
-9. you can see default API Docs in http://localhost:8000/docs
+8. you can see default API Docs in http://localhost:8000/docs
 
    <img src="./hello_django_backend_template.png" width="70%" height="50%">
 

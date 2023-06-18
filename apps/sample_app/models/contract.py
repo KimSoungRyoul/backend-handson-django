@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 from django.db import models
 
 if TYPE_CHECKING:
-    from project_name.models.store import Store
+    from sample_app.models.store import Store
 
 
 class ContractManager(models.Manager):

@@ -1,17 +1,17 @@
 from typing import Any, Final
 
 from drf_spectacular.utils import extend_schema
-from project_name.models import Contract, Store
-from project_name.serializers import (
+from rest_framework import permissions, status, viewsets
+from rest_framework.generics import get_object_or_404
+from rest_framework.request import Request
+from rest_framework.response import Response
+from sample_app.models import Contract, Store
+from sample_app.serializers import (
     ContractCreateSchema,
     ContractDetailSchema,
     ContractSchema,
     ContractUpdateSchema,
 )
-from rest_framework import permissions, status, viewsets
-from rest_framework.generics import get_object_or_404
-from rest_framework.request import Request
-from rest_framework.response import Response
 
 CONTRACT_TAG: Final[str] = "SampleApp"
 
