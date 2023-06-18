@@ -1,25 +1,26 @@
-# [백엔드 개발을 위한 핸즈온 장고 ] django-backend-starter
+# django-backend-starter
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3111/)
 
 [![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/start/overview/)
 
 ## django-backend-starter
-
-### [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main)
+* 이 프로젝트는 크게 3가지로 분류됩니다.
+### 1. [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main)
    * 학습용 예제 프로젝트(활용 가능한 장고 예제 코드를 보여줍니다)
    * [한빛미디어] 백엔드 개발 위한 핸즈온 장고 학습 예제입니다.
 
-### [snippet-project](https://github.com/KimSoungRyoul/django-backend-starter/tree/snippet-project)
+### 2. [snippet-project](https://github.com/KimSoungRyoul/django-backend-starter/tree/snippet-project)
    * 책 예제 생성용 (일종의 낙서장입니다.)
 
-### [django-backend-starter-template](https://github.com/KimSoungRyoul/django-backend-starter/tree/django-backend-starter-template)
+### 3. [django-backend-starter-template](https://github.com/KimSoungRyoul/django-backend-starter/tree/django-backend-starter-template)
    * Production Application 개발을 위한 django 프로젝트 템플릿입니다.
    * 원래 장고 공식문서에서는 `django-admin startproject hello_django_project` 로 첫 프로젝트를 생성할것을 가이드하지만
    * 장고 프로젝트 생성시 사용하는 템플릿(--template)은 커스텀이 가능합니다. 아래 커맨드를 사용해서 Backend 개발 환경 설정에 더 특화된 장고 프로젝트를 생성할 수 있습니다.
      ~~~shell
      django-admin startproject --template=https://github.com/KimSoungRyoul/django-backend-starter/archive/django-backend-starter-template.zip  hello_django_project
      ~~~
+   * 해당 템플릿에서 신규 django library와 deprecated되는 django library를 관리합니다.
 
 
 ## [django-backend-starter Docs](https://kimsoungryoul.github.io/django-backend-starter/)
@@ -27,6 +28,10 @@
 현재 한국 시중에서 볼수 있는 장고 관련 서적들은 대부분이 기초수준과 클론코딩에 집중하고있어서 중급자로 나아갈수있는 메뉴얼이 딱히 존재하지 않습니다.
 이 때문에 책의 최초 목표는 django의 내부 아키텍처에 대한 이해와 활용, 즉 중,상급자를 위한 장고 고급서를 기획했지만 어떤 기술이든간에 고급서는 사업성이 떨어지는 듯합니다.
 책에서 다루지 못한 심화 내용들을 django-backend-start Docs 에서 풀어보고자 합니다.
+
+---
+
+## 1. [한빛미디어] 백엔드 개발 위한 핸즈온 장고 학습 예제 [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main)
 
 ## QuickStart
 
