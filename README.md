@@ -8,7 +8,7 @@
 * 이 프로젝트는 크게 3가지로 분류됩니다.
 ### 1. [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main)
    * 학습용 예제 프로젝트(활용 가능한 장고 예제 코드를 보여줍니다)
-   * [한빛미디어] 백엔드 개발 위한 핸즈온 장고 학습 예제입니다.
+   * [[한빛미디어] 백엔드 개발 위한 핸즈온 장고](https://m.hanbit.co.kr/media/books/book_view.html?p_code=B1505170070) 학습 예제입니다.
 
 ### 2. [snippet-project](https://github.com/KimSoungRyoul/django-backend-starter/tree/snippet-project)
    * 책 예제 생성용 (일종의 낙서장입니다.)
@@ -32,6 +32,10 @@
 ---
 
 ## 1. [한빛미디어] 백엔드 개발 위한 핸즈온 장고 학습 예제 [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main)
+
+   <img src="./docs/readme_img/book.jpg" width="20%" height="10%">
+
+
 
 ## QuickStart
 
