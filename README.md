@@ -7,14 +7,19 @@
 
 ## QuickStart
 
-1. create virtualenv(venv) using poetry & install library
+1. create django-project
+   ~~~shell
+   django-admin startproject --template=https://github.com/KimSoungRyoul/django-backend-starter/archive/django-backend-starter-template.zip  hello_django_project
+   ~~~
+
+2. create virtualenv(venv) using poetry & install library
     ~~~shell
     poetry config virtualenvs.in-project true # if true .venv was created in PROJECT ROOT
     poetry shell
     poetry install
     ~~~
 
-2. [Optional] install pre-commit config
+3. [Optional] install pre-commit config
    * if you want always run black&isort before commit
    ~~~shell
    pre-commit install
@@ -24,27 +29,36 @@
    pre-commit run --files apps/**/**
    ~~~
 
-3. [Optional] if you want to use not only sqlite3
+4. [Optional] if you want to use not only sqlite3
    ~~~shell
    docker compose -f docker/compose.yaml up -d
    ~~~
 
-4. django migration
+5. register your sample_app
+   ~~~Python
+   INSTALLED_APPS = [
+    ...
+    # your apps
+    "hello_django_project",
+   ]
+   ~~~
+
+6. django migration
     ~~~shell
     python apps/manage.py migrate
     ~~~
 
-5. create superuser for test
+7. create superuser for test
    ~~~shell
    python apps/manage.py createsuperuser --username=root --email=kimsoungryoul@gmail.com
    ~~~
 
-6. django runserver
+8. django runserver
     ~~~shell
     python apps/manage.py runserver 8000
     ~~~
 
-7. you can see default API Docs in http://localhost:8000/docs
+9. you can see default API Docs in http://localhost:8000/docs
 
    <img src="./hello_django_backend_template.png" width="70%" height="50%">
 

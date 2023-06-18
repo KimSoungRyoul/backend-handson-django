@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     "channels",
     "rest_framework_simplejwt",
     # your apps
-    "project_name",
+    # "sample_app",
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
