@@ -1,9 +1,10 @@
 # [백엔드 개발을 위한 핸즈온 장고 ] django-backend-starter
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
-* main : 학습용 예제 프로젝트
-* snippet-project: 책 예제 생성용
-* django-backend-starter-template: django startproject 템플릿
+* [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main) : 학습용 예제 프로젝트(활용 가능한 장고 예제 코드를 보여줍니다.)
+* [snippet-project](https://github.com/KimSoungRyoul/django-backend-starter/tree/snippet-project): 책 예제 생성용 (일종의 낙서장입니다.)
+* [django-backend-starter-template](https://github.com/KimSoungRyoul/django-backend-starter/tree/django-backend-starter-template): backend에 특화된 django project skeleton
+    * django startproject 템플릿
     * 원래 장고 공식문서에서는 `django-admin startproject hello_django_project` 로 첫 프로젝트를 생성할것을 가이드하지만
     * 장고 프로젝트 생성시 사용하는 템플릿(--template)은 커스텀이 가능합니다. 아래 커맨드를 사용해서 Backend 개발 환경 설정에 더 특화된 장고 프로젝트를 생성할 수 있습니다.
       ~~~shell
