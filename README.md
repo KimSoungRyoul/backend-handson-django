@@ -1,13 +1,5 @@
-# [백엔드 개발을 위한 핸즈온 장고 ] django-backend-starter
+# [django-backend-starter Template]
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
-
-* main : 학습용 예제 프로젝트
-* snippet-project: 책 예제 생성용
-* django-backend-starter-template: django startproject 템플릿
-    * 원래 장고 공식문서에서는 `django-admin startproject hello_django_project` 로 첫 프로젝트를 생성할것을 가이드하지만
-    * 장고 프로젝트 생성시 사용하는 템플릿(--template)은 커스텀이 가능합니다. 아래 커맨드를 사용해서 Backend 개발 환경 설정에 더 특화된 장고 프로젝트를 생성할 수 있습니다.
-    * `django-admin startproject --template=https://github.com/KimSoungRyoul/django-backend-starter/archive/django-backend-starter-template.zip  hello_django_project`
-
 
 ## django-backend-starter Docs
 * https://kimsoungryoul.github.io/django-backend-starter/
@@ -15,70 +7,55 @@
 
 ## QuickStart
 
-1. Install Docker Desktop
-    ~~~
-    https://www.docker.com/products/docker-desktop/
-    ~~~
-
-2. Install pyenv
-
-    #### MacOS
+1. create virtualenv(venv) using poetry & install library
     ~~~shell
-    brew install pyenv
-    ~~~
-
-    #### Window
-    ~~~shell
-    winget install pyenv # (아직 사용불가)
-
-    # winget에서 pyenv 관리 아직 지원 안됨으로 아래 링크의 pyenv-win#quick-start 메뉴얼을 따라갈것
-    https://github.com/pyenv-win/pyenv-win#quick-start
-    ~~~
-
-3. Install poetry
-    * https://python-poetry.org/docs/#installing-with-the-official-installer
-    #### MacOS
-    ~~~shell
-    curl -sSL https://install.python-poetry.org | python3 -
-    ~~~
-
-    #### Window (powershell)
-    ~~~shell
-    (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
-    ~~~
-
-4. Infra 를 컨테이너로 전부 올립니다.
-    ```shell
-    docker compose -f docker/compose.yaml up -d
-    ```
-
-5. Install python using pyenv
-    ~~~shell
-    pyenv install 3.11.1
-    ~~~
-
-6. create virtualenv(venv) using poetry & install library
-    ~~~shell
-    poetry config virtualenvs.in-project true # true이면 .venv 폴더가 프로젝트 하위에 생성됩니다.
+    poetry config virtualenvs.in-project true # if true .venv was created in PROJECT ROOT
     poetry shell
     poetry install
     ~~~
 
-7. django migration
+2. [Optional] install pre-commit config
+   * if you want always run black&isort before commit
+   ~~~shell
+   pre-commit install
+   ~~~
+   * pre-commit run (reformatting)
+   ~~~shell
+   pre-commit run --files apps/**/**
+   ~~~
+
+3. [Optional] if you want to use not only sqlite3
+   ~~~shell
+   docker compose -f docker/compose.yaml up -d
+   ~~~
+
+4. django migration
     ~~~shell
     python apps/manage.py migrate
     ~~~
 
-8. django runserver
-    * 서버 실행후 http://localhost:8000/api/docs 로 들어가서 API문서를 확인합니다.
+5. create superuser for test
+   ~~~shell
+   python apps/manage.py createsuperuser --username=root --email=kimsoungryoul@gmail.com
+   ~~~
+
+6. django runserver
     ~~~shell
     python apps/manage.py runserver 8000
     ~~~
 
+7. you can see default API Docs in http://localhost:8000/docs
+
+   <img src="./hello_django_backend_template.png" width="70%" height="50%">
 
 
-## Pycharm django 세팅
-<img src="./docs/readme_img/Pycharm_projectInterpreter.png" width="70%" height="50%">
-<img src="./docs/readme_img/Pycharm_projectStructure.png" width="70%" height="50%">
-<img src="./docs/readme_img/Pycharm_djangoConfig.png" width="70%" height="50%">
-<img src="./docs/readme_img/Pychamr_runserver.png" width="70%" height="50%">
+## build
+* install docker first [install docker desktop](https://www.google.com/search?q=docker+desktop&sourceid=chrome&ie=UTF-8)
+1. docker build
+   ~~~shell
+   docker build -f docker/application.dockerfile -t django-backend-starter-application:1.0.0 .
+   ~~~
+2. docker run
+   ~~~shell
+   docker run -d -p "8000:8000" --rm --name django-backend-application django-backend-starter-application:1.0.0
+   ~~~
