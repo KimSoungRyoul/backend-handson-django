@@ -1,5 +1,9 @@
 # [백엔드 개발을 위한 핸즈온 장고 ] django-backend-starter
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3111/)
+
+[![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/start/overview/)
+
 
 * [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main) : 학습용 예제 프로젝트(활용 가능한 장고 예제 코드를 보여줍니다.)
 * [snippet-project](https://github.com/KimSoungRyoul/django-backend-starter/tree/snippet-project): 책 예제 생성용 (일종의 낙서장입니다.)
