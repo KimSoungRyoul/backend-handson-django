@@ -90,14 +90,14 @@
     poetry install --only=main,dev # sqlite를 사용합니다.(default)
 
     # 각자 개발환경에 따라 database를 선택하시면 됩니다.
-    poetry install --only=main,dev,mysql
-    poetry install --only=main,dev,postgresql
+    poetry install --only=main,dev,mysql --sync
+    poetry install --only=main,dev,postgresql --sync
 
     # redis 관련 django 라이브러리 추가설치
-    poetry install --only=main,dev,postgresql,redis
+    poetry install --only=main,dev,postgresql,redis --sync
 
     # 파일 처리 관련 django 라이브러리 추가 설치
-    poetry install --only=main,dev,file-upload
+    poetry install --only=main,dev,file-upload --sync
 
     ~~~
 
