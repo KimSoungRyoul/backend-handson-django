@@ -5,6 +5,7 @@ from functools import cached_property
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.db.models import Model, QuerySet
+from django_stubs_ext.db.models import TypedModelMeta
 from rest_framework import status
 from rest_framework.exceptions import APIException
 
@@ -16,7 +17,7 @@ class DomainException(APIException):
 
 
 class User(AbstractUser):
-    #    objects = UserManager()
+    # objects = UserManager() 기본값입니다.
 
     class UserStatus(models.TextChoices):
         ACTIVE = "active", "활성화"
@@ -41,6 +42,7 @@ class User(AbstractUser):
     #     db_comment="주민등록번호",
     #     blank=True,
     # )
+
     department = models.ForeignKey(
         to="Department",
         db_comment="소속부서",
@@ -64,7 +66,7 @@ class User(AbstractUser):
     #     if not  # (이미 쿠폰을 사용했는지 확인하는 로직) :
     #         raise DomainExcpetion({"message": "이미 쿠폰을 사용했습니다."})
 
-    class Meta:
+    class Meta(TypedModelMeta):
         db_table = "user"
 
 
@@ -93,15 +95,15 @@ class Customer(User):
         proxy = True
 
 
-class StaffManager(UserManager):
-    def get_queryset(self) -> QuerySet[Staff]:
+class StaffManager(UserManager["Staff"]):
+    def get_queryset(self) -> QuerySet["Staff"]:
         return super().get_queryset().filter(user_type=User.UserType.STAFF.value)
 
 
 class Staff(User):
     objects = StaffManager()
 
-    class Meta:
+    class Meta(TypedModelMeta):
         proxy = True
 
 

@@ -19,10 +19,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Department",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("parent1_name", models.CharField(db_comment="최상위 소속 부서명", max_length=32)),
-                ("parent2_name", models.CharField(db_comment="중간 소속 부서명", max_length=32)),
-                ("parent3_name", models.CharField(db_comment="상세 소속 부서명", max_length=32)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "parent1_name",
+                    models.CharField(db_comment="최상위 소속 부서명", max_length=32),
+                ),
+                (
+                    "parent2_name",
+                    models.CharField(db_comment="중간 소속 부서명", max_length=32),
+                ),
+                (
+                    "parent3_name",
+                    models.CharField(db_comment="상세 소속 부서명", max_length=32),
+                ),
             ],
             options={
                 "db_table": "department",
@@ -31,9 +48,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="User",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("password", models.CharField(max_length=128, verbose_name="password")),
-                ("last_login", models.DateTimeField(blank=True, null=True, verbose_name="last login")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "password",
+                    models.CharField(max_length=128, verbose_name="password"),
+                ),
+                (
+                    "last_login",
+                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
+                ),
                 (
                     "is_superuser",
                     models.BooleanField(
@@ -53,9 +84,18 @@ class Migration(migrations.Migration):
                         verbose_name="username",
                     ),
                 ),
-                ("first_name", models.CharField(blank=True, max_length=150, verbose_name="first name")),
-                ("last_name", models.CharField(blank=True, max_length=150, verbose_name="last name")),
-                ("email", models.EmailField(blank=True, max_length=254, verbose_name="email address")),
+                (
+                    "first_name",
+                    models.CharField(blank=True, max_length=150, verbose_name="first name"),
+                ),
+                (
+                    "last_name",
+                    models.CharField(blank=True, max_length=150, verbose_name="last name"),
+                ),
+                (
+                    "email",
+                    models.EmailField(blank=True, max_length=254, verbose_name="email address"),
+                ),
                 (
                     "is_staff",
                     models.BooleanField(
@@ -72,22 +112,41 @@ class Migration(migrations.Migration):
                         verbose_name="active",
                     ),
                 ),
-                ("date_joined", models.DateTimeField(default=django.utils.timezone.now, verbose_name="date joined")),
+                (
+                    "date_joined",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now,
+                        verbose_name="date joined",
+                    ),
+                ),
                 (
                     "user_type",
                     models.CharField(
-                        choices=[("customer", "고객"), ("store_owner", "사장님"), ("staff", "직원")],
+                        choices=[
+                            ("customer", "고객"),
+                            ("store_owner", "사장님"),
+                            ("staff", "직원"),
+                        ],
                         db_comment="고객 유형",
                         default="customer",
                         max_length=16,
                     ),
                 ),
-                ("phone", models.CharField(blank=True, db_comment="전화번호", max_length=64)),
-                ("name_kor", models.CharField(db_comment="회원 성함(한국어)", max_length=64)),
+                (
+                    "phone",
+                    models.CharField(blank=True, db_comment="전화번호", max_length=64),
+                ),
+                (
+                    "name_kor",
+                    models.CharField(db_comment="회원 성함(한국어)", max_length=64),
+                ),
                 (
                     "department",
                     models.ForeignKey(
-                        db_comment="소속부서", null=True, on_delete=django.db.models.deletion.CASCADE, to="users.department"
+                        db_comment="소속부서",
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="users.department",
                     ),
                 ),
                 (

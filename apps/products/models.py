@@ -42,7 +42,10 @@ class Product(models.Model):
             # HashIndex(fields=["name"], name="name_hash_index"),
         )
         constraints = (
-            models.CheckConstraint(check=models.Q(price__lte=100_000_000), name="check_unreasonalbe_price"),
+            models.CheckConstraint(
+                check=models.Q(price__lte=100_000_000),
+                name="check_unreasonalbe_price",
+            ),
             models.UniqueConstraint(fields=["store", "name", "product_type"], name="unique_in_store"),
         )
 

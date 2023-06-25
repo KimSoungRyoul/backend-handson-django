@@ -48,4 +48,6 @@ urlpatterns = [
     path("docs/redoc/", SpectacularRedocView.as_view(url_name="schema-json"), name="redoc"),
     # ninja sample
     path("ninja-api/", ninja_api.urls),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(
+    settings.STATIC_URL, document_root=settings.STATIC_ROOT
+)  # type: ignore[arg-type]

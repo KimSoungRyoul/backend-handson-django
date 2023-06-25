@@ -22,7 +22,12 @@ class Order(models.Model):
         REJECTED = "rejected", "주문 거절"
         DELIVERY_COMPLETE = "delivery complete", "배달 완료"
 
-    status = models.CharField(max_length=32, choices=Status.choices, help_text="주문 상태값", default=Status.WAITING)
+    status = models.CharField(
+        max_length=32,
+        choices=Status.choices,
+        help_text="주문 상태값",
+        default=Status.WAITING,
+    )
     total_price = models.IntegerField(default=0)
     store = models.ForeignKey(to="stores.Store", on_delete=models.CASCADE)
 

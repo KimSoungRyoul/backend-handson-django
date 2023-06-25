@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from stores.models.store import Store
 
 
-class ContractQuerySet(models.QuerySet):
+class ContractManager(models.Manager):
     def current_valid(self, store: Store):
         """
         현재 유효한 계약
@@ -49,4 +49,4 @@ class Contract(models.Model):
     start_date = models.DateField(null=True, db_comment="계약 시작날짜")
     end_date = models.DateField(null=True, db_comment="계약 종료날짜")
 
-    objects = ContractQuerySet.as_manager()
+    objects = ContractManager()
