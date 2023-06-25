@@ -4,12 +4,10 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.10.1
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
     hooks:
       - id: isort
-        name: isort
-        args: [ "--profile", "black" ]
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:

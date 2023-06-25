@@ -6,12 +6,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - DEFAULT_ENCODING=UTF8
-      - DEFAULT_COLLATION=C
-      - DEFAULT_CTYPE=C
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=django_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: django_db
 
   django-backend-mysql-db:
     image: mysql:8.0.33
@@ -33,58 +30,3 @@ services:
     container_name: django-backend-redis
     ports:
       - "6379:6379"
-#
-#  django-backend-rabbitmq:
-#    image: bitnami/rabbitmq:3.9.13
-#    container_name: django-backend-rabbitmq
-#    ports:
-#      - '15672:15672'
-#    environment:
-#      - RABBITMQ_USERNAME=user
-#      - RABBITMQ_PASSWORD=1234
-#
-#  django-backend-oracle-db:
-#    image: wnameless/oracle-xe-11g-r2
-#    ports:
-#      - "49161:1521"
-#      - "8080:8080"
-#    environment:
-#      - ORACLE_ALLOW_REMOTE=true
-#      - ORACLE_DISABLE_ASYNCH_IO=true
-
-#
-#  django-backend-oracle-db:
-#    image: sky5367/ksr-oracle-db:21.3.0-ee
-##    build:
-##      context: ./.
-##      dockerfile: ./oracle_db.dockerfile
-#    container_name:  django-backend-oracle-db
-#    ports:
-#    - "1521:1521"
-#    volumes:
-#      - ./.volumes/oracle:/opt/oracle/oradata:rw
-#    environment:
-#      - ORACLE_SID=ORCLCDB
-#      #- ORACLE_PDB=adb
-#      - ORACLE_PWD=Oracle12345
-#      - ENABLE_TCPS=true
-##      USER = sys / Oradoc_db1
-##      DB_SID=ORCLCDB
-##      DB_PDB=ORCLPDB1
-##      DB_MEMORY=2GB
-##      DB_DOMAIN=localdomain
-
-
-# docker run --name <container name> \
-#-p <host port>:1521 -p <host port>:5500 -p <host port>:2484 \
-#-e ORACLE_SID=<your SID> \
-#-e ORACLE_PDB=<your PDB name> \
-#-e ORACLE_PWD=<your database passwords> \
-#-e INIT_SGA_SIZE=<your database SGA memory in MB> \
-#-e INIT_PGA_SIZE=<your database PGA memory in MB> \
-#-e INIT_CPU_COUNT=<cpu_count init-parameter> \
-#-e INIT_PROCESSES=<processes init-parameter> \
-#-e ORACLE_EDITION=<your database edition> \
-#-e ORACLE_CHARACTERSET=<your character set> \
-#-e ENABLE_ARCHIVELOG=true \
-#-e ENABLE_TCPS=true \

@@ -7,6 +7,16 @@ import django_stubs_ext
 
 django_stubs_ext.monkeypatch()
 
+
+try:
+    import pymysql
+
+    pymysql.version_info = (1, 4, 3, "final", 0)
+    pymysql.install_as_MySQLdb()
+
+except Exception:
+    ...
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "h^jz=pr_u0c&%b-@b9%=j93)t&mf_s&1h!w+mf*i$mm*ithp94"

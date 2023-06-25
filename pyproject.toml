@@ -19,26 +19,43 @@ drf-spectacular = "^0.26.2"
 drf-nested-routers = "^0.92.1"
 djangorestframework-simplejwt = "^5.1.0"
 
-# file
-Pillow = "^8.3.1"
-
-# cache
-django-redis = "^5.2.0"
-
 # django-ninja[Function Based View] VS djangorestframework[Class Based View]
 django-ninja = "^0.21.0"
 
-# deploy
+# mypy
+mypy = "^1.2"
+django-stubs = { extras = ["compatible-mypy"], version = "^4.2.0" }
+django-stubs-ext = "^4.2.1"
+djangorestframework-stubs = "^1.4.0"
+
+
+
+[tool.poetry.group.prod.dependencies]
 uvicorn = "^0.17.5"
 gunicorn = "^20.1.0"
-# mysql
-mysqlclient = "^2.0.3"
-django-mysql = "^3.12.0"
-# postgresql
-psycopg = {extras = ["binary", "pool"], version = "^3.1.8"}
-django-postgres-extra = "^2.0.8"
-mypy = "^1.2"
 
+
+[tool.poetry.group.mysql.dependencies]
+#mysqlclient = "^2.1.1"
+pymysql = "^1.0.3"
+types-pymysql = "^1.0.19.7"
+django-mysql = "^3.12.0"
+
+
+
+[tool.poetry.group.postgresql.dependencies]
+psycopg = { extras = ["binary", "pool"], version = "^3.1.8" }
+django-postgres-extra = "^2.0.8"
+
+
+[tool.poetry.group.file-upload.dependencies]
+django-storages = "^1.13.2"
+pillow = "^9.5.0"
+
+
+[tool.poetry.group.redis.dependencies]
+django-redis = "^5.2.0"
+redis = "^4.5.5"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -46,8 +63,6 @@ ipython = "^8.3.0"
 pre-commit = "^2.9.3"
 Werkzeug = "^2.0.3"
 black = "^23.3.0"
-django-stubs = {extras = ["compatible-mypy"], version = "^4.2.0"}
-djangorestframework-stubs = "^1.4.0"
 
 
 [tool.poetry.group.test.dependencies]
@@ -58,30 +73,12 @@ freezegun = "^1.2.2"
 sphinx = "^7.0.1"
 sphinx-material = "^0.0.35"
 
+
 [tool.black]
 line-length = 120
 target-version = ['py311']
 include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | node_modules
-    | docs
-    | venv
-    | templates
-  )
-)
-'''
+
 
 [tool.isort]
 profile = "black"
@@ -92,21 +89,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 python_version = "3.11"
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_untyped_calls = true
-disallow_untyped_decorators = true
-ignore_errors = false
 ignore_missing_imports = true
-implicit_reexport = false
-strict_optional = true
-strict_equality = true
-no_implicit_optional = true
-warn_unused_ignores = true
-warn_redundant_casts = true
-warn_unused_configs = true
-warn_unreachable = true
-warn_no_return = true
 plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 
 
