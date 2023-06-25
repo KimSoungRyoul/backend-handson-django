@@ -10,6 +10,9 @@
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 
 
+## [한빛미디어] 백엔드 개발 위한 핸즈온 장고 학습 예제 [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main)
+
+   <img src="./docs/readme_img/book.jpg" width="20%" height="10%">
 
 ## django-backend-starter
 * 이 프로젝트는 크게 3가지로 분류됩니다.
@@ -38,10 +41,6 @@
 책에서 다루지 못한 심화 내용들을 django-backend-start Docs 에서 풀어보고자 합니다.
 
 ---
-
-## 1. [한빛미디어] 백엔드 개발 위한 핸즈온 장고 학습 예제 [main](https://github.com/KimSoungRyoul/django-backend-starter/tree/main)
-
-   <img src="./docs/readme_img/book.jpg" width="20%" height="10%">
 
 
 
