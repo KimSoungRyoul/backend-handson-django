@@ -9,53 +9,15 @@ python = "^3.11.0"
 
 # django
 django = "^4.2"
-django-filter = "^2.4.0"
-django-extensions = "^3.0.9"
-channels = "^3.0.3"
+#channels = "^3.0.3"
 
-# django rest framework
-djangorestframework = "3.14.0"
-drf-spectacular = "^0.26.2"
-drf-nested-routers = "^0.92.1"
-djangorestframework-simplejwt = "^5.1.0"
-
-# django-ninja[Function Based View] VS djangorestframework[Class Based View]
-django-ninja = "^0.21.0"
 
 # mypy
 mypy = "^1.2"
 django-stubs = { extras = ["compatible-mypy"], version = "^4.2.0" }
 django-stubs-ext = "^4.2.1"
-djangorestframework-stubs = "^1.4.0"
+boto3 = "^1.28.15"
 
-
-
-[tool.poetry.group.prod.dependencies]
-uvicorn = "^0.17.5"
-gunicorn = "^20.1.0"
-
-
-[tool.poetry.group.mysql.dependencies]
-#mysqlclient = "^2.1.1"
-pymysql = "^1.0.3"
-types-pymysql = "^1.0.19.7"
-django-mysql = "^3.12.0"
-
-
-
-[tool.poetry.group.postgresql.dependencies]
-psycopg = { extras = ["binary", "pool"], version = "^3.1.8" }
-django-postgres-extra = "^2.0.8"
-
-
-[tool.poetry.group.file-upload.dependencies]
-django-storages = "^1.13.2"
-pillow = "^9.5.0"
-
-
-[tool.poetry.group.redis.dependencies]
-django-redis = "^5.2.0"
-redis = "^4.5.5"
 
 
 [tool.poetry.group.dev.dependencies]
