@@ -1,49 +1,43 @@
 import boto3
-import botocore
 from django.test import TestCase
 
-# Create your tests here.
+from sample_app.models import OrderHistory
 
 
-class DjangoDynamoDBTestCase(TestCase):
-    def test_asdf(self):
-        client_config = botocore.config.Config(
-            max_pool_connections=25,
+class ATestCase(TestCase):
+
+    def test_sdf(self):
+        client = boto3.client('dynamodb')
+        res = client.get_item(
+            Key={
+                'order_number_pk': {
+                    "S": "202308121256_12344_qwefggwer3",
+                },
+            },
+            TableName='pycon2023_order_history_table',
         )
-        dynamodb = boto3.resource("dynamodb")
-        table = dynamodb.Table("pycon2023_order_history_table")
-        print(table.key_schema)
-        print(table)
-        print("asdf")
-        item = {"order_number_pk": "202308121256_12344_qwefggwer3", "status": "ready_to_delivery"}
-        resp = table.put_item(Item=item, ReturnValues="ALL_OLD")
-        print(resp)
+        #print(list(res["Item"].items()))
 
-        res2 = table.get_item(
-            Key={"order_number_pk": "202308121256_12344_qwefggwer3"},
-            AttributesToGet=[
-               "order_number_pk", "status",
-            ],
+        #qs = OrderHistory.objects.filter(order_number_pk="202308121256_12344_qwefggwer3").only("order_number_pk", "status")
+
+        qs = OrderHistory.objects.filter(status="ready_to_delivery").only("order_number_pk", "status")
+
+        print(qs.query.sql_with_params()[0])
+
+        res2 = client.execute_statement(
+            Statement = qs.query.sql_with_params()[0],
+            #Statement="SELECT * FROM pycon2023_order_history_table WHERE order_number_pk=?",
+            Parameters=[
+                {
+                    "S": "ready_to_delivery"
+                }
+                # {
+                #     "S": "202308121256_12344_qwefggwer3"
+                # }
+            ]
+
         )
         print(res2)
 
-        # with table.batch_writer() as batch:
-        #     for _ in range(3):
-        #         batch.put_item(
-        #             Item={
-        #                 'order_status': "ready_to_delivery",
-        #             },
-        #             Expected={
-        #                 'order_status': {
-        #                     'Value': 'string' | 123 | Binary(b'bytes') | True | None | set(['string']) | set(
-        #                         [123]) | set([Binary(b'bytes')]) | [] | {},
-        #                     'Exists': True | False,
-        #                     'ComparisonOperator': 'EQ' | 'NE' | 'IN' | 'LE' | 'LT' | 'GE' | 'GT' | 'BETWEEN' | 'NOT_NULL' | 'NULL' | 'CONTAINS' | 'NOT_CONTAINS' | 'BEGINS_WITH',
-        #                     'AttributeValueList': [
-        #                         'string' | 123 | Binary(b'bytes') | True | None | set(['string']) | set([123]) | set(
-        #                             [Binary(b'bytes')]) | [] | {},
-        #                     ]
-        #                 }
-        #             },
-        #
-        #         )
+        for row in res2["Items"]:
+            print(list(row.items()))

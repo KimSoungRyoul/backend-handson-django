@@ -24,13 +24,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
-    "rest_framework",
-    "django_extensions",
-    "drf_spectacular",
-    "django_filters",
     "channels",
     # "daphne",
+    "django_extensions",
+
+    # 커스텀 djagno DB 구현체
     "django_dynamodb",
+
+    # 사용하는 예시 django App
+    "sample_app",
 ]
 # AUTH_USER_MODEL = "django.contrib.auth.models.User"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -49,10 +51,23 @@ ROOT_URLCONF = "config.urls"
 
 # Database
 DATABASES = {
-    # sqlite 를 DB로 사용하려면 주석처리를 해제하세요
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR.parent / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        # "ENGINE": "psqlextra.backend", django-postgres-extra 라이브러리 사용시 교체
+        "NAME": "django_db",
+        "USER": "postgres",
+        "PASSWORD": "1234",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
+    },
+    "dynamodb": {
+        "ENGINE": "django_dynamodb.backends.dynamodb",
+        # "ENGINE": "psqlextra.backend", django-postgres-extra 라이브러리 사용시 교체
+        "NAME": "django_db",
+        "USER": "postgres",
+        "PASSWORD": "1234",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     },
 }
 
