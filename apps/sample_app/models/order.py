@@ -58,6 +58,7 @@ class Order(models.Model):
 
     status = models.CharField(max_length=32, choices=Status.choices, db_comment="주문 상태값",
                               default=Status.WAIT_FOR_ACCEPT)
+    order_number = models.CharField(max_length=128, db_comment="주문 고유번호 {날짜}-{store_id}-{난수}")
     total_price = models.IntegerField(default=0)
     product_set = models.ManyToManyField(to="Product", through="OrderedProduct")
     created_at = models.DateTimeField(auto_now_add=True, help_text="주문이 생성된 시간")

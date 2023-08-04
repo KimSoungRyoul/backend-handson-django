@@ -28,8 +28,6 @@ INSTALLED_APPS = [
     # "daphne",
     "django_extensions",
 
-    # 커스텀 djagno DB 구현체
-    "django_dynamodb",
 
     # 사용하는 예시 django App
     "sample_app",
@@ -53,15 +51,6 @@ ROOT_URLCONF = "config.urls"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        # "ENGINE": "psqlextra.backend", django-postgres-extra 라이브러리 사용시 교체
-        "NAME": "django_db",
-        "USER": "postgres",
-        "PASSWORD": "1234",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    },
-    "dynamodb": {
-        "ENGINE": "django_dynamodb.backends.dynamodb",
         # "ENGINE": "psqlextra.backend", django-postgres-extra 라이브러리 사용시 교체
         "NAME": "django_db",
         "USER": "postgres",

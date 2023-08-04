@@ -5,7 +5,7 @@ from django.db import models
 
 class DailyReportManager(models.Manager):
     """
-    통계쿼리 Manager :  django Manager에 대한 내용은 3장을 참고하라
+    통계쿼리 Manager
     """
 
     def get_list_by_created_at(self, created_at__gte, created_at__lt) -> list[DailyReport]:
