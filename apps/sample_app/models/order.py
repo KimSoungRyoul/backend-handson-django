@@ -56,8 +56,11 @@ class Order(models.Model):
         WAIT_FOR_DELIVERY = "WAIT_FOR_DELIVERY", "조리완료(배달대기중)"
         DELIVERY = "delivery", "배달중"
 
-    status = models.CharField(max_length=32, choices=Status.choices, db_comment="주문 상태값", default=Status.WAIT_FOR_ACCEPT)
+    status = models.CharField(max_length=32, choices=Status.choices, db_comment="주문 상태값",
+                              default=Status.WAIT_FOR_ACCEPT)
     total_price = models.IntegerField(default=0)
     product_set = models.ManyToManyField(to="Product", through="OrderedProduct")
     created_at = models.DateTimeField(auto_now_add=True, help_text="주문이 생성된 시간")
     address = models.JSONField(help_text="주문 배송지", default=default_address)
+
+    store = models.ForeignKey(to="Store", on_delete=models.CASCADE, null=False)

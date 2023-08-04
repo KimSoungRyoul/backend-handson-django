@@ -16,3 +16,21 @@ from .schema import DatabaseSchemaEditor  # noqa
 class DatabaseWrapper(PostgresDatabaseWrapper):
     vendor = "dynamodb"
     display_name = "DynamoDB"
+
+    # https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/ql-reference.select.html
+    operators = {
+        "exact": "= ?",
+        "iexact": "= UPPER(?)",
+        "contains": "LIKE ?",
+        "icontains": "LIKE UPPER(?)",
+        "regex": "~ ?",
+        "iregex": "~* ?",
+        "gt": "> ?",
+        "gte": ">= ?",
+        "lt": "< ?",
+        "lte": "<= ?",
+        "startswith": "LIKE ?",
+        "endswith": "LIKE ?",
+        "istartswith": "LIKE UPPER(?)",
+        "iendswith": "LIKE UPPER(?)",
+    }

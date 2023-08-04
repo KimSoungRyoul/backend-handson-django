@@ -984,6 +984,23 @@ markdown = ">=3.2"
 pyyaml = "*"
 
 [[package]]
+name = "pynamodb"
+version = "5.5.0"
+description = "A Pythonic Interface to DynamoDB"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "pynamodb-5.5.0-py3-none-any.whl", hash = "sha256:a44fb486fc3e66a25b58d921e07f016f62416e323b381b96c1b725105868dacf"},
+    {file = "pynamodb-5.5.0.tar.gz", hash = "sha256:82f77bb0c21a12756e6781df735ca841f543337847d8522a4ab8db6df7bbfc9f"},
+]
+
+[package.dependencies]
+botocore = ">=1.12.54"
+
+[package.extras]
+signals = ["blinker (>=1.3,<2.0)"]
+
+[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -1444,4 +1461,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11.0"
-content-hash = "672b3a11c7c2ddb01be08c48e86ed1a1f4303b336ca9a9c9ec3ac07c9e930b74"
+content-hash = "d6c7b32fbd16e9b0cc8f44b26027fbaeb9ca2ac4184bc0d3fcf84b1a4f752315"

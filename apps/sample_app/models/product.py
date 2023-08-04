@@ -38,3 +38,4 @@ class Product(models.Model):
             models.CheckConstraint(check=models.Q(price__lte=100_000_000), name="check_unreasonalbe_price"),
 
         )
+Product.objects

@@ -7,6 +7,9 @@ from sample_app.models import OrderHistory
 class ATestCase(TestCase):
 
     def test_sdf(self):
+
+        order_history = OrderHistory.simple_objects.get(pk="202308121256_12344_qwefggwer3")
+
         client = boto3.client('dynamodb')
         res = client.get_item(
             Key={
@@ -25,7 +28,7 @@ class ATestCase(TestCase):
         print(qs.query.sql_with_params()[0])
 
         res2 = client.execute_statement(
-            Statement = qs.query.sql_with_params()[0],
+            Statement =OrderHistory.objects.filter(status__in=["ready_to_delivery"]).query.sql_with_params()[0],
             #Statement="SELECT * FROM pycon2023_order_history_table WHERE order_number_pk=?",
             Parameters=[
                 {

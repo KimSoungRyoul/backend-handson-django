@@ -12,7 +12,7 @@ class DynamoDBQuery(sql.Query):
 
     def sql_with_params(self):
         sql, params = self.get_compiler(DYNAMODB_DEFAULT_DB_ALIAS).as_sql()
-        return sql.replace("%s", "?").replace(f"\"{self.model._meta.db_table}\".", ""), params
+        return sql.replace(f"\"{self.model._meta.db_table}\".", ""), params
 
 
 
