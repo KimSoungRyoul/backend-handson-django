@@ -23,10 +23,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.admin",
+
+    "unfold",  # before django.contrib.admin
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms",  # optional, if special form elements are needed
+    "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    "django.contrib.admin",  # required
+
     "channels",
     # "daphne",
     "django_extensions",
+    "rest_framework",
 
 
     # 사용하는 예시 django App
