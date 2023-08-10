@@ -16,7 +16,6 @@ from oauth2_provider.models import (  # AccessToken,; Application,; IDToken as _
     AbstractRefreshToken,
 )
 from oauth2_provider.settings import oauth2_settings
-
 from users.models import User
 
 

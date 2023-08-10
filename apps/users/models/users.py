@@ -6,7 +6,6 @@ from functools import cached_property
 from django.contrib.auth.models import AbstractUser as DjangoAbstrctAuthUser
 from django.db import models
 from django_mysql import models as mysql_models
-
 from users.models.managers.user_manager import CustomUserManager
 
 
@@ -23,7 +22,7 @@ def upload_filepath(instance: models.Model, filename: str):
     file_basename: str = os.path.basename(filename)
     # ex: file_basename = "i_am_file.txt"
     upload_path = f"{instance._meta.db_table}/{instance.username}/{uuid.uuid5(namespace=uuid.NAMESPACE_URL, name=file_basename)}_{file_basename}"
-    print("upload_path",upload_path)
+    print("upload_path", upload_path)
     return upload_path
 
 
@@ -47,7 +46,6 @@ class User(BaseModel, DjangoAbstrctAuthUser):
     @cached_property
     def naver_socialinfo(self):
         return self.socialinfo_set.filter(provider=SocialInfo.AuthProvider.NAVER).first()
-
 
 
 class SocialInfo(BaseModel):

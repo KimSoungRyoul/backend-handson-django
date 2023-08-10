@@ -2,14 +2,13 @@ from datetime import datetime, timedelta
 from typing import Any
 
 import jwt
-from django.conf import settings
-from django.core.cache import cache
-
 from custom_oauth2.models import (
     JWTAccessToken,
     RedisRefreshToken,
     RegisteredApplication,
 )
+from django.conf import settings
+from django.core.cache import cache
 from users.models import User
 
 

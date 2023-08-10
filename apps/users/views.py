@@ -1,5 +1,6 @@
 from typing import Any
 
+from config.schema import OAS3Tag
 from django.conf import settings
 from django.shortcuts import redirect
 from drf_spectacular.utils import extend_schema
@@ -9,8 +10,6 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 from rest_framework.viewsets import ModelViewSet
-
-from config.schema import OAS3Tag
 from users.models import User
 
 

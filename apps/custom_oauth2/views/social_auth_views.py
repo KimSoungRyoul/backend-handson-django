@@ -1,9 +1,17 @@
 import uuid
 
 import httpx
+from config.schema import OAS3Tag
+from custom_oauth2.external_apis import KakaoHttpx, NaverHttpx, SocialUserInfo
+from custom_oauth2.models import (
+    JWTAccessToken,
+    RedisRefreshToken,
+    RegisteredApplication,
+)
+from custom_oauth2.serializers.token_schema import EmptySerializer, TokenSchema
+from custom_oauth2.utils import JWTUtils
 from django.conf import settings
 from django.core.files.base import ContentFile
-
 from django.db import transaction
 from django.db.models import Q
 from django.db.models.query import EmptyQuerySet
@@ -13,23 +21,6 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
-
-from config.schema import OAS3Tag
-from custom_oauth2.external_apis import (
-    KakaoHttpx,
-    NaverHttpx,
-    SocialUserInfo,
-)
-from custom_oauth2.models import (
-    JWTAccessToken,
-    RedisRefreshToken,
-    RegisteredApplication,
-)
-from custom_oauth2.serializers.token_schema import (
-    EmptySerializer,
-    TokenSchema,
-)
-from custom_oauth2.utils import JWTUtils
 from users.models.users import SocialInfo, User
 
 
@@ -80,7 +71,10 @@ class SocialAuthCallBackViewSet(viewsets.GenericViewSet):
                 password=access_token,
                 email=userinfo.email,
                 name=userinfo.nickname,
-                profile_image=ContentFile(content=response.content, name=f"{userinfo.name}_profile_img.{userinfo.profile_image_url.split('.')[-1]}"),
+                profile_image=ContentFile(
+                    content=response.content,
+                    name=f"{userinfo.name}_profile_img.{userinfo.profile_image_url.split('.')[-1]}",
+                ),
             )
             SocialInfo.objects.create(
                 user=user,
@@ -120,7 +114,6 @@ class SocialAuthCallBackViewSet(viewsets.GenericViewSet):
     @action(detail=False, methods=["GET"], url_path="naver", url_name="naver_callback")
     @transaction.atomic
     def naver_callback(self, request: Request):
-
         code = request.query_params["code"]
         naver_response = httpx.get(
             url="https://nid.naver.com/oauth2.0/token",
@@ -151,7 +144,6 @@ class SocialAuthCallBackViewSet(viewsets.GenericViewSet):
                 | Q(username=userinfo.email)
             ).first()
         ) is None:
-
             user: User = User.objects.create_user(
                 username=userinfo.email,
                 password=access_token,

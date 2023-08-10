@@ -1,3 +1,13 @@
+from config.schema import OAS3Tag
+from custom_oauth2.authentication import PyCon2023AppOAuthAuthentication
+from custom_oauth2.models import JWTAccessToken, RedisRefreshToken
+from custom_oauth2.serializers.revoke_schema import RevokeRequestBody
+from custom_oauth2.serializers.token_schema import (
+    EmptySerializer,
+    IntrospectionSchema,
+    TokenRequestBody,
+    TokenSchema,
+)
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.query import EmptyQuerySet
 from drf_spectacular.types import OpenApiTypes
@@ -12,24 +22,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-
-from config.schema import OAS3Tag
-from custom_oauth2.authentication import (
-    PyCon2023AppOAuthAuthentication,
-)
-from custom_oauth2.models import (
-    JWTAccessToken,
-    RedisRefreshToken,
-)
-from custom_oauth2.serializers.revoke_schema import (
-    RevokeRequestBody,
-)
-from custom_oauth2.serializers.token_schema import (
-    EmptySerializer,
-    IntrospectionSchema,
-    TokenRequestBody,
-    TokenSchema,
-)
 
 
 class DRFTokenViewSet(OAuthLibMixin, GenericViewSet):
@@ -126,7 +118,6 @@ class DRFIntrospectTokenViewSet(OAuthLibMixin, GenericViewSet):
         except ObjectDoesNotExist:
             return Response(data={"active": False}, status=status.HTTP_200_OK)
         else:
-
             data = {
                 "iss": "pycon2023app",
                 "active": True,

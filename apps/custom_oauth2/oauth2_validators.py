@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from custom_oauth2.models import JWTAccessToken, RedisRefreshToken
 from django.conf import settings
 from django.utils import timezone
 from oauth2_provider.exceptions import FatalClientError
@@ -9,11 +10,6 @@ from oauth2_provider.settings import oauth2_settings
 from oauthlib.common import Request
 from oauthlib.oauth2 import OAuth2Token
 from rest_framework.exceptions import ValidationError
-
-from custom_oauth2.models import (
-    JWTAccessToken,
-    RedisRefreshToken,
-)
 from users.models import User
 
 
@@ -151,7 +147,6 @@ class PyCon2023AppOAuth2Validator(OAuth2Validator):
         refresh_token_code = token.get("refresh_token", None)
 
         if refresh_token_code and self.rotate_refresh_token(request) is True:
-
             refresh_token_instance: RedisRefreshToken = getattr(request, "refresh_token_instance", None)
             # 기존에 생성되어있던 RefreshToken은 request에서 제거
             if refresh_token_instance:

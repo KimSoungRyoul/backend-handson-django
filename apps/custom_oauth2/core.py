@@ -3,13 +3,12 @@ import uuid
 from datetime import datetime, timedelta
 from typing import Dict, Tuple
 
+from custom_oauth2.utils import JWTUtils
 from django.conf import settings
 from oauthlib.common import Request
 from oauthlib.oauth2 import Server
 from oauthlib.oauth2.rfc6749 import catch_errors_and_unavailability
 from oauthlib.oauth2.rfc6749.tokens import get_token_from_header
-
-from custom_oauth2.utils import JWTUtils
 from users.models import User
 
 

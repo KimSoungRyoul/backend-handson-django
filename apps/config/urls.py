@@ -1,3 +1,9 @@
+from custom_oauth2.views.origin_auth_views import (
+    DRFIntrospectTokenViewSet,
+    DRFRevokeTokenView,
+    DRFTokenViewSet,
+)
+from custom_oauth2.views.social_auth_views import SocialAuthCallBackViewSet
 from django import get_version
 from django.conf import settings
 from django.conf.urls.static import static
@@ -10,17 +16,8 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularYAMLAPIView,
 )
-from rest_framework.routers import SimpleRouter
-
-from custom_oauth2.views.origin_auth_views import (
-    DRFIntrospectTokenViewSet,
-    DRFRevokeTokenView,
-    DRFTokenViewSet,
-)
-from custom_oauth2.views.social_auth_views import (
-    SocialAuthCallBackViewSet,
-)
 from frontend_demo.views import SignUpDemoTemplateView
+from rest_framework.routers import SimpleRouter
 from users.views import UserViewSet
 
 router = SimpleRouter(trailing_slash=False)

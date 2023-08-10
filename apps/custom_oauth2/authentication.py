@@ -1,11 +1,10 @@
 from typing import Any, Dict
 
+from custom_oauth2.utils import JWTUtils
 from drf_spectacular.contrib.django_oauth_toolkit import DjangoOAuthToolkitScheme
 from oauth2_provider import exceptions
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from oauth2_provider.oauth2_backends import get_oauthlib_core
-
-from custom_oauth2.utils import JWTUtils
 from users.models import User
 
 

@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     # 데모용 & Admin 커스터마이징
     "frontend_demo",
     "django.contrib.admin",
-
     # django
     "django_extensions",
     "django_mysql",
@@ -38,7 +37,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "storages",
-
     # Custom App
     "users",
     "custom_oauth2",
@@ -52,10 +50,10 @@ AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 AWS_S3_REGION_NAME = os.getenv("AWS_REGION")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 STORAGES = {
-    'default': {"BACKEND": "custom_oauth2.s3_custom_storage.MediaStorage"},
-    'staticfiles':  {"BACKEND": "custom_oauth2.s3_custom_storage.StaticStorage"},
+    "default": {"BACKEND": "custom_oauth2.s3_custom_storage.MediaStorage"},
+    "staticfiles": {"BACKEND": "custom_oauth2.s3_custom_storage.StaticStorage"},
 }
-AWS_S3_CUSTOM_DOMAIN = 'd19rgr1je33tf4.cloudfront.net'
+AWS_S3_CUSTOM_DOMAIN = "d19rgr1je33tf4.cloudfront.net"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -125,7 +123,7 @@ DATABASES = {
         "options": {
             "charset": "utf8mb4",
             "COLLATION": "utf8mb4_unicode_ci",
-           # "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+            # "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
             "auth_plugin": "mysql_native_password",
         },
         "TEST": {
