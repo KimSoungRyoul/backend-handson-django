@@ -1,0 +1,85 @@
+version: "3.8"
+
+
+services:
+  dawnliken-auth-server:
+    image: 567601026517.dkr.ecr.ap-northeast-2.amazonaws.com/dawnliken-auth/application:latest
+    container_name: dawnliken-auth-server
+    ports:
+      - "80:80"
+      - "8001:8000"
+    depends_on:
+      dawnliken-mysql:
+        condition: service_healthy
+      dawnliken-localstack:
+        condition: service_started
+      dawnliken-redis:
+        condition: service_started
+
+    environment:
+      UVICORN_PORT: 8000
+      UVICORN_WORKER_CNT: 3
+      DJANGO_SETTINGS_MODULE: config.setting
+      SECRET_KEY: ${SECRET_KEY}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      #AWS_S3_ENDPOINT_URL: 'http://dawnliken-localstack:4566'
+      REDIS_URL: 'redis://dawnliken-redis:6379/'
+      MYSQL_DB_NAME: ${MYSQL_DB_NAME}
+      MYSQL_DB_USER: ${MYSQL_DB_USER}
+      MYSQL_DB_PASSWORD: ${MYSQL_DB_PASSWORD}
+      MYSQL_DB_HOST: 'dawnliken-mysql'
+      MYSQL_DB_PORT: ${MYSQL_DB_PORT}
+      STATIC_ROOT: '/var/www/static/'
+      SQS_URL: 'dawnliken-localstack:4566/000000000000/sample-queue'
+      KAKAO_CLIENT_ID: ${KAKAO_CLIENT_ID}
+      KAKAO_SECRET: ${KAKAO_SECRET}
+      NAVER_CLIENT_ID: ${NAVER_CLIENT_ID}
+      NAVER_CLIENT_SECRET: ${NAVER_CLIENT_SECRET}
+      PYCON2023APP_CLIENT_ID: ${DAWNLIKEN_CLIENT_ID}
+      PYCON2023APP_CLIENT_SECRET: ${DAWNLIKEN_CLIENT_SECRET}
+      NAVER_REDIRECT_URL: 'http://localhost:8000/api/callback/naver'
+      KAKAO_REDIRECT_URL: 'http://127.0.0.1:8000/api/callback/kakao'
+      PYCON2023APP_REDIRECT_URL: "http://127.0.0.1:8000/api/callback/dawnliken"
+
+  dawnliken-mysql:
+    image: mysql:8.0.29
+    container_name: dawnliken-mysql
+    platform: linux/x86_64 # Mac OS M1 or M2 를 사용중이라면 필요한 옵션
+    ports:
+      - "3306:3306"
+    volumes:
+#      - ./.volumes/mysql/:/var/lib/mysql:rw
+      - ./conf/my.cnf:/etc/mysql/my.cnf:rw
+    environment:
+      MYSQL_USER: user
+      MYSQL_DATABASE: dawnliken_auth_db
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_PASSWORD: 1234
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u user --password=1234
+      interval: 1s
+      retries: 120
+
+  dawnliken-redis:
+    image: redis:alpine3.13
+    container_name: dawnliken-redis
+    ports:
+      - "6379:6379"
+
+  dawnliken-localstack:
+    container_name: dawnliken-localstack
+    image: localstack/localstack:0.14.0
+    ports:
+      - '4566-4597:4566-4597'
+    environment:
+      AWS_DEFAULT_REGION: ap-northeast-2
+      EDGE_PORT: 4566
+      SERVICES: sns,sqs,s3
+      DEBUG: 1
+      DATA_DIR: /tmp/localstack/data
+      HOSTNAME_EXTERNAL: localstack
+    volumes:
+      - ./.volumes/localstack:/tmp/localstack/data

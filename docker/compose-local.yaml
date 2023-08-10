@@ -1,0 +1,38 @@
+name: "pycon-django-sprints-compose"
+
+services:
+  mysql:
+    image: mysql:8.0.29
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: user
+      MYSQL_DATABASE: pycon_auth_db
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_PASSWORD: 1234
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+  redis:
+    image: redis:alpine3.13
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:0.14.2
+    ports:
+      - '4566-4597:4566-4597'
+    environment:
+      - AWS_DEFAULT_REGION=ap-northeast-2
+      - EDGE_PORT=4566
+      - SERVICES=sns,sqs,s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - HOSTNAME_EXTERNAL=localstack
+    volumes:
+      - ./.volumes/localstack:/tmp/localstack/data
