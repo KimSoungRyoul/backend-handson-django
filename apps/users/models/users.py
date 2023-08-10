@@ -22,7 +22,9 @@ def upload_filepath(instance: models.Model, filename: str):
     # ex: filename = "./i_am_file.txt""
     file_basename: str = os.path.basename(filename)
     # ex: file_basename = "i_am_file.txt"
-    return f"{instance._meta.db_table}/{instance.username}/{uuid.uuid5(namespace=uuid.NAMESPACE_URL, name=file_basename)}_{file_basename}"
+    upload_path = f"{instance._meta.db_table}/{instance.username}/{uuid.uuid5(namespace=uuid.NAMESPACE_URL, name=file_basename)}_{file_basename}"
+    print("upload_path",upload_path)
+    return upload_path
 
 
 class User(BaseModel, DjangoAbstrctAuthUser):

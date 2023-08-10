@@ -43,7 +43,7 @@ OAUTH2_PROVIDER = {
     "ROTATE_REFRESH_TOKEN": True,
     "ERROR_RESPONSE_WITH_SCOPES": False,
     "OAUTH2_SERVER_CLASS": "custom_oauth2.core.DRFOAuth2Server",
-    "OAUTH2_VALIDATOR_CLASS": "custom_oauth2.oauth2_validators.PYCON2023APPkenOAuth2Validator",
+    "OAUTH2_VALIDATOR_CLASS": "custom_oauth2.oauth2_validators.PyCon2023AppOAuth2Validator",
     "ID_TOKEN_EXPIRE_SECONDS": 36000,
     "APPLICATION_ADMIN_CLASS": "custom_oauth2.admin.RegisteredApplicationAdmin",
 }

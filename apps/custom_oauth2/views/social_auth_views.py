@@ -2,6 +2,8 @@ import uuid
 
 import httpx
 from django.conf import settings
+from django.core.files.base import ContentFile
+
 from django.db import transaction
 from django.db.models import Q
 from django.db.models.query import EmptyQuerySet
@@ -72,11 +74,13 @@ class SocialAuthCallBackViewSet(viewsets.GenericViewSet):
             userinfo: SocialUserInfo = KakaoHttpx.retrieve_social_info(
                 access_token=access_token,
             )
+            response = httpx.get(userinfo.profile_image_url)
             user: User = User.objects.create_user(
                 username=userinfo.email,
                 password=access_token,
                 email=userinfo.email,
                 name=userinfo.nickname,
+                profile_image=ContentFile(content=response.content, name=f"{userinfo.name}_profile_img.{userinfo.profile_image_url.split('.')[-1]}"),
             )
             SocialInfo.objects.create(
                 user=user,

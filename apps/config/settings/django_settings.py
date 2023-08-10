@@ -49,13 +49,13 @@ AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY", "")
 
 # django-storage S3
-# AWS_S3_REGION_NAME = os.getenv("AWS_REGION")
-# AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-# STORAGES = {
-#     'default': {"BACKEND": "custom_oauth2.s3_custom_storage.MediaStorage"},
-#     'staticfiles':  {"BACKEND": "custom_oauth2.s3_custom_storage.StaticStorage"},
-# }
-#AWS_S3_CUSTOM_DOMAIN = 'd19rgr1je33tf4.cloudfront.net'
+AWS_S3_REGION_NAME = os.getenv("AWS_REGION")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+STORAGES = {
+    'default': {"BACKEND": "custom_oauth2.s3_custom_storage.MediaStorage"},
+    'staticfiles':  {"BACKEND": "custom_oauth2.s3_custom_storage.StaticStorage"},
+}
+AWS_S3_CUSTOM_DOMAIN = 'd19rgr1je33tf4.cloudfront.net'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -158,6 +158,8 @@ STATIC_ROOT = os.getenv("STATIC_ROOT", default=os.path.join(BASE_DIR, STATIC_URL
 #     BASE_DIR / "static",
 #
 # ]
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.getenv("STATIC_ROOT", default=os.path.join(BASE_DIR, MEDIA_URL))
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

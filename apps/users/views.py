@@ -25,19 +25,13 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserSchema
     permission_classes = [permissions.AllowAny]
 
-    @extend_schema(summary="(1) 카카오 SignIn 페이지로 redirect", tags=[OAS3Tag.PyCon2023User])
+    @extend_schema(summary="...", tags=[OAS3Tag.PyCon2023User])
     def list(self, request: Request, *args, **kwargs):
-        print(request.data, request.query_params)
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
-        return Response(
-            data={
-                "sdaf": request.data,
-                "htytyty": request.query_params,
-                "header": request.headers,
-            }
-        )
-
-    @extend_schema(summary="(1) 카카오 SignIn 페이지로 redirect", tags=[OAS3Tag.PyCon2023User])
+    @extend_schema(summary="...", tags=[OAS3Tag.PyCon2023User])
     def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         serializer = UserSchema(data=request.data)
         serializer.is_valid(raise_exception=True)
