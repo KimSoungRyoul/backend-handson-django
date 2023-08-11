@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     # "unfold.contrib.import_export",  # optional, if django-import-export package is used
     "django.contrib.admin",  # required
 
-    "channels",
+    #"channels",
     # "daphne",
     "django_extensions",
     "rest_framework",

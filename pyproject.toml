@@ -9,7 +9,7 @@ python = "^3.11.0"
 
 # django
 django = "^4.2"
-#channels = "^3.0.3"
+channels = "^3.0.3"
 django-extensions = "^3.2.3"
 
 # mypy
@@ -19,6 +19,8 @@ django-stubs-ext = "^4.2.1"
 boto3 = "^1.28.15"
 pynamodb = "^5.5.0"
 django-unfold = "^0.7.0"
+djangorestframework = "^3.14.0"
+psycopg = {extras = ["binary"], version = "^3.1.10"}
 
 
 
